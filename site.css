@@ -326,7 +326,7 @@ h1 em {
 .doors {
   display: grid;
   gap: 16px;
-  margin: 8px 0 0;
+  margin: 36px 0 0;
 }
 @media (min-width: 860px) {
   .doors { grid-template-columns: repeat(3, 1fr); gap: 18px; }
