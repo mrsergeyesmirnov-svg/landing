@@ -106,9 +106,22 @@
       letter-spacing: -0.02em;
       color: var(--ink);
       text-decoration: none;
-      flex-shrink: 0;
+      flex-shrink: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      line-height: 1.2;
     }
     .logo span { color: var(--accent); }
+    .logo small {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0;
+      color: var(--muted);
+    }
+    .logo:hover { text-decoration: none; }
+    .logo:hover small { color: var(--accent); }
     .nav-links {
       display: none;
       gap: 20px;
@@ -823,9 +836,8 @@
 <body>
   <header>
     <div class="wrap header-inner">
-      <a class="logo" href="/sostoyanie/">Состояние <span>смены</span></a>
+      <a class="logo" href="/">Состояние смены<small>проект Академии счастья</small></a>
       <ul class="nav-links">
-        <li><a href="/">Академия</a></li>
         <li><a href="#product">Продукт</a></li>
         <li><a href="#ops">Операционный день</a></li>
         <li><a href="why.html">Зачем</a></li>
@@ -1218,7 +1230,7 @@
   <footer>
     <div class="wrap footer-grid">
       <div>
-        <a class="logo" href="/sostoyanie/">Состояние <span>смены</span></a>
+        <a class="logo" href="/">Состояние смены<small>проект Академии счастья</small></a>
         <p class="footer-muted">Продукт Академии счастья. Ранние сигналы о команде ресторана — из Telegram.</p>
       </div>
       <div>

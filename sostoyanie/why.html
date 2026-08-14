@@ -63,8 +63,19 @@
       font-size: 1.125rem;
       color: var(--ink);
       text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      line-height: 1.2;
     }
     .logo span { color: var(--accent); }
+    .logo small {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--muted);
+    }
+    .logo:hover { text-decoration: none; }
+    .logo:hover small { color: var(--accent); }
     .nav-links {
       display: none;
       gap: 20px;
@@ -271,9 +282,8 @@
 <body>
   <header>
     <div class="wrap header-inner">
-      <a class="logo" href="/sostoyanie/">Состояние <span>смены</span></a>
+      <a class="logo" href="/">Состояние смены<small>проект Академии счастья</small></a>
       <ul class="nav-links">
-        <li><a href="/">Академия</a></li>
         <li><a href="/sostoyanie/">Продукт</a></li>
         <li><a href="demo.html">Демо</a></li>
         <li><a href="/sostoyanie/#pricing">Тарифы</a></li>

@@ -61,7 +61,18 @@
       font-weight: 700;
       font-size: 0.9rem;
     }
+    .topbar .logo {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      line-height: 1.2;
+    }
     .topbar .logo span { color: var(--accent); }
+    .topbar .logo small {
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--muted);
+    }
     .topbar-actions { display: flex; gap: 10px; align-items: center; }
     .btn-sm {
       font-family: inherit;
@@ -429,7 +440,7 @@
 </head>
 <body>
   <header class="topbar">
-    <a class="logo" href="index.html">← Состояние <span>смены</span></a>
+    <a class="logo" href="/">Состояние смены<small>проект Академии счастья</small></a>
     <div class="topbar-actions">
       <a class="btn-sm btn-ghost-sm" href="index.html#pricing">Тарифы</a>
       <a class="btn-sm btn-accent-sm" href="https://t.me/yank0vski" target="_blank" rel="noopener">Запустить пилот</a>
