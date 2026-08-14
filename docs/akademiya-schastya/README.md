@@ -7,7 +7,7 @@
 | `index.html` | Главная, три входа |
 | `baza/` | База знаний — «Скоро появится» |
 | `tury/` | Три афиши, осень 2026 |
-| `assets/academy.css` | Вино и золото |
+| `assets/academy.css` | Mulish, светлый Pulse |
 
 Продукт «Состояние смены» не копируется сюда — он на `/sostoyanie/`.
 Снимок старого Pulse: `../pulseteam-archive/`.
