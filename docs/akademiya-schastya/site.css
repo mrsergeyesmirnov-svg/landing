@@ -106,7 +106,12 @@ header {
 @media (min-width: 640px) { .header-cta { display: inline-flex; } }
 
 .hero {
-  padding: 36px 0 48px;
+  padding: 48px 0 72px;
+}
+.doors {
+  display: grid;
+  gap: 16px;
+  margin: 36px 0 0;
 }
 .hero-grid {
   display: grid;
