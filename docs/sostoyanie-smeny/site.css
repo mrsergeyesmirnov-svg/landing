@@ -1,16 +1,16 @@
 
     :root {
       --bg: #faf7f3;
-      --bg-warm: #fff5ee;
+      --bg-warm: #f6eee8;
       --surface: #ffffff;
       --ink: #1c1917;
       --muted: #57534e;
       --line: #e7e2dc;
-      --accent: #ff5a1f;
-      --accent-hover: #e54d15;
-      --accent-soft: rgba(255, 90, 31, 0.12);
-      --calm: #0d9488;
-      --calm-soft: rgba(13, 148, 136, 0.1);
+      --accent: #e05630;
+      --accent-hover: #c44724;
+      --accent-soft: rgba(224, 86, 48, 0.12);
+      --calm: #c45c3a;
+      --calm-soft: rgba(196, 92, 58, 0.1);
       --radius-lg: 24px;
       --radius-md: 16px;
       --radius-sm: 12px;
@@ -30,12 +30,18 @@
       color: var(--ink);
       background: var(--bg);
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
 
     a { color: var(--accent); text-decoration: none; }
     a:hover { text-decoration: underline; }
 
-    .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+    .wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding-left: max(28px, env(safe-area-inset-left, 0px));
+      padding-right: max(28px, env(safe-area-inset-right, 0px));
+    }
 
     header {
       position: sticky;
@@ -135,12 +141,12 @@
     .btn-primary {
       background: var(--accent);
       color: #fff;
-      box-shadow: 0 4px 20px rgba(255, 90, 31, 0.35);
+      box-shadow: 0 4px 20px rgba(224, 86, 48, 0.28);
     }
     .btn-primary:hover {
       background: var(--accent-hover);
       transform: translateY(-2px);
-      box-shadow: 0 8px 28px rgba(255, 90, 31, 0.4);
+      box-shadow: 0 8px 28px rgba(224, 86, 48, 0.32);
     }
     .btn-ghost {
       background: var(--surface);
@@ -157,7 +163,6 @@
     .hero {
       padding: 48px 0 80px;
       position: relative;
-      overflow: hidden;
     }
     .hero::before {
       content: "";
@@ -218,6 +223,22 @@
       font-style: italic;
       color: var(--ink);
       line-height: 1.4;
+    }
+    @media (max-width: 640px) {
+      .hero { padding: 32px 0 48px; }
+      .hero-quote { padding: 16px 18px; }
+      .hero-card { padding: 22px; }
+      .hero-actions { flex-direction: column; align-items: stretch; margin-top: 24px; }
+      .hero-actions .btn { width: 100%; }
+      .eyebrow {
+        display: block;
+        letter-spacing: 0.04em;
+        font-size: 0.72rem;
+        line-height: 1.45;
+      }
+      h1 { font-size: 2rem; }
+      .logo { white-space: normal; }
+      section { padding: 48px 0; }
     }
     .hero-card {
       background: var(--surface);

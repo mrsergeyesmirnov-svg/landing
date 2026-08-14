@@ -2,18 +2,18 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Академия счастья — творить любовь</title>
   <meta name="description" content="Академия счастья. Чтобы на смене жили своим предназначением и выбирали дарить эмоции. Миссия — творить любовь." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,600;1,8..60,500;1,8..60,600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="site.css?v=quiet1" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500;1,9..144,700&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="site.css?v=pack2" />
 </head>
 <body>
   <header>
     <div class="wrap header-inner">
-      <a class="logo" href="index.html">Академия счастья<small>творить любовь</small></a>
+      <a class="logo" href="index.html">Академия<span>счастья</span><small>творить любовь</small></a>
       <ul class="nav-links">
         <li><a href="#mission">Миссия</a></li>
         <li><a href="knowledge.html">База знаний</a></li>
@@ -26,93 +26,118 @@
 
   <main>
     <section class="hero">
-      <div class="hero-copy">
-        <h1>Чтобы на смене жили.</h1>
-        <p class="hero-lead">
-          Кайфовали. Шли своим предназначением.<br />
-          Могли выбирать — и выбирали дарить эмоции.
-        </p>
-      </div>
-      <figure class="hero-visual">
-        <img src="posters/tour-people.jpg" alt="Круг людей на закате" />
-      </figure>
-    </section>
-
-    <section class="mission" id="mission">
-      <div class="wrap narrow">
-        <p class="eyebrow">Миссия</p>
-        <h2>Творить любовь.</h2>
-        <p>
-          Любовь — как стоишь у плиты. Как смотришь на гостя. Как держишь человека рядом,
-          когда смена уже четвёртая подряд.
-        </p>
-        <p>
-          Смену легко свести к часам и чеку: закрыть, посчитать, забыть.
-          Мы здесь, чтобы профессия снова была жизнью —
-          чтобы в ней можно было кайфовать и отдавать настоящее.
-        </p>
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="hero-kicker">Академия счастья</p>
+          <h1>Чтобы на смене <em>жили</em>.</h1>
+          <ul class="hero-points">
+            <li>Кайфовали. Шли своим предназначением.</li>
+            <li>Могли выбирать — и выбирали дарить эмоции.</li>
+          </ul>
+          <div class="hero-actions">
+            <a class="header-cta" href="#doors">Три входа</a>
+            <a class="text-link" href="#mission">Зачем мы есть ↓</a>
+          </div>
+        </div>
+        <figure class="hero-visual">
+          <img src="posters/tour-people.jpg" alt="Круг людей на закате — присутствие и тепло" />
+          <figcaption>Творить любовь</figcaption>
+        </figure>
       </div>
     </section>
 
-    <section class="principles">
+    <section class="mission-band" id="mission">
       <div class="wrap">
-        <dl>
-          <div>
-            <dt>Быть живым в смене</dt>
-            <dd>До последнего гостя оставаться человеком, а не функцией закрытия.</dd>
+        <article class="mission-card">
+          <p class="mission-label">миссия</p>
+          <h2>Творить любовь.</h2>
+          <div class="mission-cols">
+            <p>
+              Любовь — как стоишь у плиты. Как смотришь на гостя. Как держишь человека рядом,
+              когда смена уже четвёртая подряд.
+            </p>
+            <p>
+              Смену легко свести к часам и чеку: закрыть, посчитать, забыть.
+              Мы здесь, чтобы профессия снова была жизнью —
+              чтобы в ней можно было кайфовать и отдавать настоящее.
+            </p>
           </div>
-          <div>
-            <dt>Кайфовать</dt>
-            <dd>Вкус, ритм, зал, команда — место, где можно радоваться ремеслу.</dd>
-          </div>
-          <div>
-            <dt>Идти предназначением</dt>
-            <dd>Готовить, встречать, вести людей — если это твоё, пусть это будет служением.</dd>
-          </div>
-          <div>
-            <dt>Дарить эмоции</dt>
-            <dd>Выбор есть всегда. Можно отработать. Можно отдать гостю и команде настоящее.</dd>
-          </div>
-        </dl>
+        </article>
       </div>
     </section>
 
-    <section class="paths" id="doors">
+    <section class="beats">
       <div class="wrap">
-        <p class="eyebrow">Как мы это делаем</p>
-        <a class="path" href="knowledge.html">
-          <span class="path-name">База знаний</span>
-          <span class="path-copy">Практика тех, кто уже прошёл огонь и не очерствел.</span>
-          <span class="path-go">Скоро</span>
-        </a>
-        <a class="path" href="tours.html">
-          <span class="path-name">Туры</span>
-          <span class="path-copy">Шефы, опердиректора, HR. Сначала присутствие, потом ремесло.</span>
-          <span class="path-go">Афиша</span>
-        </a>
-        <a class="path" href="../sostoyanie-smeny/index.html">
-          <span class="path-name">Состояние смены</span>
-          <span class="path-copy">Как живёт команда, зал и кухня — чтобы люди могли дарить эмоции.</span>
-          <span class="path-go">Проект</span>
-        </a>
+        <div class="beat-grid">
+          <article class="beat">
+            <span class="beat-n">01</span>
+            <h3>Быть живым в смене</h3>
+            <p>До последнего гостя оставаться человеком, а не функцией закрытия.</p>
+          </article>
+          <article class="beat">
+            <span class="beat-n">02</span>
+            <h3>Кайфовать</h3>
+            <p>Вкус, ритм, зал, команда — это не повинность. Это место, где можно быть живым и радоваться ремеслу.</p>
+          </article>
+          <article class="beat">
+            <span class="beat-n">03</span>
+            <h3>Жить предназначением</h3>
+            <p>Готовить, встречать, вести людей — если это твоё, пусть это будет служением, а не случайной работой.</p>
+          </article>
+          <article class="beat">
+            <span class="beat-n">04</span>
+            <h3>Дарить эмоции</h3>
+            <p>Выбор есть всегда. Можно отработать. Можно отдать гостю и команде настоящее — и выбрать это снова завтра.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="doors-block" id="doors">
+      <div class="wrap">
+        <p class="mission-label">три входа</p>
+        <h2 class="doors-title">Как мы это делаем</h2>
+        <div class="doors">
+          <a class="door" href="knowledge.html">
+            <span class="door-num">01</span>
+            <h2>База знаний</h2>
+            <p>Чек-листы и методики тех, кто уже прошёл огонь и не очерствел. Чтобы было на что опереться в смене.</p>
+            <span class="door-go">Скоро появится →</span>
+          </a>
+          <a class="door door-photo" href="tours.html">
+            <img src="posters/tour-kitchen.jpg" alt="" />
+            <span class="door-num">02</span>
+            <h2>Туры</h2>
+            <p>Шефы, опердиректора, HR. Сначала присутствие, потом ремесло. Чтобы вспомнить, зачем пришёл в профессию.</p>
+            <span class="door-go">Смотреть афиши →</span>
+          </a>
+          <a class="door" href="../sostoyanie-smeny/index.html">
+            <span class="door-num">03</span>
+            <h2>Состояние смены</h2>
+            <p>Проект академии: как живёт команда, зал и кухня. Чтобы люди могли дарить эмоции.</p>
+            <span class="door-go">Открыть проект →</span>
+          </a>
+        </div>
       </div>
     </section>
 
     <section class="close">
-      <div class="wrap narrow">
-        <p class="close-line">Если это про тебя — ты уже из академии.</p>
-        <p>Напиши. Расскажи, где ты сейчас.</p>
-        <a href="https://t.me/yank0vski" target="_blank" rel="noopener">Telegram →</a>
+      <div class="wrap">
+        <div class="close-card">
+          <p class="close-line">Если это про тебя — ты уже из академии.</p>
+          <p>Напиши. Расскажи, где ты сейчас. Пойдём дальше вместе.</p>
+          <a class="header-cta close-cta" href="https://t.me/yank0vski" target="_blank" rel="noopener">Написать в Telegram</a>
+        </div>
       </div>
     </section>
   </main>
 
   <footer>
     <div class="wrap footer-inner">
-      <div>Академия счастья · творить любовь<br />ИП Смирнов С. Е.</div>
+      <div>Академия счастья · творить любовь<br />ИП Смирнов С. Е. · <a href="https://t.me/yank0vski">Telegram</a></div>
       <div>
-        <a href="knowledge.html">База знаний</a>
-        <a href="tours.html">Туры</a>
+        <a href="knowledge.html">База знаний</a> ·
+        <a href="tours.html">Туры</a> ·
         <a href="../sostoyanie-smeny/index.html">Состояние смены</a>
       </div>
     </div>
