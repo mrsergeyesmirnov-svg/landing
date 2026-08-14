@@ -58,9 +58,22 @@
       letter-spacing: -0.02em;
       color: var(--ink);
       text-decoration: none;
-      flex-shrink: 0;
+      flex-shrink: 1;
+      min-width: 0;
+      line-height: 1.15;
     }
     .logo span { color: var(--accent); }
+    .logo small {
+      display: block;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0;
+      text-transform: none;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+    .logo:hover { text-decoration: none; }
+    .logo:hover small { color: var(--accent); }
     .nav-links {
       display: none;
       gap: 20px;
