@@ -149,7 +149,7 @@ h1 em {
   color: var(--accent);
 }
 .hero-lead {
-  max-width: 22em;
+  max-width: 28em;
   font-size: 1.25rem;
   color: var(--muted);
   margin: 0;
@@ -370,7 +370,7 @@ h1 em {
   font-size: 1.55rem;
   font-weight: 700;
   letter-spacing: -0.02em;
-  margin: 12px 0 12px;
+  margin: 0 0 12px;
 }
 .door p {
   margin: 0;
