@@ -52,28 +52,44 @@
       height: 72px;
       gap: 16px;
     }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px 14px;
+      min-width: 0;
+      flex-shrink: 1;
+    }
+    .brand-split {
+      width: 1px;
+      height: 32px;
+      background: var(--line);
+      flex-shrink: 0;
+    }
     .logo {
       font-weight: 800;
-      font-size: 1.125rem;
+      font-size: 1.05rem;
       letter-spacing: -0.02em;
       color: var(--ink);
       text-decoration: none;
-      flex-shrink: 1;
-      min-width: 0;
       line-height: 1.15;
+      white-space: nowrap;
     }
     .logo span { color: var(--accent); }
-    .logo small {
-      display: block;
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0;
-      text-transform: none;
-      color: var(--muted);
-      margin-top: 2px;
-    }
     .logo:hover { text-decoration: none; }
-    .logo:hover small { color: var(--accent); }
+    .brand-home {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--muted);
+      text-decoration: none;
+      line-height: 1.25;
+      max-width: 11em;
+    }
+    .brand-home:hover { color: var(--accent); text-decoration: none; }
+    @media (max-width: 420px) {
+      .brand { flex-direction: column; align-items: flex-start; gap: 2px; }
+      .brand-split { display: none; }
+      .header-inner { height: auto; min-height: 72px; padding: 10px 0; }
+    }
     .nav-links {
       display: none;
       gap: 20px;
