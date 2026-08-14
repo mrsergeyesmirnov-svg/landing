@@ -63,6 +63,20 @@ header.site-header {
   flex-shrink: 0;
 }
 .logo span { color: var(--accent); }
+.logo-product {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  line-height: 1.2;
+  min-width: 0;
+}
+.logo-product small {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  color: var(--muted);
+}
+.logo-product:hover small { color: var(--accent); }
 
 .nav-links {
   display: none;
