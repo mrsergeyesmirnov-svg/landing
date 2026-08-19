@@ -134,50 +134,24 @@ header {
 
 /* ─── Hero ───────────────────────────────────────────────────────────────────── */
 .hero {
-  padding: 72px 0 80px;
+  padding: 64px 0 72px;
   background: linear-gradient(
     160deg,
     #fdfaf5 0%,
-    #fef8e8 45%,
+    #fef8e8 50%,
     #fdf6ec 100%
   );
-  position: relative;
-  overflow: hidden;
 }
-/* Воздушные декоративные пятна — свет из окна */
-.hero::before,
-.hero::after {
-  content: "";
-  position: absolute;
-  border-radius: 50%;
-  pointer-events: none;
+.hero-split {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  align-items: center;
 }
-.hero::before {
-  width: 600px;
-  height: 600px;
-  top: -180px;
-  right: -120px;
-  background: radial-gradient(
-    circle,
-    rgba(232, 201, 106, 0.18) 0%,
-    transparent 70%
-  );
+@media (min-width: 860px) {
+  .hero-split { grid-template-columns: 1fr 1fr; gap: 52px; }
 }
-.hero::after {
-  width: 380px;
-  height: 380px;
-  bottom: -80px;
-  left: 60px;
-  background: radial-gradient(
-    circle,
-    rgba(232, 164, 176, 0.12) 0%,  /* любовный румянец — пасхалка */
-    transparent 70%
-  );
-}
-.hero-inner {
-  position: relative;
-  z-index: 1;
-}
+.hero-copy { position: relative; z-index: 1; }
 
 .hero-kicker {
   display: block;
@@ -216,32 +190,52 @@ h1 {
   margin: 0;
   line-height: 1.65;
 }
-.hero-icons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 18px 28px;
-  margin: 36px 0;
-}
-.hero-icon {
+/* ─── Hero grid cards (правая колонка героя) ─────────────────────────────────── */
+.hero-grid-cards {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  font-family: "Mulish", system-ui, sans-serif;
-  font-size: 0.65rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--muted);
-  text-align: center;
+  gap: 12px;
 }
-.hero-icon-sym {
-  font-size: 1.5rem;
+.hgc {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.hgc-item {
+  background: rgba(255,255,255,0.82);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 18px 16px 16px;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 2px 12px rgba(180,140,40,0.07);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.hgc-icon {
+  font-size: 1.7rem;
   line-height: 1;
-  color: var(--gold);
+  margin-bottom: 6px;
 }
-/* Пасхалка: четвёртая иконка — розовая */
-.hero-icon:nth-child(4) .hero-icon-sym { color: var(--love-deep); }
+.hgc-item strong {
+  font-family: "Mulish", system-ui, sans-serif;
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.hgc-item p {
+  margin: 0;
+  font-family: "Mulish", system-ui, sans-serif;
+  font-size: 0.78rem;
+  color: var(--muted);
+  line-height: 1.45;
+}
+/* Пасхалка: четвёртая карточка — тихий розовый фон */
+.hgc-love {
+  background: rgba(253, 242, 244, 0.85);
+  border-color: var(--love);
+}
 
 .hero-actions {
   display: flex;
@@ -629,6 +623,6 @@ footer a:hover { color: var(--accent); }
 /* ─── Responsive tweaks ──────────────────────────────────────────────────────── */
 @media (max-width: 640px) {
   h1 { font-size: clamp(2.2rem, 11vw, 3.4rem); }
-  .hero { padding: 48px 0 60px; }
-  .hero-icons { gap: 14px 20px; }
+  .hero { padding: 48px 0 56px; }
+  .hero-grid-cards { display: none; }
 }
