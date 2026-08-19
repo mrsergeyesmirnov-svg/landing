@@ -1,23 +1,40 @@
+/* ─── Design tokens ────────────────────────────────────────────────────────── */
 :root {
-  --bg: #faf7f3;
-  --bg-warm: #fff5ee;
-  --surface: #ffffff;
-  --ink: #1c1917;
-  --muted: #57534e;
-  --line: #e7e2dc;
-  --accent: #ff5a1f;
-  --accent-hover: #e54d15;
-  --accent-soft: #fff1ea;
-  --accent-mid: #f4ddd2;
-  --calm: #0d9488;
+  /* Фон — крем, солнечный утренний свет */
+  --bg:         #fdfaf5;
+  --bg-warm:    #fdf6ec;
+  --bg-gold:    #fef9f0;
+  --surface:    #ffffff;
+  --ink:        #1c1917;
+  --muted:      #6b6460;
+  --line:       #ede8e0;
+
+  /* Акцент — тёплый янтарь, не агрессивный оранж */
+  --accent:       #c5860a;
+  --accent-hover: #a86e06;
+  --accent-soft:  #fdf3de;
+  --accent-mid:   #f7dfa0;
+
+  /* Пасхалка ♡ — тихий розовый (цвет лепестков с фото) */
+  --love:       #e8a4b0;
+  --love-deep:  #c06b7a;
+  --love-soft:  #fdf2f4;
+
+  /* Золото (типографика героя) */
+  --gold:       #b8922a;
+  --gold-light: #e8c96a;
+
+  /* Спокойный — мятный */
+  --calm:       #5a8f8a;
+
   --radius-lg: 24px;
   --radius-md: 16px;
-  --shadow: 0 4px 24px rgba(28, 25, 23, 0.05);
-  --max: 1120px;
-  --ease: cubic-bezier(0.4, 0, 0.2, 1);
-  --pad: max(20px, env(safe-area-inset-left, 0px));
+  --shadow:    0 4px 32px rgba(180, 140, 40, 0.08);
+  --max:       1120px;
+  --ease:      cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* ─── Reset ─────────────────────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; }
 html {
   scroll-behavior: smooth;
@@ -28,59 +45,77 @@ body {
   margin: 0;
   overflow-x: hidden;
   max-width: 100%;
-  font-family: "Mulish", system-ui, -apple-system, sans-serif;
-  font-size: 17px;
-  line-height: 1.6;
+  font-family: "Cormorant Garamond", "Georgia", serif;
+  font-size: 18px;
+  line-height: 1.65;
   color: var(--ink);
   background: var(--bg);
   -webkit-font-smoothing: antialiased;
 }
 
+/* Гарнитура без засечек для UI-текста */
+.sans {
+  font-family: "Mulish", system-ui, sans-serif;
+}
+
 a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; }
+
 .wrap {
   max-width: var(--max);
   margin: 0 auto;
-  padding-left: max(20px, env(safe-area-inset-left));
-  padding-right: max(20px, env(safe-area-inset-right));
+  padding-left:  max(24px, env(safe-area-inset-left));
+  padding-right: max(24px, env(safe-area-inset-right));
 }
 
+/* ─── Header ─────────────────────────────────────────────────────────────────── */
 header {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(250, 247, 243, 0.94);
-  backdrop-filter: blur(12px);
+  background: rgba(253, 250, 245, 0.96);
+  backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--line);
 }
 .header-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 64px;
-  gap: 12px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  min-height: 68px;
+  gap: 14px;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 .logo {
-  font-weight: 800;
-  font-size: 1.05rem;
-  letter-spacing: -0.02em;
-  color: var(--ink);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: 0.01em;
+  color: var(--gold);
   text-decoration: none !important;
-  line-height: 1.2;
+  line-height: 1.15;
   min-width: 0;
   flex: 1 1 auto;
 }
-.logo span { color: var(--accent); }
+/* Пасхалка: маленькое ♡ после логотипа — только на десктопе */
+.logo::after {
+  content: " ♡";
+  font-size: 0.7em;
+  color: var(--love);
+  opacity: 0.7;
+  vertical-align: middle;
+}
 .nav-links {
   display: none;
-  gap: 18px;
+  gap: 22px;
   list-style: none;
   margin: 0;
   padding: 0;
-  font-size: 0.875rem;
+  font-family: "Mulish", system-ui, sans-serif;
+  font-size: 0.82rem;
   font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 .nav-links a { color: var(--muted); text-decoration: none; white-space: nowrap; }
 .nav-links a:hover, .nav-links a.is-on { color: var(--accent); }
@@ -88,299 +123,437 @@ header {
 .header-cta {
   display: inline-flex;
   flex: 0 0 auto;
+  font-family: "Mulish", system-ui, sans-serif;
   font-weight: 700;
-  font-size: 0.82rem;
-  padding: 8px 14px;
-  background: var(--accent);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 9px 18px;
+  background: var(--gold);
   color: #fff !important;
   border-radius: 999px;
   text-decoration: none !important;
+  transition: background 0.18s;
 }
 .header-cta:hover { background: var(--accent-hover); }
 @media (min-width: 640px) {
-  .header-cta { font-size: 0.9rem; padding: 10px 20px; }
+  .header-cta { font-size: 0.82rem; padding: 10px 22px; }
 }
 
-.hero { padding: 48px 0 56px; }
-@media (min-width: 800px) { .hero { padding: 72px 0 80px; } }
+/* ─── Hero ───────────────────────────────────────────────────────────────────── */
+.hero {
+  padding: 72px 0 80px;
+  background: linear-gradient(
+    160deg,
+    #fdfaf5 0%,
+    #fef8e8 45%,
+    #fdf6ec 100%
+  );
+  position: relative;
+  overflow: hidden;
+}
+/* Воздушные декоративные пятна — свет из окна */
+.hero::before,
+.hero::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.hero::before {
+  width: 600px;
+  height: 600px;
+  top: -180px;
+  right: -120px;
+  background: radial-gradient(
+    circle,
+    rgba(232, 201, 106, 0.18) 0%,
+    transparent 70%
+  );
+}
+.hero::after {
+  width: 380px;
+  height: 380px;
+  bottom: -80px;
+  left: 60px;
+  background: radial-gradient(
+    circle,
+    rgba(232, 164, 176, 0.12) 0%,  /* любовный румянец — пасхалка */
+    transparent 70%
+  );
+}
+.hero-inner {
+  position: relative;
+  z-index: 1;
+}
+
 .hero-kicker {
   display: block;
-  font-size: 0.78rem;
-  font-weight: 700;
+  font-family: "Mulish", system-ui, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   color: var(--calm);
-  margin: 0 0 14px;
+  margin: 0 0 20px;
 }
 h1 {
-  font-size: clamp(1.85rem, 7vw, 3.2rem);
-  font-weight: 800;
-  line-height: 1.12;
-  letter-spacing: -0.03em;
-  margin: 0 0 18px;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(2.6rem, 8vw, 5rem);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: var(--gold);
+  margin: 0 0 24px;
   overflow-wrap: break-word;
-  word-break: normal;
+}
+.hero-sub {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(1.1rem, 2.5vw, 1.45rem);
+  font-style: italic;
+  color: var(--muted);
+  max-width: 34em;
+  margin: 0 0 14px;
+  line-height: 1.5;
 }
 .hero-lead {
   max-width: 36em;
-  font-size: 1.05rem;
+  font-family: "Mulish", system-ui, sans-serif;
+  font-size: 1rem;
   color: var(--muted);
   margin: 0;
+  line-height: 1.65;
 }
+.hero-icons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 28px;
+  margin: 36px 0;
+}
+.hero-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-family: "Mulish", system-ui, sans-serif;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: center;
+}
+.hero-icon-sym {
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--gold);
+}
+/* Пасхалка: четвёртая иконка — розовая */
+.hero-icon:nth-child(4) .hero-icon-sym { color: var(--love-deep); }
+
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  margin: 28px 0 0;
+  gap: 12px;
+  margin: 0;
 }
+.hero-tagline {
+  display: block;
+  font-family: "Mulish", system-ui, sans-serif;
+  font-size: 0.75rem;
+  color: var(--muted);
+  opacity: 0.7;
+  margin-top: 20px;
+  letter-spacing: 0.03em;
+}
+
+/* ─── Buttons ────────────────────────────────────────────────────────────────── */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font: inherit;
-  font-weight: 800;
-  font-size: 0.9rem;
-  padding: 12px 18px;
+  font-family: "Mulish", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 0.88rem;
+  letter-spacing: 0.03em;
+  padding: 13px 24px;
   border-radius: 999px;
   text-decoration: none !important;
-  border: 1px solid transparent;
+  border: 1.5px solid transparent;
+  transition: background 0.18s, border-color 0.18s;
 }
-.btn-primary { background: var(--accent); color: #fff !important; }
+.btn-primary { background: var(--gold); color: #fff !important; }
 .btn-primary:hover { background: var(--accent-hover); }
 .btn-ghost {
-  background: #fff;
-  color: var(--ink) !important;
-  border-color: var(--line);
+  background: transparent;
+  color: var(--gold) !important;
+  border-color: var(--gold);
 }
-.btn-ghost:hover { border-color: var(--ink); }
+.btn-ghost:hover { background: var(--accent-soft); }
+.btn-sm { font-size: 0.78rem; padding: 8px 16px; }
 
-section { padding: 48px 0; }
+/* ─── Sections ───────────────────────────────────────────────────────────────── */
+section { padding: 56px 0; }
 .band { background: var(--bg-warm); }
+.band-gold { background: var(--bg-gold); }
+
 .section-label {
-  font-size: 0.72rem;
+  font-family: "Mulish", system-ui, sans-serif;
+  font-size: 0.68rem;
   font-weight: 800;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--calm);
-  margin: 0 0 10px;
+  margin: 0 0 12px;
 }
 h2 {
-  font-size: clamp(1.35rem, 4vw, 2rem);
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  margin: 0 0 14px;
-  line-height: 1.2;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(1.7rem, 5vw, 2.8rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0 0 16px;
+  line-height: 1.15;
+  color: var(--ink);
 }
 .section-lead {
   max-width: 38em;
   color: var(--muted);
-  margin: 0 0 24px;
+  font-family: "Mulish", system-ui, sans-serif;
+  font-size: 0.97rem;
+  margin: 0 0 28px;
+  line-height: 1.65;
+}
+h3 {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0 0 8px;
 }
 
+/* ─── Pain list ──────────────────────────────────────────────────────────────── */
 .pain-list {
-  margin: 0 0 24px;
+  margin: 0 0 28px;
   padding: 0;
   list-style: none;
 }
 .pain-list li {
-  padding: 12px 0;
+  padding: 14px 0;
   border-bottom: 1px solid var(--line);
-  font-weight: 700;
-  font-size: 1.05rem;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--ink);
 }
+/* Пасхалка: каждый пятый элемент тихо розовый */
+.pain-list li:nth-child(5n) { color: var(--love-deep); }
 
+/* ─── Blocks-4 ───────────────────────────────────────────────────────────────── */
 .blocks-4 {
   display: grid;
-  gap: 12px;
+  gap: 14px;
 }
-@media (min-width: 800px) {
-  .blocks-4 { grid-template-columns: repeat(2, 1fr); }
-}
-@media (min-width: 1020px) {
-  .blocks-4 { grid-template-columns: repeat(4, 1fr); }
-}
+@media (min-width: 800px)  { .blocks-4 { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1020px) { .blocks-4 { grid-template-columns: repeat(4, 1fr); } }
+
 .block-card {
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
-  padding: 20px;
+  padding: 22px 20px;
+  box-shadow: var(--shadow);
 }
-.block-card h3 { margin: 0 0 8px; font-size: 1.1rem; }
-.block-card p { margin: 0; color: var(--muted); font-size: 0.92rem; }
+.block-card h3 { margin: 0 0 8px; }
+.block-card p { margin: 0; color: var(--muted); font-family: "Mulish", sans-serif; font-size: 0.9rem; }
+/* Пасхалка: карточка «Люди» — тихий розовый бордер */
+.block-card:first-child { border-color: var(--love); }
 
-.chains {
-  margin: 24px 0 0;
-  display: grid;
-  gap: 12px;
-}
+/* ─── Chains ─────────────────────────────────────────────────────────────────── */
+.chains { margin: 24px 0 0; display: grid; gap: 12px; }
 .chains p {
   margin: 0;
-  padding: 16px 18px;
-  background: #fff;
+  padding: 16px 20px;
+  background: var(--surface);
   border-radius: 14px;
   border: 1px solid var(--line);
   color: var(--muted);
+  font-family: "Mulish", sans-serif;
   font-size: 0.95rem;
 }
 
-.flow {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: 10px;
-}
+/* ─── Flow ───────────────────────────────────────────────────────────────────── */
+.flow { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
 .flow li {
   display: flex;
-  gap: 12px;
+  gap: 14px;
   align-items: baseline;
-  background: #fff;
+  background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 14px;
-  padding: 14px 16px;
+  padding: 14px 18px;
+  font-family: "Mulish", sans-serif;
+  font-size: 0.95rem;
   font-weight: 600;
 }
-.flow span { color: var(--accent); font-weight: 800; flex: 0 0 1.4em; }
+.flow span { color: var(--gold); font-weight: 800; flex: 0 0 1.4em; }
 
+/* ─── Mini label ─────────────────────────────────────────────────────────────── */
 .mini-label {
   display: block;
-  margin: 0 0 8px;
-  font-size: 0.72rem;
+  margin: 0 0 10px;
+  font-family: "Mulish", sans-serif;
+  font-size: 0.68rem;
   font-weight: 800;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #c2410c;
+  color: var(--love-deep);  /* пасхалка */
 }
 
+/* ─── Product card ───────────────────────────────────────────────────────────── */
 .product-card {
   display: block;
-  margin: 8px 0 20px;
-  padding: 24px 22px;
-  background: var(--accent-soft);
+  margin: 8px 0 22px;
+  padding: 28px 26px;
+  background: linear-gradient(135deg, var(--bg-gold) 0%, #fff 100%);
   border: 1px solid var(--accent-mid);
   color: var(--ink);
   border-radius: var(--radius-lg);
   text-decoration: none !important;
+  box-shadow: 0 2px 20px rgba(184,146,42,0.09);
+  transition: box-shadow 0.2s;
 }
+.product-card:hover { box-shadow: 0 6px 32px rgba(184,146,42,0.15); }
 .product-card h3 {
-  font-size: clamp(1.4rem, 4vw, 1.9rem);
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  margin: 0 0 10px;
+  font-size: clamp(1.5rem, 4vw, 2.1rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0 0 12px;
+  color: var(--gold);
 }
-.product-lead { margin: 0 0 14px; color: #44403c; }
-.product-card p { margin: 0 0 8px; }
-.product-card ul {
-  margin: 0 0 8px;
-  padding-left: 1.15em;
-  color: #44403c;
-}
-.product-card li { margin-bottom: 4px; }
-.product-card .door-go { display: inline-block; margin-top: 12px; }
+.product-lead { margin: 0 0 14px; color: #5a5048; font-family: "Mulish", sans-serif; font-size: 0.97rem; }
+.product-card p { margin: 0 0 10px; font-family: "Mulish", sans-serif; font-size: 0.97rem; }
+.product-card ul { margin: 0 0 10px; padding-left: 1.2em; color: #5a5048; font-family: "Mulish", sans-serif; font-size: 0.95rem; }
+.product-card li { margin-bottom: 5px; }
+.product-card .door-go { display: inline-block; margin-top: 14px; }
 
-.doors {
-  display: grid;
-  gap: 14px;
-  margin: 0;
-}
-@media (min-width: 860px) {
-  .doors.two { grid-template-columns: 1fr 1fr; }
-}
+/* ─── Doors ──────────────────────────────────────────────────────────────────── */
+.doors { display: grid; gap: 14px; margin: 0; }
+@media (min-width: 860px) { .doors.two { grid-template-columns: 1fr 1fr; } }
 .door {
   display: flex;
   flex-direction: column;
-  padding: 24px;
+  padding: 26px;
   border-radius: var(--radius-lg);
   background: var(--surface);
   border: 1px solid var(--line);
   color: inherit;
   text-decoration: none !important;
+  box-shadow: var(--shadow);
+  transition: box-shadow 0.2s;
 }
+.door:hover { box-shadow: 0 6px 28px rgba(184,146,42,0.12); }
 .door-num {
-  font-size: 0.72rem;
+  font-family: "Mulish", sans-serif;
+  font-size: 0.68rem;
   font-weight: 800;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--gold);
 }
-.door h2 {
-  font-size: 1.25rem;
-  margin: 10px 0;
-}
-.door p { margin: 0; color: var(--muted); font-size: 0.95rem; flex: 1; }
+.door h2 { font-size: 1.4rem; margin: 12px 0 8px; color: var(--ink); }
+.door p { margin: 0; color: var(--muted); font-family: "Mulish", sans-serif; font-size: 0.95rem; flex: 1; }
 .door-go {
   margin-top: 18px;
+  font-family: "Mulish", sans-serif;
   font-size: 0.82rem;
-  font-weight: 800;
-  color: var(--accent);
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.02em;
 }
 
-.case-frame {
-  display: grid;
-  gap: 10px;
-}
-@media (min-width: 800px) {
-  .case-frame { grid-template-columns: repeat(4, 1fr); }
-}
+/* ─── Case frame ─────────────────────────────────────────────────────────────── */
+.case-frame { display: grid; gap: 10px; }
+@media (min-width: 800px) { .case-frame { grid-template-columns: repeat(4, 1fr); } }
 .case-frame > div {
-  background: #fff;
+  background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 14px;
-  padding: 16px;
+  padding: 18px;
 }
-.case-frame strong { display: block; margin-bottom: 6px; }
-.case-frame span { color: var(--muted); font-size: 0.9rem; }
+.case-frame strong { display: block; margin-bottom: 6px; font-family: "Mulish", sans-serif; font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gold); }
+.case-frame span { color: var(--muted); font-family: "Mulish", sans-serif; font-size: 0.9rem; }
 
+/* ─── CTA final ──────────────────────────────────────────────────────────────── */
 .cta-final {
-  padding: 56px 0 64px;
-  background: #2a2420;
-  color: #faf7f3;
+  padding: 64px 0 72px;
+  background: linear-gradient(160deg, #2c2018 0%, #1c1410 100%);
+  color: var(--bg);
+  position: relative;
+  overflow: hidden;
 }
-.cta-final h2 { color: #fff; }
-.cta-final p { color: #d6d3d1; margin: 0 0 22px; }
+/* Пасхалка: тихое розовое свечение в углу CTA */
+.cta-final::after {
+  content: "";
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  bottom: -80px;
+  right: 60px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(232,164,176,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.cta-final h2 { color: #f7eac8; font-size: clamp(1.7rem, 4vw, 2.5rem); }
+.cta-final p { color: #c8bfb0; margin: 0 0 26px; font-family: "Mulish", sans-serif; font-size: 1rem; }
+.cta-final .btn-primary { background: var(--gold); }
+.cta-final .btn-primary:hover { background: var(--accent-hover); }
 
+/* ─── Footer ─────────────────────────────────────────────────────────────────── */
 footer {
-  padding: 28px 0 calc(40px + env(safe-area-inset-bottom));
+  padding: 32px 0 calc(44px + env(safe-area-inset-bottom));
   border-top: 1px solid var(--line);
   background: var(--surface);
   color: var(--muted);
-  font-size: 0.85rem;
+  font-family: "Mulish", sans-serif;
+  font-size: 0.84rem;
 }
 .footer-inner {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px 24px;
+  gap: 12px 28px;
   justify-content: space-between;
 }
-footer a { font-weight: 700; }
+footer a { font-weight: 600; color: var(--muted); }
+footer a:hover { color: var(--accent); }
 .footer-quiet {
-  font-size: 0.78rem !important;
-  font-weight: 600 !important;
-  color: #a8a29e !important;
+  font-size: 0.76rem !important;
+  font-weight: 500 !important;
+  color: #b8b0a8 !important;
   text-decoration: none !important;
 }
-.dot { margin: 0 6px; color: #c4b8ae; }
+.dot { margin: 0 6px; color: var(--line); }
 
-.page-hero { padding: 48px 0 12px; }
-.page-hero h1 { font-size: clamp(1.8rem, 6vw, 3rem); }
+/* ─── Inner pages ────────────────────────────────────────────────────────────── */
+.page-hero { padding: 52px 0 16px; }
+.page-hero h1 { font-size: clamp(2rem, 6vw, 3.6rem); color: var(--gold); }
 .tour-list { display: grid; gap: 24px; padding: 28px 0 88px; }
 .tour {
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
-  padding: 22px;
+  padding: 26px;
   box-shadow: var(--shadow);
 }
-.tour-copy h2 { font-size: 1.4rem; margin: 0 0 10px; }
+.tour-copy h2 { font-size: 1.5rem; margin: 0 0 10px; }
 .tour-copy .meta {
-  font-size: 0.72rem;
+  font-family: "Mulish", sans-serif;
+  font-size: 0.68rem;
   font-weight: 800;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--gold);
   margin: 0 0 10px;
 }
-.tour-copy p { color: var(--muted); margin: 0 0 10px; }
+.tour-copy p { color: var(--muted); font-family: "Mulish", sans-serif; margin: 0 0 10px; }
 
 .soon-screen {
   min-height: calc(100svh - 180px);
@@ -389,7 +562,65 @@ footer a { font-weight: 700; }
   text-align: center;
   padding: 64px 16px 80px;
 }
-.soon-screen h1 { font-size: clamp(1.8rem, 5vw, 3rem); }
-.soon-screen p { max-width: 28em; margin: 0 auto; color: var(--muted); }
-.crumbs { font-size: 0.8rem; font-weight: 700; color: var(--muted); margin-bottom: 10px; }
+.soon-screen h1 { font-size: clamp(2rem, 5vw, 3.4rem); color: var(--gold); }
+.soon-screen p { max-width: 28em; margin: 0 auto; color: var(--muted); font-family: "Mulish", sans-serif; }
+.crumbs { font-family: "Mulish", sans-serif; font-size: 0.78rem; font-weight: 700; color: var(--muted); margin-bottom: 12px; }
 .crumbs a { color: var(--muted); }
+
+/* ─── Poster / tour images ───────────────────────────────────────────────────── */
+.poster {
+  margin: 0 0 20px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  position: relative;
+}
+.poster img {
+  display: block;
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+.poster figcaption {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 12px 16px;
+  background: linear-gradient(to top, rgba(28,20,10,.7) 0%, transparent 100%);
+  color: #fff;
+  font-family: "Mulish", sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+.tag {
+  display: inline-block;
+  background: var(--gold);
+  color: #fff;
+  border-radius: 999px;
+  padding: 2px 10px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  margin-bottom: 4px;
+}
+@media (min-width: 700px) {
+  .tour-featured { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .tour-featured .poster { margin: 0; }
+  .poster img { height: 100%; min-height: 200px; }
+}
+.tour-later { opacity: 0.82; }
+
+/* ─── Platform pages (unchanged public surface) ──────────────────────────────── */
+.site-footer {
+  margin-top: 48px; padding: 28px 0 40px; border-top: 1px solid var(--line);
+  color: var(--muted); font-family: "Mulish", sans-serif; font-size: 0.84rem;
+}
+.site-footer .wrap { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; }
+.site-footer a { color: var(--calm); font-weight: 700; text-decoration: none; }
+.site-footer a.footer-quiet { color: #a8a29e; font-weight: 600; font-size: .78rem; }
+.site-footer a.footer-quiet:hover { color: #78716c; text-decoration: underline; }
+
+/* ─── Responsive tweaks ──────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  h1 { font-size: clamp(2.2rem, 11vw, 3.4rem); }
+  .hero { padding: 48px 0 60px; }
+  .hero-icons { gap: 14px 20px; }
+}
