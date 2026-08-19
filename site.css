@@ -134,7 +134,7 @@ header {
 
 /* ─── Hero ───────────────────────────────────────────────────────────────────── */
 .hero {
-  padding: 64px 0 72px;
+  padding: 72px 0 80px;
   background: linear-gradient(
     160deg,
     #fdfaf5 0%,
@@ -142,16 +142,6 @@ header {
     #fdf6ec 100%
   );
 }
-.hero-split {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 40px;
-  align-items: center;
-}
-@media (min-width: 860px) {
-  .hero-split { grid-template-columns: 1fr 1fr; gap: 52px; }
-}
-.hero-copy { position: relative; z-index: 1; }
 
 .hero-kicker {
   display: block;
@@ -190,51 +180,33 @@ h1 {
   margin: 0;
   line-height: 1.65;
 }
-/* ─── Hero grid cards (правая колонка героя) ─────────────────────────────────── */
-.hero-grid-cards {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.hgc {
+/* ─── Who cards ──────────────────────────────────────────────────────────────── */
+.who-cards {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  gap: 14px;
 }
-.hgc-item {
-  background: rgba(255,255,255,0.82);
+@media (min-width: 700px) { .who-cards { grid-template-columns: repeat(3, 1fr); } }
+.who-card {
+  background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
-  padding: 18px 16px 16px;
-  backdrop-filter: blur(4px);
-  box-shadow: 0 2px 12px rgba(180,140,40,0.07);
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+  padding: 22px 20px;
+  box-shadow: var(--shadow);
 }
-.hgc-icon {
-  font-size: 1.7rem;
-  line-height: 1;
-  margin-bottom: 6px;
+.who-card strong {
+  display: block;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--gold);
+  margin-bottom: 8px;
 }
-.hgc-item strong {
-  font-family: "Mulish", system-ui, sans-serif;
-  font-size: 0.82rem;
-  font-weight: 800;
-  color: var(--ink);
-  letter-spacing: -0.01em;
-}
-.hgc-item p {
+.who-card p {
   margin: 0;
-  font-family: "Mulish", system-ui, sans-serif;
-  font-size: 0.78rem;
+  font-family: "Mulish", sans-serif;
+  font-size: 0.9rem;
   color: var(--muted);
-  line-height: 1.45;
-}
-/* Пасхалка: четвёртая карточка — тихий розовый фон */
-.hgc-love {
-  background: rgba(253, 242, 244, 0.85);
-  border-color: var(--love);
+  line-height: 1.55;
 }
 
 .hero-actions {
@@ -623,6 +595,5 @@ footer a:hover { color: var(--accent); }
 /* ─── Responsive tweaks ──────────────────────────────────────────────────────── */
 @media (max-width: 640px) {
   h1 { font-size: clamp(2.2rem, 11vw, 3.4rem); }
-  .hero { padding: 48px 0 56px; }
-  .hero-grid-cards { display: none; }
+  .hero { padding: 48px 0 60px; }
 }
