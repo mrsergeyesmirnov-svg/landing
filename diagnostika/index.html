@@ -167,6 +167,37 @@
       color: var(--muted);
       margin-top: 14px;
     }
+    .consent {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin-top: 18px;
+      padding: 14px 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--bg-warm);
+      font-family: "Mulish", sans-serif;
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.45;
+      cursor: pointer;
+    }
+    .consent input { margin-top: 3px; flex: 0 0 auto; width: 16px; height: 16px; }
+    .consent a { color: var(--gold); font-weight: 700; }
+    .consent.is-bad { border-color: #be123c; }
+    .err {
+      display: none;
+      margin: 10px 0 0;
+      font-family: "Mulish", sans-serif;
+      font-size: 0.82rem;
+      font-weight: 650;
+      color: #be123c;
+    }
+    .err.on { display: block; }
+    .btn[disabled], .btn.is-disabled {
+      opacity: 0.45;
+      pointer-events: none;
+    }
     #printRoot { display: none; }
     @media print {
       body * { visibility: hidden; }
@@ -232,8 +263,13 @@
             <input id="city" name="city" placeholder="Санкт-Петербург" />
           </div>
           <div class="field">
-            <label for="contact">Ваше имя и контакт</label>
-            <input id="contact" name="contact" placeholder="Имя, Telegram или телефон" />
+            <label for="contact">Ваше имя</label>
+            <input id="contact" name="contact" placeholder="Как к вам обращаться" />
+          </div>
+          <div class="field">
+            <label for="phone">Телефон <span style="color:var(--gold)">*</span></label>
+            <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required placeholder="+7 9XX XXX-XX-XX" />
+            <p class="hint" style="margin:6px 0 0">Нужен, чтобы мы понимали, кто скачал КП, и могли связаться.</p>
           </div>
 
           <div class="field">
@@ -296,6 +332,16 @@
             <label for="note">Что беспокоит (необязательно)</label>
             <textarea id="note" name="note" rows="3" placeholder="Команда, сервис, управляющие, повтор проблем…"></textarea>
           </div>
+
+          <label class="consent" id="consentBox">
+            <input type="checkbox" id="consent" name="consent" required />
+            <span>
+              Используя калькулятор и скачивая коммерческое предложение, я даю согласие на обработку
+              персональных данных (имя, телефон, сведения о ресторане) в соответствии с
+              <a href="/sostoyanie/privacy.html" target="_blank" rel="noopener">Политикой конфиденциальности</a>.
+            </span>
+          </label>
+          <p class="err" id="formErr"></p>
         </form>
 
         <aside class="panel" id="resultPanel">
@@ -314,8 +360,9 @@
           <div class="tg-box">
             <p>
               <strong>Цена — ориентир, не счёт.</strong>
-              Если проблема важнее цифр — напишите нам.
-              В сообщение уже подставится ваш расчёт: ресторан, масштаб, уровень проблемы и специалиста.
+              Чтобы скачать КП и написать нам, нужны телефон и согласие на обработку данных.
+              После скачивания откроется Telegram с уже подставленным расчётом и телефоном —
+              так заявка доходит до нас.
             </p>
             <a class="btn btn-primary" id="btnTgBig" href="https://t.me/yank0vski" target="_blank" rel="noopener">Открыть Telegram →</a>
           </div>
@@ -337,6 +384,8 @@
         <a href="/">На главную</a>
         <span class="dot">·</span>
         <a href="/sostoyanie/">Состояние смены</a>
+        <span class="dot">·</span>
+        <a href="/sostoyanie/privacy.html">Политика конфиденциальности</a>
       </div>
     </div>
   </footer>
@@ -369,6 +418,44 @@
       });
     }
 
+    function normalizePhone(raw) {
+      var digits = String(raw || "").replace(/\D/g, "");
+      if (digits.length === 11 && digits[0] === "8") digits = "7" + digits.slice(1);
+      if (digits.length === 10) digits = "7" + digits;
+      return digits;
+    }
+    function formatPhone(digits) {
+      if (digits.length !== 11 || digits[0] !== "7") return "";
+      return "+7 " + digits.slice(1, 4) + " " + digits.slice(4, 7) + "-" + digits.slice(7, 9) + "-" + digits.slice(9);
+    }
+    function phoneOk(raw) {
+      return normalizePhone(raw).length === 11;
+    }
+    function consentOk() {
+      return document.getElementById("consent").checked;
+    }
+    function showErr(msg) {
+      var el = document.getElementById("formErr");
+      var box = document.getElementById("consentBox");
+      if (!msg) {
+        el.textContent = "";
+        el.classList.remove("on");
+        box.classList.remove("is-bad");
+        return;
+      }
+      el.textContent = msg;
+      el.classList.add("on");
+      if (!consentOk()) box.classList.add("is-bad");
+      else box.classList.remove("is-bad");
+    }
+    function gateReady() {
+      var phone = document.getElementById("phone").value;
+      var ok = phoneOk(phone) && consentOk();
+      document.getElementById("btnPdf").disabled = !ok;
+      document.getElementById("btnPdf").classList.toggle("is-disabled", !ok);
+      return ok;
+    }
+
     function state() {
       var size = document.getElementById("size").value;
       var m = MATRIX[size];
@@ -380,10 +467,14 @@
       var hoursMax = m.diag[1] + m.work[1] + m.ctrl[1];
       var hMin = hoursMin * k;
       var hMax = hoursMax * k;
+      var phoneRaw = document.getElementById("phone").value.trim();
+      var phoneDigits = normalizePhone(phoneRaw);
       return {
         restaurant: document.getElementById("restaurant").value.trim() || "Ресторан",
         city: document.getElementById("city").value.trim() || "—",
         contact: document.getElementById("contact").value.trim() || "—",
+        phone: formatPhone(phoneDigits) || phoneRaw,
+        phoneDigits: phoneDigits,
         note: document.getElementById("note").value.trim(),
         size: size,
         sizeLabel: m.label,
@@ -396,7 +487,8 @@
         hMax: hMax,
         priceMin: hMin * rate,
         priceMax: hMax * rate,
-        date: todayISO()
+        date: todayISO(),
+        consent: consentOk()
       };
     }
 
@@ -406,11 +498,13 @@
         "",
         "Ресторан: " + s.restaurant,
         "Город: " + s.city,
-        "Контакт: " + s.contact,
+        "Имя: " + s.contact,
+        "Телефон: " + s.phone,
         "Сотрудники: " + s.sizeLabel,
         "Уровень проблемы: " + s.problemLabel + " (×" + s.problemK.toFixed(1) + ")",
         "Специалист: " + s.expertLabel,
-        "Ориентир цены: " + money(s.priceMin) + " – " + money(s.priceMax)
+        "Ориентир цены: " + money(s.priceMin) + " – " + money(s.priceMax),
+        "Согласие на обработку ПДн: да"
       ];
       if (s.note) lines.push("Что беспокоит: " + s.note);
       return lines.join("\n");
@@ -435,6 +529,7 @@
       document.getElementById("expertLine").textContent =
         "Специалист: " + s.expertLabel + " · уровень «" + s.expertTier + "»";
       updateTg(s);
+      gateReady();
       return s;
     }
 
@@ -445,7 +540,8 @@
         '<p class="meta">Академия счастья · проект «Состояние смены» · ' + s.date + "</p>" +
         "<p><strong>Клиент:</strong> " + s.restaurant + "<br/>" +
         "<strong>Город:</strong> " + s.city + "<br/>" +
-        "<strong>Контакт:</strong> " + s.contact + "</p>" +
+        "<strong>Контакт:</strong> " + s.contact + "<br/>" +
+        "<strong>Телефон:</strong> " + s.phone + "</p>" +
         "<table><thead><tr><th>Параметр</th><th>Значение</th></tr></thead><tbody>" +
         "<tr><td>Масштаб команды</td><td>" + s.sizeLabel + "</td></tr>" +
         "<tr><td>Уровень проблемы</td><td>" + s.problemLabel + "</td></tr>" +
@@ -458,24 +554,50 @@
         '<p class="foot">' +
         "Исполнитель: ИП Смирнов Сергей Евгеньевич · ИНН 784815635497 · ОГРНИП 326784700194735<br/>" +
         "Telegram: @yank0vski · www.pulseteam.online<br/>" +
-        "Документ носит ориентировочный характер. Итоговая смета согласуется после диагностики." +
+        "Документ носит ориентировочный характер. Итоговая смета согласуется после диагностики.<br/>" +
+        "Субъект дал согласие на обработку персональных данных при использовании калькулятора на сайте." +
         "</p></div>"
       );
     }
 
+    function requireLead() {
+      if (!phoneOk(document.getElementById("phone").value)) {
+        showErr("Укажите телефон в формате +7… — без него КП не скачивается.");
+        document.getElementById("phone").focus();
+        return false;
+      }
+      if (!consentOk()) {
+        showErr("Отметьте согласие на обработку персональных данных.");
+        document.getElementById("consent").focus();
+        return false;
+      }
+      showErr("");
+      return true;
+    }
+
     document.getElementById("btnPdf").onclick = function () {
+      if (!requireLead()) return;
       var s = calc();
       var root = document.getElementById("printRoot");
       root.innerHTML = buildKp(s);
       root.hidden = false;
       window.print();
       setTimeout(function () { root.hidden = true; }, 400);
+      // После скачивания — открыть Telegram с телефоном, чтобы заявка дошла до вас
+      window.open(document.getElementById("btnTg").href, "_blank", "noopener");
     };
 
-    ["size", "restaurant", "city", "contact", "note"].forEach(function (id) {
+    document.getElementById("btnTg").addEventListener("click", function (e) {
+      if (!requireLead()) { e.preventDefault(); }
+    });
+    document.getElementById("btnTgBig").addEventListener("click", function (e) {
+      if (!requireLead()) { e.preventDefault(); }
+    });
+
+    ["size", "restaurant", "city", "contact", "phone", "note", "consent"].forEach(function (id) {
       var el = document.getElementById(id);
-      el.addEventListener("input", calc);
-      el.addEventListener("change", calc);
+      el.addEventListener("input", function () { showErr(""); calc(); });
+      el.addEventListener("change", function () { showErr(""); calc(); });
     });
     document.querySelectorAll('input[name="problem"], input[name="expert"]').forEach(function (el) {
       el.addEventListener("change", calc);
