@@ -60,6 +60,7 @@
     <div class="crm-drawer-body" id="dBody"></div>
   </aside>
 
+  <script src="config.js"></script>
   <script src="crm-store.js"></script>
   <script>
     (function () {
@@ -94,10 +95,17 @@
         document.getElementById("gate").hidden = true;
         document.getElementById("app").hidden = false;
         document.getElementById("logoutBtn").hidden = false;
-        renderFilters();
-        renderList();
-        var q = new URLSearchParams(location.search).get("c");
-        if (q && SSCrm.getClient(q)) openDrawer(q);
+        var boot = function () {
+          renderFilters();
+          renderList();
+          var q = new URLSearchParams(location.search).get("c");
+          if (q && SSCrm.getClient(q)) openDrawer(q);
+        };
+        if (SSCrm.hasApi && SSCrm.hasApi()) {
+          SSCrm.syncFromServer().then(boot).catch(boot);
+        } else {
+          boot();
+        }
       }
 
       async function initAuth() {
