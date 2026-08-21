@@ -137,6 +137,7 @@ class LeadIn(BaseModel):
     city: str = Field(default="", max_length=120)
     contact: str = Field(default="", max_length=120)
     phone: str = Field(..., min_length=10, max_length=32)
+    telegram: str = Field(default="", max_length=64)
     size: str = Field(default="", max_length=8)
     sizeLabel: str = Field(default="", max_length=80)
     problemLabel: str = Field(default="", max_length=120)
@@ -149,6 +150,17 @@ class LeadIn(BaseModel):
     consent: bool = False
 
 
+def _norm_telegram(raw: str) -> str:
+    t = (raw or "").strip()
+    if t.startswith("@"):
+        t = t[1:]
+    for prefix in ("https://t.me/", "http://t.me/", "https://telegram.me/", "http://telegram.me/"):
+        if t.lower().startswith(prefix):
+            t = t[len(prefix) :]
+            break
+    return t.strip().rstrip("/")
+
+
 @app.post("/api/leads")
 async def create_lead(body: LeadIn, request: Request) -> dict[str, Any]:
     if not body.consent:
@@ -156,6 +168,9 @@ async def create_lead(body: LeadIn, request: Request) -> dict[str, Any]:
     phone = "".join(ch for ch in body.phone if ch.isdigit())
     if len(phone) < 10:
         raise HTTPException(status_code=400, detail="Укажите телефон")
+    telegram = _norm_telegram(body.telegram)
+    if not telegram:
+        raise HTTPException(status_code=400, detail="Укажите Telegram username или ID")
     pool = await get_pool()
 
     name = (body.restaurant or "Лид с калькулятора").strip()
@@ -169,6 +184,7 @@ async def create_lead(body: LeadIn, request: Request) -> dict[str, Any]:
         "expertTier": body.expertTier,
         "priceMin": body.priceMin,
         "priceMax": body.priceMax,
+        "telegram": telegram,
         "ip": request.client.host if request.client else None,
     }
     note_bits = []
@@ -180,16 +196,18 @@ async def create_lead(body: LeadIn, request: Request) -> dict[str, Any]:
         f"от {int(body.priceMin):,}–{int(body.priceMax):,} ₽".replace(",", " ")
     )
     notes = "\n".join(note_bits)
+    tg_store = telegram if telegram.isdigit() else f"@{telegram}"
 
     async with pool.acquire() as conn:
         existing = await conn.fetchrow(
             """
             SELECT id FROM academy_clients
-            WHERE phone = $1 OR (name ILIKE $2 AND phone = $1)
+            WHERE phone = $1
+               OR (telegram <> '' AND lower(replace(telegram, '@', '')) = lower($2))
             ORDER BY updated_at DESC LIMIT 1
             """,
             body.phone.strip(),
-            name,
+            telegram,
         )
         now = datetime.now(timezone.utc)
         if existing:
@@ -200,19 +218,21 @@ async def create_lead(body: LeadIn, request: Request) -> dict[str, Any]:
                   city = COALESCE(NULLIF($2, ''), city),
                   contact = COALESCE(NULLIF($3, ''), contact),
                   phone = $4,
+                  telegram = COALESCE(NULLIF($5, ''), telegram),
                   notes = CASE
-                    WHEN notes = '' OR notes IS NULL THEN $5
-                    ELSE notes || E'\\n---\\n' || $5
+                    WHEN notes = '' OR notes IS NULL THEN $6
+                    ELSE notes || E'\\n---\\n' || $6
                   END,
-                  lead_meta = $6::jsonb,
+                  lead_meta = $7::jsonb,
                   status = CASE WHEN status = 'lost' THEN 'lead' ELSE status END,
-                  updated_at = $7
+                  updated_at = $8
                 WHERE id = $1
                 """,
                 client_id,
                 body.city.strip(),
                 body.contact.strip(),
                 body.phone.strip(),
+                tg_store,
                 notes,
                 json.dumps(meta, ensure_ascii=False),
                 now,
@@ -222,14 +242,15 @@ async def create_lead(body: LeadIn, request: Request) -> dict[str, Any]:
             await conn.execute(
                 """
                 INSERT INTO academy_clients
-                  (id, name, city, contact, phone, status, notes, lead_meta, created_at, updated_at)
-                VALUES ($1,$2,$3,$4,$5,'lead',$6,$7::jsonb,$8,$8)
+                  (id, name, city, contact, phone, telegram, status, notes, lead_meta, created_at, updated_at)
+                VALUES ($1,$2,$3,$4,$5,$6,'lead',$7,$8::jsonb,$9,$9)
                 """,
                 client_id,
                 name,
                 body.city.strip(),
                 body.contact.strip(),
                 body.phone.strip(),
+                tg_store,
                 notes,
                 json.dumps(meta, ensure_ascii=False),
                 now,
