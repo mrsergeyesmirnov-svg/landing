@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Диагностика ресторана — Академия счастья</title>
+  <meta name="description" content="Ориентировочный расчёт диагностики и проекта «Состояние смены». Выберите масштаб, уровень проблемы и специалиста — получите цену и коммерческое предложение." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Mulish:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/site.css?v=calc1" />
+  <style>
+    .calc-page { padding: 40px 0 72px; }
+    .calc-intro { max-width: 36em; margin: 0 0 32px; }
+    .calc-intro h1 {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 600;
+      color: var(--gold);
+      margin: 0 0 12px;
+      line-height: 1.1;
+    }
+    .calc-intro p {
+      font-family: "Mulish", sans-serif;
+      color: var(--muted);
+      margin: 0;
+      font-size: 0.98rem;
+    }
+    .calc-grid {
+      display: grid;
+      gap: 20px;
+    }
+    @media (min-width: 900px) {
+      .calc-grid { grid-template-columns: 1.15fr 0.85fr; align-items: start; }
+    }
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 24px 22px;
+      box-shadow: var(--shadow);
+    }
+    .panel h2 {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 1.45rem;
+      font-weight: 600;
+      margin: 0 0 18px;
+      color: var(--ink);
+    }
+    .field { margin-bottom: 14px; }
+    .field label {
+      display: block;
+      font-family: "Mulish", sans-serif;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .field input, .field select, .field textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      font: inherit;
+      font-family: "Mulish", sans-serif;
+      font-size: 0.95rem;
+      outline: none;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus {
+      border-color: rgba(184,146,42,.5);
+      box-shadow: 0 0 0 3px rgba(184,146,42,.12);
+    }
+    .choice-grid {
+      display: grid;
+      gap: 8px;
+    }
+    @media (min-width: 520px) {
+      .choice-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+      .choice-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+    }
+    .choice {
+      display: block;
+      cursor: pointer;
+      border: 1.5px solid var(--line);
+      border-radius: 14px;
+      padding: 14px 12px;
+      background: #fff;
+      transition: border-color .15s, background .15s, box-shadow .15s;
+    }
+    .choice:hover { border-color: var(--accent-mid); }
+    .choice input { position: absolute; opacity: 0; pointer-events: none; }
+    .choice.is-on {
+      border-color: var(--gold);
+      background: var(--accent-soft);
+      box-shadow: 0 2px 12px rgba(184,146,42,.1);
+    }
+    .choice strong {
+      display: block;
+      font-family: "Mulish", sans-serif;
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+    .choice span {
+      display: block;
+      font-family: "Mulish", sans-serif;
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+    .choice .tier {
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 4px;
+    }
+    .result-price {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      font-weight: 600;
+      color: var(--ink);
+      margin: 4px 0 8px;
+      letter-spacing: -0.02em;
+    }
+    .result-price em {
+      font-style: normal;
+      color: var(--gold);
+    }
+    .result-meta {
+      font-family: "Mulish", sans-serif;
+      font-size: 0.84rem;
+      color: var(--muted);
+      margin: 0 0 8px;
+      line-height: 1.5;
+    }
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+    .tg-box {
+      margin-top: 20px;
+      padding: 18px 16px;
+      border-radius: 14px;
+      background: var(--bg-warm);
+      border: 1px solid var(--line);
+    }
+    .tg-box p {
+      margin: 0 0 12px;
+      font-family: "Mulish", sans-serif;
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .tg-box strong { color: var(--ink); }
+    .hint {
+      font-family: "Mulish", sans-serif;
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 14px;
+    }
+    #printRoot { display: none; }
+    @media print {
+      body * { visibility: hidden; }
+      #printRoot, #printRoot * { visibility: visible; }
+      #printRoot {
+        display: block !important;
+        position: absolute;
+        left: 0; top: 0; width: 100%;
+        padding: 28px;
+        background: #fff;
+      }
+      header, footer, .calc-page, .no-print { display: none !important; }
+    }
+    .print-doc {
+      font-family: Mulish, system-ui, sans-serif;
+      color: #1c1917;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .print-doc h1 { font-size: 1.35rem; margin: 0 0 6px; }
+    .print-doc .meta { color: #57534e; font-size: .9rem; margin-bottom: 18px; }
+    .print-doc table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .print-doc th, .print-doc td { border: 1px solid #e7e2dc; padding: 10px 12px; text-align: left; vertical-align: top; }
+    .print-doc th { background: #1c1917; color: #fff; font-size: .75rem; letter-spacing: .04em; text-transform: uppercase; }
+    .print-doc .sum { font-size: 1.15rem; font-weight: 800; margin-top: 14px; }
+    .print-doc .foot { margin-top: 22px; font-size: .85rem; color: #57534e; }
+  </style>
+</head>
+<body>
+  <header class="no-print">
+    <div class="wrap header-inner">
+      <a class="logo" href="/">Академия счастья</a>
+      <ul class="nav-links">
+        <li><a href="/sostoyanie/">Состояние смены</a></li>
+        <li><a href="/tury/">Туры</a></li>
+        <li><a href="/">На главную</a></li>
+      </ul>
+      <a class="header-cta" href="https://t.me/yank0vski" target="_blank" rel="noopener">Telegram</a>
+    </div>
+  </header>
+
+  <main class="calc-page no-print">
+    <div class="wrap">
+      <div class="calc-intro">
+        <p class="section-label">Диагностика</p>
+        <h1>Оцените проект для своего ресторана</h1>
+        <p>
+          Укажите ресторан, масштаб команды, как вы видите уровень проблемы и какого специалиста хотите.
+          Получите ориентировочную цену, скачайте коммерческое предложение и напишите нам в Telegram.
+        </p>
+      </div>
+
+      <div class="calc-grid">
+        <form class="panel" id="calcForm" autocomplete="on">
+          <h2>Ваши данные</h2>
+
+          <div class="field">
+            <label for="restaurant">Ресторан / точка</label>
+            <input id="restaurant" name="restaurant" required placeholder="Например: Бистро на Невском" />
+          </div>
+          <div class="field">
+            <label for="city">Город</label>
+            <input id="city" name="city" placeholder="Санкт-Петербург" />
+          </div>
+          <div class="field">
+            <label for="contact">Ваше имя и контакт</label>
+            <input id="contact" name="contact" placeholder="Имя, Telegram или телефон" />
+          </div>
+
+          <div class="field">
+            <label for="size">Сколько сотрудников</label>
+            <select id="size" name="size">
+              <option value="S">До 20 человек</option>
+              <option value="M" selected>20–50 человек</option>
+              <option value="L">50–100 человек</option>
+              <option value="XL">100 и больше</option>
+            </select>
+          </div>
+
+          <p class="section-label" style="margin: 18px 0 10px;">Как вы оцениваете уровень проблемы</p>
+          <div class="choice-grid cols-2" id="problemChoices">
+            <label class="choice is-on">
+              <input type="radio" name="problem" value="1" data-label="Хотим проверить" checked />
+              <strong>Хотим проверить</strong>
+              <span>В целом нормально, нужна ясная картина</span>
+            </label>
+            <label class="choice">
+              <input type="radio" name="problem" value="1.2" data-label="Есть напряжение" />
+              <strong>Есть напряжение</strong>
+              <span>Усталость, перегруз, гости заметно требовательнее</span>
+            </label>
+            <label class="choice">
+              <input type="radio" name="problem" value="1.5" data-label="Проблемы повторяются" />
+              <strong>Проблемы повторяются</strong>
+              <span>Уже «решали», но снова возвращается</span>
+            </label>
+            <label class="choice">
+              <input type="radio" name="problem" value="2" data-label="Кризис" />
+              <strong>Кризис</strong>
+              <span>Нужно быстро понять, где теряется эффективность</span>
+            </label>
+          </div>
+
+          <p class="section-label" style="margin: 22px 0 10px;">Уровень специалиста</p>
+          <div class="choice-grid cols-3" id="expertChoices">
+            <label class="choice">
+              <input type="radio" name="expert" value="3500" data-label="Менеджер" data-tier="менеджер" />
+              <span class="tier">Менеджер</span>
+              <strong>Сопровождение</strong>
+              <span>Базовый уровень ведения проекта</span>
+            </label>
+            <label class="choice is-on">
+              <input type="radio" name="expert" value="5000" data-label="Специалист" data-tier="специалист" checked />
+              <span class="tier">Специалист</span>
+              <strong>Среднее звено</strong>
+              <span>Диагностика и внедрение изменений</span>
+            </label>
+            <label class="choice">
+              <input type="radio" name="expert" value="7500" data-label="Эксперт / аналитик" data-tier="эксперт" />
+              <span class="tier">Эксперт</span>
+              <strong>Аналитик</strong>
+              <span>Сложные случаи и системный разбор</span>
+            </label>
+          </div>
+
+          <div class="field" style="margin-top:18px;">
+            <label for="note">Что беспокоит (необязательно)</label>
+            <textarea id="note" name="note" rows="3" placeholder="Команда, сервис, управляющие, повтор проблем…"></textarea>
+          </div>
+        </form>
+
+        <aside class="panel" id="resultPanel">
+          <h2>Ориентир цены</h2>
+          <p class="result-meta" id="summaryLine">—</p>
+          <div class="result-price">от <em id="priceMin">—</em></div>
+          <p class="result-meta">до <strong id="priceMax">—</strong></p>
+          <p class="result-meta" id="splitLine"></p>
+          <p class="result-meta" id="expertLine"></p>
+
+          <div class="btn-row">
+            <button class="btn btn-primary" type="button" id="btnPdf">Скачать коммерческое предложение</button>
+            <a class="btn btn-ghost" id="btnTg" href="https://t.me/yank0vski" target="_blank" rel="noopener">Написать в Telegram</a>
+          </div>
+
+          <div class="tg-box">
+            <p>
+              <strong>Цена — ориентир, не счёт.</strong>
+              Если проблема важнее цифр — напишите нам.
+              В сообщение уже подставится ваш расчёт: ресторан, масштаб, уровень проблемы и специалиста.
+            </p>
+            <a class="btn btn-primary" id="btnTgBig" href="https://t.me/yank0vski" target="_blank" rel="noopener">Открыть Telegram →</a>
+          </div>
+          <p class="hint">
+            Расчёт по методике «Состояние смены»: часы диагностики, работы и контроля × уровень проблемы × уровень специалиста.
+            Итоговая смета согласуется после короткого разговора.
+          </p>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <div id="printRoot" hidden></div>
+
+  <footer class="no-print">
+    <div class="wrap footer-inner">
+      <div>Академия счастья · ИП Смирнов С. Е. · <a href="https://t.me/yank0vski">Telegram</a></div>
+      <div>
+        <a href="/">На главную</a>
+        <span class="dot">·</span>
+        <a href="/sostoyanie/">Состояние смены</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+  (function () {
+    var MATRIX = {
+      S:  { diag: [4, 6], work: [8, 12], ctrl: [2, 3], label: "до 20 сотрудников" },
+      M:  { diag: [8, 12], work: [15, 25], ctrl: [4, 6], label: "20–50 сотрудников" },
+      L:  { diag: [12, 20], work: [25, 45], ctrl: [6, 10], label: "50–100 сотрудников" },
+      XL: { diag: [20, 40], work: [40, 80], ctrl: [10, 20], label: "100+ сотрудников" }
+    };
+
+    function money(n) {
+      return Math.round(n).toLocaleString("ru-RU") + " ₽";
+    }
+    function todayISO() {
+      var d = new Date();
+      return d.toISOString().slice(0, 10);
+    }
+    function checked(name) {
+      return document.querySelector('input[name="' + name + '"]:checked');
+    }
+
+    function syncChoices(groupId) {
+      var root = document.getElementById(groupId);
+      root.querySelectorAll(".choice").forEach(function (el) {
+        var input = el.querySelector("input");
+        el.classList.toggle("is-on", !!(input && input.checked));
+      });
+    }
+
+    function state() {
+      var size = document.getElementById("size").value;
+      var m = MATRIX[size];
+      var problemEl = checked("problem");
+      var expertEl = checked("expert");
+      var k = Number(problemEl.value);
+      var rate = Number(expertEl.value);
+      var hoursMin = m.diag[0] + m.work[0] + m.ctrl[0];
+      var hoursMax = m.diag[1] + m.work[1] + m.ctrl[1];
+      var hMin = hoursMin * k;
+      var hMax = hoursMax * k;
+      return {
+        restaurant: document.getElementById("restaurant").value.trim() || "Ресторан",
+        city: document.getElementById("city").value.trim() || "—",
+        contact: document.getElementById("contact").value.trim() || "—",
+        note: document.getElementById("note").value.trim(),
+        size: size,
+        sizeLabel: m.label,
+        problemLabel: problemEl.getAttribute("data-label"),
+        problemK: k,
+        expertLabel: expertEl.getAttribute("data-label"),
+        expertTier: expertEl.getAttribute("data-tier"),
+        rate: rate,
+        hMin: hMin,
+        hMax: hMax,
+        priceMin: hMin * rate,
+        priceMax: hMax * rate,
+        date: todayISO()
+      };
+    }
+
+    function tgText(s) {
+      var lines = [
+        "Здравствуйте! Хочу диагностику ресторана.",
+        "",
+        "Ресторан: " + s.restaurant,
+        "Город: " + s.city,
+        "Контакт: " + s.contact,
+        "Сотрудники: " + s.sizeLabel,
+        "Уровень проблемы: " + s.problemLabel + " (×" + s.problemK.toFixed(1) + ")",
+        "Специалист: " + s.expertLabel,
+        "Ориентир цены: " + money(s.priceMin) + " – " + money(s.priceMax)
+      ];
+      if (s.note) lines.push("Что беспокоит: " + s.note);
+      return lines.join("\n");
+    }
+
+    function updateTg(s) {
+      var url = "https://t.me/yank0vski?text=" + encodeURIComponent(tgText(s));
+      document.getElementById("btnTg").href = url;
+      document.getElementById("btnTgBig").href = url;
+    }
+
+    function calc() {
+      syncChoices("problemChoices");
+      syncChoices("expertChoices");
+      var s = state();
+      document.getElementById("summaryLine").textContent =
+        s.restaurant + " · " + s.sizeLabel + " · " + s.problemLabel;
+      document.getElementById("priceMin").textContent = money(s.priceMin);
+      document.getElementById("priceMax").textContent = money(s.priceMax);
+      document.getElementById("splitLine").textContent =
+        "Часы проекта (оценка): " + s.hMin.toFixed(0) + "–" + s.hMax.toFixed(0) + " ч";
+      document.getElementById("expertLine").textContent =
+        "Специалист: " + s.expertLabel + " · уровень «" + s.expertTier + "»";
+      updateTg(s);
+      return s;
+    }
+
+    function buildKp(s) {
+      return (
+        '<div class="print-doc">' +
+        "<h1>Коммерческое предложение</h1>" +
+        '<p class="meta">Академия счастья · проект «Состояние смены» · ' + s.date + "</p>" +
+        "<p><strong>Клиент:</strong> " + s.restaurant + "<br/>" +
+        "<strong>Город:</strong> " + s.city + "<br/>" +
+        "<strong>Контакт:</strong> " + s.contact + "</p>" +
+        "<table><thead><tr><th>Параметр</th><th>Значение</th></tr></thead><tbody>" +
+        "<tr><td>Масштаб команды</td><td>" + s.sizeLabel + "</td></tr>" +
+        "<tr><td>Уровень проблемы</td><td>" + s.problemLabel + "</td></tr>" +
+        "<tr><td>Уровень специалиста</td><td>" + s.expertLabel + "</td></tr>" +
+        "<tr><td>Оценка трудозатрат</td><td>" + s.hMin.toFixed(0) + "–" + s.hMax.toFixed(0) + " ч</td></tr>" +
+        "</tbody></table>" +
+        '<p class="sum">Ориентир стоимости проекта: ' + money(s.priceMin) + " – " + money(s.priceMax) + "</p>" +
+        (s.note ? "<p><strong>Запрос клиента:</strong> " + s.note.replace(/</g, "&lt;") + "</p>" : "") +
+        "<p>Состав работы: диагностика состояния команды и операций, карта причин, план изменений, внедрение и контроль «было → стало».</p>" +
+        '<p class="foot">' +
+        "Исполнитель: ИП Смирнов Сергей Евгеньевич · ИНН 784815635497 · ОГРНИП 326784700194735<br/>" +
+        "Telegram: @yank0vski · www.pulseteam.online<br/>" +
+        "Документ носит ориентировочный характер. Итоговая смета согласуется после диагностики." +
+        "</p></div>"
+      );
+    }
+
+    document.getElementById("btnPdf").onclick = function () {
+      var s = calc();
+      var root = document.getElementById("printRoot");
+      root.innerHTML = buildKp(s);
+      root.hidden = false;
+      window.print();
+      setTimeout(function () { root.hidden = true; }, 400);
+    };
+
+    ["size", "restaurant", "city", "contact", "note"].forEach(function (id) {
+      var el = document.getElementById(id);
+      el.addEventListener("input", calc);
+      el.addEventListener("change", calc);
+    });
+    document.querySelectorAll('input[name="problem"], input[name="expert"]').forEach(function (el) {
+      el.addEventListener("change", calc);
+    });
+
+    calc();
+  })();
+  </script>
+</body>
+</html>
