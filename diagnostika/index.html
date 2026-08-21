@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Mulish:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/site.css?v=calc1" />
+  <script src="/platform/config.js"></script>
   <style>
     .calc-page { padding: 40px 0 72px; }
     .calc-intro { max-width: 36em; margin: 0 0 32px; }
@@ -575,23 +576,67 @@
       return true;
     }
 
+    function saveLeadToCrm(s) {
+      var base = (window.PLATFORM_API_URL || "").replace(/\/$/, "");
+      if (!base || base.indexOf("REPLACE_WITH") >= 0) {
+        console.warn("[diagnostika] PLATFORM_API_URL не задан — лид только в Telegram");
+        return Promise.resolve(null);
+      }
+      return fetch(base + "/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          restaurant: s.restaurant,
+          city: s.city === "—" ? "" : s.city,
+          contact: s.contact === "—" ? "" : s.contact,
+          phone: s.phone,
+          size: s.size,
+          sizeLabel: s.sizeLabel,
+          problemLabel: s.problemLabel,
+          problemK: s.problemK,
+          expertLabel: s.expertLabel,
+          expertTier: s.expertTier,
+          priceMin: s.priceMin,
+          priceMax: s.priceMax,
+          note: s.note,
+          consent: true
+        })
+      }).then(function (r) {
+        if (!r.ok) {
+          return r.text().then(function (t) {
+            throw new Error(t || ("HTTP " + r.status));
+          });
+        }
+        return r.json();
+      }).then(function (data) {
+        console.log("[diagnostika] lead saved", data);
+        return data;
+      }).catch(function (e) {
+        console.warn("[diagnostika] lead save failed", e.message || e);
+        return null;
+      });
+    }
+
     document.getElementById("btnPdf").onclick = function () {
       if (!requireLead()) return;
       var s = calc();
-      var root = document.getElementById("printRoot");
-      root.innerHTML = buildKp(s);
-      root.hidden = false;
-      window.print();
-      setTimeout(function () { root.hidden = true; }, 400);
-      // После скачивания — открыть Telegram с телефоном, чтобы заявка дошла до вас
-      window.open(document.getElementById("btnTg").href, "_blank", "noopener");
+      saveLeadToCrm(s).then(function () {
+        var root = document.getElementById("printRoot");
+        root.innerHTML = buildKp(s);
+        root.hidden = false;
+        window.print();
+        setTimeout(function () { root.hidden = true; }, 400);
+        window.open(document.getElementById("btnTg").href, "_blank", "noopener");
+      });
     };
 
     document.getElementById("btnTg").addEventListener("click", function (e) {
-      if (!requireLead()) { e.preventDefault(); }
+      if (!requireLead()) { e.preventDefault(); return; }
+      saveLeadToCrm(calc());
     });
     document.getElementById("btnTgBig").addEventListener("click", function (e) {
-      if (!requireLead()) { e.preventDefault(); }
+      if (!requireLead()) { e.preventDefault(); return; }
+      saveLeadToCrm(calc());
     });
 
     ["size", "restaurant", "city", "contact", "phone", "note", "consent"].forEach(function (id) {
