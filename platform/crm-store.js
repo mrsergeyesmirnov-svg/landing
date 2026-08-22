@@ -7,7 +7,7 @@
     { id: "lead", label: "Касание" },
     { id: "brief", label: "Квалификация" },
     { id: "sale", label: "Продажа" },
-    { id: "diagnose", label: "Диагноз / baseline" },
+    { id: "diagnose", label: "Диагноз / точка отсчёта" },
     { id: "change", label: "Изменение 30/60/90" },
     { id: "control", label: "Контроль" },
     { id: "sub", label: "Подписка" },
