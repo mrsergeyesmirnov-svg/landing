@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="site.css?v=s3" />
+  <link rel="stylesheet" href="site.css?v=s4" />
 </head>
 <body>
   <header class="no-print">
@@ -23,7 +23,7 @@
         <li><a href="#subs">Тарифы</a></li>
         <li><a href="demo.html">Демо</a></li>
       </ul>
-      <a class="header-cta" href="https://t.me/yank0vski" target="_blank" rel="noopener">Обсудить проект</a>
+      <a class="header-cta" href="#discuss">Обсудить проект</a>
     </div>
   </header>
 
@@ -34,7 +34,7 @@
           <p class="eyebrow">Проект Академии счастья · консалтинг · HoReCa</p>
           <h1>Состояние смены</h1>
           <p class="hero-lead">
-            Мы каждый день спрашиваем смену, как прошёл день — и складываем из этого картину: люди, гости, процессы, деньги.
+            Мы каждый день спрашиваем смену, как прошёл день — и складываем из этого картину: люди, гости, финансы, процессы.
             Так видно, где начинает ломаться, до того как упадут отзывы и выручка.
             Продукт <a href="/">Академии счастья</a>.
           </p>
@@ -51,7 +51,7 @@
           <p><strong>Консультант</strong> — разбирается с вами, что происходит и что менять.</p>
           <p><strong>Бот</strong> — каждый день собирает ответы со смены и показывает, стало ли лучше. Подключаем с самого начала, чтобы было с чем сравнивать.</p>
           <div class="mini-stats">
-            <div class="mini-stat"><strong>4 блока</strong><span>люди · финансы · гость · процессы</span></div>
+            <div class="mini-stat"><strong>4 блока</strong><span>люди · гости · финансы · процессы</span></div>
             <div class="mini-stat"><strong>Точка отсчёта</strong><span>записываем, как было</span></div>
             <div class="mini-stat"><strong>План внедрения</strong><span>сначала · потом · надолго</span></div>
           </div>
@@ -81,7 +81,7 @@
         </div>
         <div class="path-grid">
           <article class="path-card"><strong>01</strong><h3>Знакомство</h3><p>Разговор с собственником: что беспокоит, готовы ли что-то менять.</p></article>
-          <article class="path-card"><strong>02</strong><h3>Диагностика</h3><p>Смотрим на людей, деньги, гостей, процессы.</p></article>
+          <article class="path-card"><strong>02</strong><h3>Диагностика</h3><p>Смотрим на людей, гостей, финансы, процессы.</p></article>
           <article class="path-card"><strong>03</strong><h3>Выявление</h3><p>От «что болит» к «почему так» — карта проблем.</p></article>
           <article class="path-card"><strong>04</strong><h3>Решение</h3><p>Что делаем первым, кто отвечает, как поймём, что получилось.</p></article>
           <article class="path-card"><strong>05</strong><h3>Консалтинг</h3><p>Работа с командой: встречи, обучение, новые договорённости.</p></article>
@@ -104,14 +104,14 @@
             <p>Энергия, вовлечённость, конфликты, стиль руководителя, текучесть, признание.</p>
           </article>
           <article class="feature-card">
+            <div class="feature-icon">✨</div>
+            <h3>Гости</h3>
+            <p>Сервис, скорость, атмосфера, отзывы, повторные визиты — опыт гостя как CJM.</p>
+          </article>
+          <article class="feature-card">
             <div class="feature-icon">💰</div>
             <h3>Финансы</h3>
             <p>Не бухгалтерия — связи: состояние команды → скорость → жалобы → чек → выручка.</p>
-          </article>
-          <article class="feature-card">
-            <div class="feature-icon">✨</div>
-            <h3>Гость</h3>
-            <p>Сервис, скорость, атмосфера, отзывы, повторные визиты — опыт гостя как CJM.</p>
           </article>
           <article class="feature-card">
             <div class="feature-icon">⚙️</div>
@@ -133,10 +133,10 @@
             <div class="feature-icon">📱</div>
             <h3>Сотрудник · 30–60 сек</h3>
             <ul>
-              <li>Оценка смены 1–10</li>
-              <li>Что повлияло: гости, команда, нагрузка, конфликт…</li>
-              <li>Что было хорошего / что мешало</li>
-              <li>Нужно ли обратить внимание — да/нет</li>
+              <li>Как прошла смена: заряженная / нормальная / так себе / тяжёлая</li>
+              <li>Что мешало: команда, кухня, гости, процессы, моё состояние</li>
+              <li>Текст или голос — бот распознаёт и сохраняет анонимно</li>
+              <li>В группе имён нет</li>
             </ul>
           </article>
           <article class="feature-card">
@@ -249,6 +249,41 @@
       </div>
     </section>
 
+    <section class="alt" id="discuss">
+      <div class="wrap">
+        <div class="section-intro">
+          <p class="section-label">Обсудить проект</p>
+          <h2>Оставьте контакты — мы свяжемся</h2>
+          <p>Имя, телефон и коротко, что беспокоит. Заявка уходит в нашу CRM.</p>
+        </div>
+        <form id="discussForm" class="discuss-form" autocomplete="on">
+          <div class="field">
+            <label for="dName">Имя</label>
+            <input id="dName" name="name" required placeholder="Как к вам обращаться" />
+          </div>
+          <div class="field">
+            <label for="dPhone">Телефон <span style="color:var(--accent)">*</span></label>
+            <input id="dPhone" name="phone" type="tel" inputmode="tel" required placeholder="+7 9XX XXX-XX-XX" />
+          </div>
+          <div class="field">
+            <label for="dRestaurant">Ресторан / город</label>
+            <input id="dRestaurant" name="restaurant" placeholder="Например: Бистро, Санкт-Петербург" />
+          </div>
+          <div class="field">
+            <label for="dNote">Что обсудить</label>
+            <textarea id="dNote" name="note" rows="3" placeholder="Аудит, бот, консалтинг…"></textarea>
+          </div>
+          <label class="discuss-consent">
+            <input type="checkbox" id="dConsent" required />
+            <span>Согласен(на) на обработку персональных данных и на то, чтобы со мной связались</span>
+          </label>
+          <p class="discuss-err" id="dErr" hidden></p>
+          <p class="discuss-ok" id="dOk" hidden>Заявка отправлена. Мы напишем вам.</p>
+          <button class="btn btn-primary" type="submit" id="dSubmit">Отправить</button>
+        </form>
+      </div>
+    </section>
+
     <section class="cta-block" id="cta">
       <div class="wrap">
         <h2>Пилот на живой точке</h2>
@@ -275,5 +310,82 @@
       </div>
     </div>
   </footer>
+  <script src="/platform/config.js"></script>
+  <script>
+  (function () {
+    var form = document.getElementById("discussForm");
+    if (!form) return;
+    function digits(raw) {
+      var d = String(raw || "").replace(/\D/g, "");
+      if (d.length === 11 && d[0] === "8") d = "7" + d.slice(1);
+      if (d.length === 10) d = "7" + d;
+      return d;
+    }
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var err = document.getElementById("dErr");
+      var ok = document.getElementById("dOk");
+      err.hidden = true;
+      ok.hidden = true;
+      var phone = digits(document.getElementById("dPhone").value);
+      if (phone.length !== 11) {
+        err.textContent = "Укажите телефон в формате +7…";
+        err.hidden = false;
+        return;
+      }
+      if (!document.getElementById("dConsent").checked) {
+        err.textContent = "Нужно согласие на обработку данных и связь.";
+        err.hidden = false;
+        return;
+      }
+      var name = document.getElementById("dName").value.trim();
+      var rest = document.getElementById("dRestaurant").value.trim();
+      var note = document.getElementById("dNote").value.trim();
+      var phoneFmt = "+7 " + phone.slice(1, 4) + " " + phone.slice(4, 7) + "-" + phone.slice(7, 9) + "-" + phone.slice(9);
+      var btn = document.getElementById("dSubmit");
+      btn.disabled = true;
+      var base = (window.PLATFORM_API_URL || "").replace(/\/$/, "");
+      var payload = {
+        restaurant: rest || "Заявка с /sostoyanie/",
+        city: "",
+        contact: name,
+        phone: phoneFmt,
+        size: "",
+        sizeLabel: "",
+        problemLabel: "Обсудить проект",
+        problemK: 1,
+        expertLabel: "",
+        expertTier: "",
+        priceMin: 0,
+        priceMax: 0,
+        note: note || "Форма «Обсудить проект»",
+        consent: true
+      };
+      var done = function () {
+        ok.hidden = false;
+        form.reset();
+        btn.disabled = false;
+      };
+      if (!base) {
+        console.warn("[discuss] no API");
+        done();
+        return;
+      }
+      fetch(base + "/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      }).then(function (r) {
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        return r.json();
+      }).then(done).catch(function (ex) {
+        err.textContent = "Не удалось отправить. Напишите в Telegram @yank0vski.";
+        err.hidden = false;
+        btn.disabled = false;
+        console.warn(ex);
+      });
+    });
+  })();
+  </script>
 </body>
 </html>

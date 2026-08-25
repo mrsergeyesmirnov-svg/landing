@@ -246,8 +246,8 @@
         <p class="section-label">Диагностика</p>
         <h1>Оцените проект для своего ресторана</h1>
         <p>
-          Укажите ресторан, масштаб команды, как вы видите уровень проблемы и какого специалиста хотите.
-          Получите ориентировочную цену, скачайте коммерческое предложение и напишите нам в Telegram.
+          Укажите ресторан, масштаб команды и как вы чувствуете ваш ресторан.
+          Получите ориентировочную цену и скачайте коммерческое предложение.
         </p>
       </div>
 
@@ -283,49 +283,27 @@
             </select>
           </div>
 
-          <p class="section-label" style="margin: 18px 0 10px;">Как вы оцениваете уровень проблемы</p>
+          <p class="section-label" style="margin: 18px 0 10px;">Как вы чувствуете ваш ресторан</p>
           <div class="choice-grid cols-2" id="problemChoices">
             <label class="choice is-on">
-              <input type="radio" name="problem" value="1" data-label="Хотим проверить" checked />
+              <input type="radio" name="problem" value="audit" data-label="Хотим проверить" data-mode="audit" checked />
               <strong>Хотим проверить</strong>
-              <span>В целом нормально, нужна ясная картина</span>
+              <span>Аудит 4 часа · ясная картина без большого проекта</span>
             </label>
             <label class="choice">
-              <input type="radio" name="problem" value="1.2" data-label="Есть напряжение" />
+              <input type="radio" name="problem" value="1.2" data-label="Есть напряжение" data-mode="project" />
               <strong>Есть напряжение</strong>
               <span>Усталость, перегруз, гости заметно требовательнее</span>
             </label>
             <label class="choice">
-              <input type="radio" name="problem" value="1.5" data-label="Проблемы повторяются" />
+              <input type="radio" name="problem" value="1.5" data-label="Проблемы повторяются" data-mode="project" />
               <strong>Проблемы повторяются</strong>
               <span>Уже «решали», но снова возвращается</span>
             </label>
             <label class="choice">
-              <input type="radio" name="problem" value="2" data-label="Кризис" />
+              <input type="radio" name="problem" value="2" data-label="Кризис" data-mode="project" />
               <strong>Кризис</strong>
               <span>Нужно быстро понять, где теряется эффективность</span>
-            </label>
-          </div>
-
-          <p class="section-label" style="margin: 22px 0 10px;">Уровень специалиста</p>
-          <div class="choice-grid cols-3" id="expertChoices">
-            <label class="choice">
-              <input type="radio" name="expert" value="3500" data-label="Менеджер" data-tier="менеджер" />
-              <span class="tier">Менеджер</span>
-              <strong>Сопровождение</strong>
-              <span>Базовый уровень ведения проекта</span>
-            </label>
-            <label class="choice is-on">
-              <input type="radio" name="expert" value="5000" data-label="Специалист" data-tier="специалист" checked />
-              <span class="tier">Специалист</span>
-              <strong>Среднее звено</strong>
-              <span>Диагностика и внедрение изменений</span>
-            </label>
-            <label class="choice">
-              <input type="radio" name="expert" value="7500" data-label="Эксперт / аналитик" data-tier="эксперт" />
-              <span class="tier">Эксперт</span>
-              <strong>Аналитик</strong>
-              <span>Сложные случаи и системный разбор</span>
             </label>
           </div>
 
@@ -342,33 +320,43 @@
               <a href="/sostoyanie/privacy.html" target="_blank" rel="noopener">Политикой конфиденциальности</a>.
             </span>
           </label>
+          <label class="consent" id="contactBox" style="margin-top:10px">
+            <input type="checkbox" id="contactOk" name="contactOk" required />
+            <span>
+              Согласен(на), чтобы со мной связались по указанному телефону по поводу расчёта и диагностики.
+            </span>
+          </label>
           <p class="err" id="formErr"></p>
         </form>
 
         <aside class="panel" id="resultPanel">
           <h2>Ориентир цены</h2>
           <p class="result-meta" id="summaryLine">—</p>
-          <div class="result-price">от <em id="priceMin">—</em></div>
-          <p class="result-meta">до <strong id="priceMax">—</strong></p>
+          <div class="result-price"><em id="priceMid">—</em></div>
           <p class="result-meta" id="splitLine"></p>
-          <p class="result-meta" id="expertLine"></p>
+          <p class="result-meta" id="modeLine"></p>
 
           <div class="btn-row">
             <button class="btn btn-primary" type="button" id="btnPdf">Скачать коммерческое предложение</button>
             <a class="btn btn-ghost" id="btnTg" href="https://t.me/yank0vski" target="_blank" rel="noopener">Написать в Telegram</a>
           </div>
 
-          <div class="tg-box">
+          <div class="tg-box" id="subsBox">
             <p>
-              <strong>Цена — ориентир, не счёт.</strong>
-              Чтобы скачать КП и написать нам, нужны телефон и согласие на обработку данных.
-              После скачивания откроется Telegram с уже подставленным расчётом и телефоном —
-              так заявка доходит до нас.
+              <strong>Нужен только бот — без аудита и консалтинга?</strong>
+              Подписка на мониторинг смены:
             </p>
-            <a class="btn btn-primary" id="btnTgBig" href="https://t.me/yank0vski" target="_blank" rel="noopener">Открыть Telegram →</a>
+            <ul style="margin:10px 0 0;padding-left:1.1em;color:var(--muted);font-size:0.9rem;line-height:1.55">
+              <li>До 10 сотрудников — <strong>2 990 ₽/мес</strong></li>
+              <li>11–25 — <strong>6 990 ₽/мес</strong></li>
+              <li>26–40 — <strong>8 990 ₽/мес</strong></li>
+              <li>40+ — индивидуально · пилот 14 дней бесплатно</li>
+            </ul>
+            <a class="btn btn-ghost" href="/sostoyanie/demo.html" style="margin-top:14px;width:100%">Смотреть демо бота</a>
           </div>
           <p class="hint">
-            Расчёт по методике «Состояние смены»: часы диагностики, работы и контроля × уровень проблемы × уровень специалиста.
+            Расчёт по методике «Состояние смены». Ставка часа — 3 000 ₽.
+            «Хотим проверить» — фиксированный аудит 4 ч = 20 000 ₽.
             Итоговая смета согласуется после короткого разговора.
           </p>
         </aside>
@@ -391,6 +379,7 @@
     </div>
   </footer>
 
+  <script src="/platform/config.js"></script>
   <script>
   (function () {
     var MATRIX = {
@@ -399,26 +388,27 @@
       L:  { diag: [12, 20], work: [25, 45], ctrl: [6, 10], label: "50–100 сотрудников" },
       XL: { diag: [20, 40], work: [40, 80], ctrl: [10, 20], label: "100+ сотрудников" }
     };
+    var RATE = 3000;
+    var AUDIT_HOURS = 4;
+    var AUDIT_PRICE = RATE * AUDIT_HOURS;
 
     function money(n) {
       return Math.round(n).toLocaleString("ru-RU") + " ₽";
     }
     function todayISO() {
-      var d = new Date();
-      return d.toISOString().slice(0, 10);
+      return new Date().toISOString().slice(0, 10);
     }
     function checked(name) {
       return document.querySelector('input[name="' + name + '"]:checked');
     }
-
     function syncChoices(groupId) {
       var root = document.getElementById(groupId);
+      if (!root) return;
       root.querySelectorAll(".choice").forEach(function (el) {
         var input = el.querySelector("input");
         el.classList.toggle("is-on", !!(input && input.checked));
       });
     }
-
     function normalizePhone(raw) {
       var digits = String(raw || "").replace(/\D/g, "");
       if (digits.length === 11 && digits[0] === "8") digits = "7" + digits.slice(1);
@@ -429,29 +419,29 @@
       if (digits.length !== 11 || digits[0] !== "7") return "";
       return "+7 " + digits.slice(1, 4) + " " + digits.slice(4, 7) + "-" + digits.slice(7, 9) + "-" + digits.slice(9);
     }
-    function phoneOk(raw) {
-      return normalizePhone(raw).length === 11;
-    }
-    function consentOk() {
-      return document.getElementById("consent").checked;
-    }
+    function phoneOk(raw) { return normalizePhone(raw).length === 11; }
+    function consentOk() { return document.getElementById("consent").checked; }
+    function contactOk() { return document.getElementById("contactOk").checked; }
+
     function showErr(msg) {
       var el = document.getElementById("formErr");
       var box = document.getElementById("consentBox");
+      var cbox = document.getElementById("contactBox");
       if (!msg) {
         el.textContent = "";
         el.classList.remove("on");
         box.classList.remove("is-bad");
+        cbox.classList.remove("is-bad");
         return;
       }
       el.textContent = msg;
       el.classList.add("on");
-      if (!consentOk()) box.classList.add("is-bad");
-      else box.classList.remove("is-bad");
+      box.classList.toggle("is-bad", !consentOk());
+      cbox.classList.toggle("is-bad", !contactOk());
     }
+
     function gateReady() {
-      var phone = document.getElementById("phone").value;
-      var ok = phoneOk(phone) && consentOk();
+      var ok = phoneOk(document.getElementById("phone").value) && consentOk() && contactOk();
       document.getElementById("btnPdf").disabled = !ok;
       document.getElementById("btnPdf").classList.toggle("is-disabled", !ok);
       return ok;
@@ -461,15 +451,26 @@
       var size = document.getElementById("size").value;
       var m = MATRIX[size];
       var problemEl = checked("problem");
-      var expertEl = checked("expert");
-      var k = Number(problemEl.value);
-      var rate = Number(expertEl.value);
-      var hoursMin = m.diag[0] + m.work[0] + m.ctrl[0];
-      var hoursMax = m.diag[1] + m.work[1] + m.ctrl[1];
-      var hMin = hoursMin * k;
-      var hMax = hoursMax * k;
+      var mode = problemEl.getAttribute("data-mode") || "project";
+      var label = problemEl.getAttribute("data-label");
       var phoneRaw = document.getElementById("phone").value.trim();
       var phoneDigits = normalizePhone(phoneRaw);
+      var hoursAvg, price, problemK, modeTitle;
+
+      if (mode === "audit") {
+        hoursAvg = AUDIT_HOURS;
+        price = AUDIT_PRICE;
+        problemK = 1;
+        modeTitle = "Аудит · 4 часа";
+      } else {
+        problemK = Number(problemEl.value);
+        var hoursMin = (m.diag[0] + m.work[0] + m.ctrl[0]) * problemK;
+        var hoursMax = (m.diag[1] + m.work[1] + m.ctrl[1]) * problemK;
+        hoursAvg = (hoursMin + hoursMax) / 2;
+        price = hoursAvg * RATE;
+        modeTitle = "Проект · ставка " + money(RATE) + "/ч";
+      }
+
       return {
         restaurant: document.getElementById("restaurant").value.trim() || "Ресторан",
         city: document.getElementById("city").value.trim() || "—",
@@ -479,17 +480,20 @@
         note: document.getElementById("note").value.trim(),
         size: size,
         sizeLabel: m.label,
-        problemLabel: problemEl.getAttribute("data-label"),
-        problemK: k,
-        expertLabel: expertEl.getAttribute("data-label"),
-        expertTier: expertEl.getAttribute("data-tier"),
-        rate: rate,
-        hMin: hMin,
-        hMax: hMax,
-        priceMin: hMin * rate,
-        priceMax: hMax * rate,
+        problemLabel: label,
+        problemK: problemK,
+        mode: mode,
+        modeTitle: modeTitle,
+        rate: RATE,
+        hours: hoursAvg,
+        price: price,
+        priceMin: price,
+        priceMax: price,
+        expertLabel: "ставка " + money(RATE) + "/ч",
+        expertTier: "фикс",
         date: todayISO(),
-        consent: consentOk()
+        consent: consentOk(),
+        contactConsent: contactOk()
       };
     }
 
@@ -502,33 +506,31 @@
         "Имя: " + s.contact,
         "Телефон: " + s.phone,
         "Сотрудники: " + s.sizeLabel,
-        "Уровень проблемы: " + s.problemLabel + " (×" + s.problemK.toFixed(1) + ")",
-        "Специалист: " + s.expertLabel,
-        "Ориентир цены: " + money(s.priceMin) + " – " + money(s.priceMax),
-        "Согласие на обработку ПДн: да"
+        "Как чувствую ресторан: " + s.problemLabel,
+        "Ориентир: " + money(s.price) + " (" + s.modeTitle + ", ~" + Math.round(s.hours) + " ч)",
+        "Согласие на ПДн: да",
+        "Согласие на связь: да"
       ];
       if (s.note) lines.push("Что беспокоит: " + s.note);
       return lines.join("\n");
     }
 
     function updateTg(s) {
-      var url = "https://t.me/yank0vski?text=" + encodeURIComponent(tgText(s));
-      document.getElementById("btnTg").href = url;
-      document.getElementById("btnTgBig").href = url;
+      document.getElementById("btnTg").href =
+        "https://t.me/yank0vski?text=" + encodeURIComponent(tgText(s));
     }
 
     function calc() {
       syncChoices("problemChoices");
-      syncChoices("expertChoices");
       var s = state();
       document.getElementById("summaryLine").textContent =
         s.restaurant + " · " + s.sizeLabel + " · " + s.problemLabel;
-      document.getElementById("priceMin").textContent = money(s.priceMin);
-      document.getElementById("priceMax").textContent = money(s.priceMax);
+      document.getElementById("priceMid").textContent = money(s.price);
       document.getElementById("splitLine").textContent =
-        "Часы проекта (оценка): " + s.hMin.toFixed(0) + "–" + s.hMax.toFixed(0) + " ч";
-      document.getElementById("expertLine").textContent =
-        "Специалист: " + s.expertLabel + " · уровень «" + s.expertTier + "»";
+        s.mode === "audit"
+          ? "Аудит: " + AUDIT_HOURS + " ч × " + money(RATE) + "/ч"
+          : "Ориентир часов: ~" + Math.round(s.hours) + " ч × " + money(RATE) + "/ч";
+      document.getElementById("modeLine").textContent = s.modeTitle;
       updateTg(s);
       gateReady();
       return s;
@@ -545,18 +547,22 @@
         "<strong>Телефон:</strong> " + s.phone + "</p>" +
         "<table><thead><tr><th>Параметр</th><th>Значение</th></tr></thead><tbody>" +
         "<tr><td>Масштаб команды</td><td>" + s.sizeLabel + "</td></tr>" +
-        "<tr><td>Уровень проблемы</td><td>" + s.problemLabel + "</td></tr>" +
-        "<tr><td>Уровень специалиста</td><td>" + s.expertLabel + "</td></tr>" +
-        "<tr><td>Оценка трудозатрат</td><td>" + s.hMin.toFixed(0) + "–" + s.hMax.toFixed(0) + " ч</td></tr>" +
+        "<tr><td>Как чувствуете ресторан</td><td>" + s.problemLabel + "</td></tr>" +
+        "<tr><td>Формат</td><td>" + s.modeTitle + "</td></tr>" +
+        "<tr><td>Оценка трудозатрат</td><td>~" + Math.round(s.hours) + " ч</td></tr>" +
+        "<tr><td>Ставка</td><td>" + money(RATE) + "/ч</td></tr>" +
         "</tbody></table>" +
-        '<p class="sum">Ориентир стоимости проекта: ' + money(s.priceMin) + " – " + money(s.priceMax) + "</p>" +
+        '<p class="sum">Ориентир стоимости: ' + money(s.price) + "</p>" +
         (s.note ? "<p><strong>Запрос клиента:</strong> " + s.note.replace(/</g, "&lt;") + "</p>" : "") +
-        "<p>Состав работы: диагностика состояния команды и операций, карта причин, план изменений, внедрение и контроль «было → стало».</p>" +
+        (s.mode === "audit"
+          ? "<p>Состав: экспресс-аудит состояния команды и операций (4 часа) — ясная картина «что происходит».</p>"
+          : "<p>Состав работы: диагностика состояния команды и операций, карта причин, план изменений, внедрение и контроль «было → стало».</p>") +
+        "<p><strong>Подписка на бот (если нужен только мониторинг):</strong> до 10 чел. — 2 990 ₽/мес; 11–25 — 6 990 ₽/мес; 26–40 — 8 990 ₽/мес; 40+ — индивидуально. Пилот 14 дней бесплатно.</p>" +
         '<p class="foot">' +
         "Исполнитель: ИП Смирнов Сергей Евгеньевич · ИНН 784815635497 · ОГРНИП 326784700194735<br/>" +
         "Telegram: @yank0vski · www.pulseteam.online<br/>" +
         "Документ носит ориентировочный характер. Итоговая смета согласуется после диагностики.<br/>" +
-        "Субъект дал согласие на обработку персональных данных при использовании калькулятора на сайте." +
+        "Субъект дал согласие на обработку персональных данных и на связь по указанному телефону." +
         "</p></div>"
       );
     }
@@ -572,6 +578,11 @@
         document.getElementById("consent").focus();
         return false;
       }
+      if (!contactOk()) {
+        showErr("Отметьте согласие на то, чтобы мы с вами связались.");
+        document.getElementById("contactOk").focus();
+        return false;
+      }
       showErr("");
       return true;
     }
@@ -579,7 +590,7 @@
     function saveLeadToCrm(s) {
       var base = (window.PLATFORM_API_URL || "").replace(/\/$/, "");
       if (!base || base.indexOf("REPLACE_WITH") >= 0) {
-        console.warn("[diagnostika] PLATFORM_API_URL не задан — лид только в Telegram");
+        console.warn("[diagnostika] PLATFORM_API_URL не задан");
         return Promise.resolve(null);
       }
       return fetch(base + "/api/leads", {
@@ -596,17 +607,13 @@
           problemK: s.problemK,
           expertLabel: s.expertLabel,
           expertTier: s.expertTier,
-          priceMin: s.priceMin,
-          priceMax: s.priceMax,
+          priceMin: s.price,
+          priceMax: s.price,
           note: s.note,
           consent: true
         })
       }).then(function (r) {
-        if (!r.ok) {
-          return r.text().then(function (t) {
-            throw new Error(t || ("HTTP " + r.status));
-          });
-        }
+        if (!r.ok) return r.text().then(function (t) { throw new Error(t || ("HTTP " + r.status)); });
         return r.json();
       }).then(function (data) {
         console.log("[diagnostika] lead saved", data);
@@ -626,26 +633,23 @@
         root.hidden = false;
         window.print();
         setTimeout(function () { root.hidden = true; }, 400);
-        window.open(document.getElementById("btnTg").href, "_blank", "noopener");
       });
     };
 
     document.getElementById("btnTg").addEventListener("click", function (e) {
       if (!requireLead()) { e.preventDefault(); return; }
-      saveLeadToCrm(calc());
-    });
-    document.getElementById("btnTgBig").addEventListener("click", function (e) {
-      if (!requireLead()) { e.preventDefault(); return; }
+      calc();
       saveLeadToCrm(calc());
     });
 
-    ["size", "restaurant", "city", "contact", "phone", "note", "consent"].forEach(function (id) {
+    ["size", "restaurant", "city", "contact", "phone", "note", "consent", "contactOk"].forEach(function (id) {
       var el = document.getElementById(id);
+      if (!el) return;
       el.addEventListener("input", function () { showErr(""); calc(); });
       el.addEventListener("change", function () { showErr(""); calc(); });
     });
-    document.querySelectorAll('input[name="problem"], input[name="expert"]').forEach(function (el) {
-      el.addEventListener("change", calc);
+    document.querySelectorAll('input[name="problem"]').forEach(function (el) {
+      el.addEventListener("change", function () { showErr(""); calc(); });
     });
 
     calc();
