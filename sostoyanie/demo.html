@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Демо бота — Состояние смены</title>
-  <meta name="description" content="Демо бота «Состояние смены»: оценка 1–10 после смены, отчёты и горящие вопросы, ИИ-помощник в диалоге." />
+  <meta name="description" content="Демо бота «Состояние смены»: настроение смены, что мешало, голос с распознаванием, отчёты и горящие вопросы." />
   <meta name="robots" content="index,follow" />
   <link rel="canonical" href="https://www.pulseteam.online/sostoyanie/demo.html" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -389,7 +389,7 @@
       <div class="slide-copy">
         <span class="slide-tag">01 · Оценка после смены</span>
         <h1>Как проходит обновлённая оценка персонала</h1>
-        <p>За 30–60 секунд в личке: оценка 1–10, что повлияло, что было хорошего и что мешало, нужно ли внимание. Анонимно — в группе имён нет.</p>
+        <p>Анонимно в личке: как прошла смена (4 варианта), что мешало — и текст или голос. Бот распознаёт голос и сохраняет без имён.</p>
       </div>
       <div class="phone">
         <div class="phone-notch"><span></span></div>
@@ -402,57 +402,41 @@
           </div>
         </div>
         <div class="tg-chat">
-          <div class="tg-date">Пятница, 23:40</div>
+          <div class="tg-date">После смены</div>
           <div class="msg msg-in">
             <div class="bubble">
-              <b>Оцените смену от 1 до 10</b><br />
-              Только здесь, анонимно.
+              Здесь можно ответить анонимно — <b>как прошла смена?</b>
               <span class="time">23:40</span>
             </div>
           </div>
           <div class="tg-kbd msg-in">
-            <button type="button" class="stars">1  2  3  4  5  6  7  8  9  10</button>
+            <button type="button">🔥 Заряженная</button>
+            <button type="button">😐 Нормальная</button>
+            <button type="button">😐 Так себе</button>
+            <button type="button">😨 Тяжёлая</button>
+          </div>
+          <div class="msg msg-out">
+            <div class="bubble">😐 Так себе<span class="time">23:41</span></div>
           </div>
           <div class="msg msg-in">
             <div class="bubble">
-              Оценка <b>7</b> сохранена.<br />
-              <b>Что повлияло на смену?</b> Можно несколько.
+              <b>Что мешало работать?</b>
               <span class="time">23:41</span>
             </div>
           </div>
           <div class="tg-kbd msg-in">
             <button type="button">👥 Команда</button>
-            <button type="button">🍽 Гости</button>
-            <button type="button">😓 Нагрузка</button>
-            <button type="button">⚡ Конфликт</button>
-          </div>
-          <div class="msg msg-in">
-            <div class="bubble">
-              Коротко: <b>что было хорошего</b> и <b>что мешало</b>?
-              <span class="time">23:42</span>
-            </div>
-          </div>
-          <div class="msg msg-out">
-            <div class="bubble">
-              Хорошо: гости спокойные. Мешало: долго ждали блюда с кухни.
-              <span class="time">23:43</span>
-            </div>
-          </div>
-          <div class="msg msg-in">
-            <div class="bubble">
-              Нужно ли обратить внимание руководства?
-              <span class="time">23:43</span>
-            </div>
-          </div>
-          <div class="tg-kbd msg-in">
-            <button type="button">Да</button>
-            <button type="button">Нет</button>
+            <button type="button">👨‍🍳 Кухня</button>
+            <button type="button">👨‍👩‍👧‍👦 Гости</button>
+            <button type="button">⚙️ Процессы</button>
+            <button type="button">🧠 Моё состояние</button>
+            <button type="button">✨ Нигде — всё прошло хорошо</button>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 2. Управляющий: отчёты + горящие -->
+    <!-- 2. Управляющий<!-- 2. Управляющий: отчёты + горящие -->
     <section class="slide" id="s2">
       <div class="slide-copy">
         <span class="slide-tag">02 · Управляющий</span>
@@ -472,12 +456,12 @@
         <div class="tg-chat">
           <div class="msg msg-in">
             <div class="bubble report-block">
-              <div class="r-title">📊 Индекс состояния команды</div>
+              <div class="r-title">📊 Сводка настроения смены</div>
               <b>Бистро на Невском</b><br />
               <span class="r-muted">Неделя · 27.05 — 03.06</span>
               <div class="r-section">
-                Индекс: <b>7,1 / 10</b> · было 7,8 (−0,7)<br />
-                Ответов: <b>42</b> · «нужно внимание»: <b>9</b>
+                «Так себе» + «тяжёлая»: <b>38%</b> смен<br />
+                Ответов: <b>42</b> · чаще мешало: <b>команда, кухня</b>
               </div>
               <div class="r-section">
                 <b>Факторы снижения</b>
@@ -522,62 +506,59 @@
     <section class="slide" id="s3">
       <div class="slide-copy">
         <span class="slide-tag">03 · ИИ-помощник</span>
-        <h1>Спросите бота — он ответит по данным смены</h1>
-        <p>Не готовый отчёт «на всё», а разговор: почему упал индекс, что повторяется, на что смотреть на планёрке.</p>
+        <h1>Голос и текст — бот понимает и отвечает</h1>
+        <p>Сотрудник может наговорить голосовое. Бот распознаёт, сохраняет суть анонимно и благодарит. Управляющий видит сигнал, не личность.</p>
       </div>
       <div class="phone">
         <div class="phone-notch"><span></span></div>
         <div class="tg-head">
           <span class="tg-back">‹</span>
-          <div class="tg-avatar">ИИ</div>
+          <div class="tg-avatar">СС</div>
           <div class="tg-title">
-            <strong>ИИ-помощник</strong>
-            <small>Состояние смены</small>
+            <strong>Состояние смены</strong>
+            <small>ИИ · голос</small>
           </div>
         </div>
         <div class="tg-chat">
           <div class="msg msg-in">
             <div class="bubble">
-              Могу разобрать ответы смены за период. Спросите, например: почему упал индекс, что чаще мешало, где красные флаги.
-              <span class="time">09:18</span>
+              Расскажите подробнее текстом или голосом — что мешало.
+              <span class="time">23:42</span>
             </div>
           </div>
           <div class="msg msg-out">
             <div class="bubble">
-              Почему индекс упал на этой неделе?
-              <span class="time">09:19</span>
+              🎤 голосовое · 0:18
+              <span class="time">23:43</span>
             </div>
           </div>
           <div class="msg msg-in">
             <div class="bubble">
-              Индекс <b>7,1</b> (−0,7 к прошлой неделе). Главные факторы: <b>нагрузка</b> (14) и <b>команда</b> (11). Пик — пятница–суббота. В комментариях часто «долго ждут с кухни».
-              <span class="time">09:19</span>
-            </div>
-          </div>
-          <div class="msg msg-out">
-            <div class="bubble">
-              Что взять на планёрку?
-              <span class="time">09:20</span>
+              <b>Распознали:</b> «…просто я хочу уволиться вообще, если ничего не изменится.»
+              <span class="time">23:43</span>
             </div>
           </div>
           <div class="msg msg-in">
             <div class="bubble">
-              1) Раздача в пик пятницы — уже в «горящих».<br />
-              2) Напряжение в команде — 5 отметок, статус «новая».<br />
-              3) Не искать виноватых: смотреть график и передачу зал ↔ кухня.
-              <span class="time">09:20</span>
+              Спасибо за честную обратную связь ❤️
+              <span class="time">23:43</span>
             </div>
           </div>
-          <div class="tg-kbd msg-in">
-            <button type="button">Почему упал индекс?</button>
-            <button type="button">Что повторяется?</button>
-            <button type="button">Красные флаги</button>
+          <div class="msg msg-in">
+            <div class="bubble report-block">
+              <div class="r-title">Для управляющего</div>
+              <span class="r-muted">анонимно · тема: моё состояние</span>
+              <div class="r-section">
+                Сигнал напряжения в команде. В отчёте — без имён, с динамикой по неделям.
+              </div>
+              <span class="time">09:10</span>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- CTA -->
+    <!-- CTA --><!-- CTA -->
     <section class="slide" id="s4">
       <div class="slide-final">
         <span class="slide-tag">Демо · выдуманные данные</span>

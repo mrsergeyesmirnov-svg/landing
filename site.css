@@ -338,8 +338,6 @@ h3 {
 }
 .block-card h3 { margin: 0 0 8px; }
 .block-card p { margin: 0; color: var(--muted); font-family: "Mulish", sans-serif; font-size: 0.9rem; }
-/* Пасхалка: карточка «Люди» — тихий розовый бордер */
-.block-card:first-child { border-color: var(--love); }
 
 /* ─── Chains ─────────────────────────────────────────────────────────────────── */
 .chains { margin: 24px 0 0; display: grid; gap: 12px; }
