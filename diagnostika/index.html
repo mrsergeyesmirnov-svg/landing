@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Mulish:wght@400;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/site.css?v=calc1" />
+  <link rel="stylesheet" href="/site.css?v=calc2" />
   <script src="/platform/config.js"></script>
   <style>
     .calc-page { padding: 40px 0 72px; }
@@ -488,7 +488,7 @@
         var hoursMax = (m.diag[1] + m.work[1] + m.ctrl[1]) * problemK;
         hoursAvg = (hoursMin + hoursMax) / 2;
         price = hoursAvg * RATE;
-        modeTitle = "Проект · ставка " + money(RATE) + "/ч";
+        modeTitle = "Проект";
       }
 
       return {
@@ -511,7 +511,7 @@
         price: price,
         priceMin: price,
         priceMax: price,
-        expertLabel: "ставка " + money(RATE) + "/ч",
+        expertLabel: mode === "audit" ? "Аудит" : "Проект",
         expertTier: "фикс",
         date: todayISO(),
         consent: consentOk(),
@@ -520,6 +520,10 @@
     }
 
     function tgText(s) {
+      var orient =
+        s.mode === "audit"
+          ? money(s.price) + " (аудит)"
+          : money(s.price) + " (проект)";
       var lines = [
         "Здравствуйте! Хочу диагностику ресторана.",
         "",
@@ -530,7 +534,7 @@
         "Telegram: " + s.telegram,
         "Сотрудники: " + s.sizeLabel,
         "Как чувствую ресторан: " + s.problemLabel,
-        "Ориентир: " + money(s.price) + " (" + s.modeTitle + ", ~" + Math.round(s.hours) + " ч)",
+        "Ориентир: " + orient,
         "Согласие на ПДн: да",
         "Согласие на связь: да"
       ];
@@ -634,7 +638,8 @@
           priceMin: s.price,
           priceMax: s.price,
           note: s.note,
-          consent: true
+          consent: true,
+          source: "diagnostika"
         })
       }).then(function (r) {
         if (!r.ok) return r.text().then(function (t) { throw new Error(t || ("HTTP " + r.status)); });

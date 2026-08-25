@@ -148,6 +148,7 @@ class LeadIn(BaseModel):
     priceMax: float = 0
     note: str = Field(default="", max_length=2000)
     consent: bool = False
+    source: str = Field(default="diagnostika", max_length=40)
 
 
 def _norm_telegram(raw: str) -> str:
@@ -172,9 +173,10 @@ async def create_lead(body: LeadIn, request: Request) -> dict[str, Any]:
     tg_store = telegram if telegram.isdigit() else (f"@{telegram}" if telegram else "")
     pool = await get_pool()
 
-    name = (body.restaurant or "Лид с калькулятора").strip()
+    source = (body.source or "diagnostika").strip()[:40] or "diagnostika"
+    name = (body.restaurant or "Лид с сайта").strip()
     meta = {
-        "source": "diagnostika",
+        "source": source,
         "size": body.size,
         "sizeLabel": body.sizeLabel,
         "problemLabel": body.problemLabel,
@@ -191,11 +193,14 @@ async def create_lead(body: LeadIn, request: Request) -> dict[str, Any]:
         note_bits.append(body.note)
     if tg_store:
         note_bits.append(f"Telegram: {tg_store}")
-    note_bits.append(
-        f"Калькулятор: {body.sizeLabel or body.size}, "
-        f"{body.problemLabel}, {body.expertLabel}, "
-        f"{int(body.priceMin):,} ₽".replace(",", " ")
-    )
+    if body.priceMin or body.sizeLabel or body.expertLabel:
+        note_bits.append(
+            f"{source}: {body.sizeLabel or body.size}, "
+            f"{body.problemLabel}, {body.expertLabel}, "
+            f"{int(body.priceMin):,} ₽".replace(",", " ")
+        )
+    elif body.problemLabel:
+        note_bits.append(f"{source}: {body.problemLabel}")
     notes = "\n".join(note_bits)
 
     async with pool.acquire() as conn:
