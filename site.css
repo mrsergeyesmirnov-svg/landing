@@ -370,6 +370,77 @@ h3 {
 }
 .flow span { color: var(--gold); font-weight: 800; flex: 0 0 1.4em; }
 
+/* ─── Stair (7 этапов) ───────────────────────────────────────────────────────── */
+.stair {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+  max-width: 720px;
+}
+.stair-step {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 16px 18px;
+  background: linear-gradient(105deg, #fff 0%, #fef9f0 100%);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 14px 14px 0;
+  font-family: "Mulish", sans-serif;
+  animation: stairIn 0.55s var(--ease) both;
+}
+.stair-step:nth-child(1) { margin-left: 0; animation-delay: 0.05s; }
+.stair-step:nth-child(2) { margin-left: 4%; animation-delay: 0.1s; }
+.stair-step:nth-child(3) { margin-left: 8%; animation-delay: 0.15s; }
+.stair-step:nth-child(4) { margin-left: 12%; animation-delay: 0.2s; }
+.stair-step:nth-child(5) { margin-left: 16%; animation-delay: 0.25s; }
+.stair-step:nth-child(6) { margin-left: 20%; animation-delay: 0.3s; }
+.stair-step:nth-child(7) {
+  margin-left: 24%;
+  animation-delay: 0.35s;
+  background: linear-gradient(105deg, #fef3de 0%, #f7dfa0 100%);
+  border-left-color: var(--accent);
+}
+.stair-num {
+  flex: 0 0 2rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Mulish", sans-serif;
+  font-weight: 800;
+  font-size: 0.85rem;
+  color: #fff;
+  background: var(--gold);
+  margin-top: 2px;
+}
+.stair-step-last .stair-num { background: var(--accent); }
+.stair-step h3 {
+  margin: 0 0 4px;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.2;
+}
+.stair-step p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+@keyframes stairIn {
+  from { opacity: 0; transform: translateX(-12px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@media (max-width: 640px) {
+  .stair-step:nth-child(n) { margin-left: 0; }
+}
+
 /* ─── Mini label ─────────────────────────────────────────────────────────────── */
 .mini-label {
   display: block;

@@ -8,7 +8,7 @@
     { id: "brief", label: "Квалификация" },
     { id: "sale", label: "Продажа" },
     { id: "diagnose", label: "Диагноз / точка отсчёта" },
-    { id: "change", label: "Изменение 30/60/90" },
+    { id: "change", label: "План внедрения" },
     { id: "control", label: "Контроль" },
     { id: "sub", label: "Подписка" },
     { id: "pause", label: "Пауза" },

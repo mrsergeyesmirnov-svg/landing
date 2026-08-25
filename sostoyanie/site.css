@@ -536,6 +536,14 @@
       opacity: 0.95;
       font-size: 1.0625rem;
     }
+    .cta-block .hero-actions,
+    .cta-block .cta-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin: 0;
+    }
     .cta-block .btn-primary {
       background: #fff;
       color: var(--accent);
