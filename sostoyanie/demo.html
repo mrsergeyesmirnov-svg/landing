@@ -23,9 +23,9 @@
       --chat-bg: #0e1621;
       --bubble-in: #182533;
       --ink: #e8edf4;
-      --kbd: #2b5278;
-      --kbd-text: #6ab2f2;
-      --out-green: #2b5278;
+      --kbd: #253b55;
+      --kbd-text: #6cb2f3;
+      --out-msg: #3e6b4a;
       --radius-phone: 40px;
       --font: "Mulish", system-ui, -apple-system, sans-serif;
     }
@@ -205,6 +205,13 @@
       min-height: 380px;
       max-height: 440px;
       overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255,255,255,0.15) transparent;
+    }
+    .tg-chat::-webkit-scrollbar { width: 4px; }
+    .tg-chat::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.18);
+      border-radius: 4px;
     }
     .tg-date {
       text-align: center;
@@ -212,7 +219,7 @@
       color: var(--muted);
       margin: 4px 0 12px;
     }
-    .msg { max-width: 92%; margin-bottom: 6px; animation: msgIn 0.5s ease both; }
+    .msg { max-width: 88%; margin-bottom: 8px; animation: msgIn 0.5s ease both; }
     .msg:nth-child(2) { animation-delay: 0.08s; }
     .msg:nth-child(3) { animation-delay: 0.16s; }
     .msg:nth-child(4) { animation-delay: 0.24s; }
@@ -230,36 +237,51 @@
       font-size: 0.8125rem;
       line-height: 1.45;
       color: var(--ink);
+      overflow: hidden;
     }
     .msg-in .bubble { background: var(--bubble-in); border-radius: 4px 12px 12px 12px; }
-    .msg-out .bubble { background: var(--out-green); border-radius: 12px 4px 12px 12px; }
+    .msg-out .bubble {
+      background: var(--out-msg);
+      border-radius: 12px 4px 12px 12px;
+      color: #f0fdf4;
+    }
     .bubble b { font-weight: 700; }
     .bubble .time {
       float: right;
-      margin-left: 8px;
+      clear: right;
+      margin: 4px 0 0 10px;
       font-size: 0.625rem;
-      color: var(--muted);
-      margin-top: 4px;
+      color: rgba(232, 237, 244, 0.55);
+      line-height: 1.2;
     }
+    .msg-out .bubble .time { color: rgba(240, 253, 244, 0.65); }
     .tg-kbd {
       display: flex;
       flex-direction: column;
-      gap: 4px;
-      margin-top: 4px;
-      max-width: 92%;
+      gap: 5px;
+      margin: 2px 0 10px;
+      max-width: 88%;
+      width: 100%;
     }
     .tg-kbd.msg-in { margin-right: auto; }
     .tg-kbd button {
       font-family: inherit;
       font-size: 0.8125rem;
       font-weight: 600;
-      padding: 9px 12px;
-      border: none;
-      border-radius: 8px;
+      line-height: 1.2;
+      padding: 10px 12px;
+      border: 1px solid rgba(108, 178, 243, 0.22);
+      border-radius: 10px;
       background: var(--kbd);
       color: var(--kbd-text);
       cursor: default;
       text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+      box-shadow: none;
     }
     .tg-kbd button.stars { letter-spacing: 0.08em; font-size: 0.875rem; }
 
@@ -436,7 +458,7 @@
       </div>
     </section>
 
-    <!-- 2. Управляющий<!-- 2. Управляющий: отчёты + горящие -->
+    <!-- 2. Управляющий: отчёты + горящие -->
     <section class="slide" id="s2">
       <div class="slide-copy">
         <span class="slide-tag">02 · Управляющий</span>
