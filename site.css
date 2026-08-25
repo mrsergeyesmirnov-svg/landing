@@ -374,49 +374,73 @@ h3 {
 .stair {
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding: 0 0 0 0;
   display: grid;
-  gap: 10px;
-  max-width: 720px;
+  gap: 0;
+  max-width: 640px;
+  position: relative;
+}
+.stair::before {
+  content: "";
+  position: absolute;
+  left: 19px;
+  top: 20px;
+  bottom: 20px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--gold-light), var(--gold), var(--accent));
+  opacity: 0.55;
+  border-radius: 2px;
 }
 .stair-step {
   display: flex;
-  gap: 16px;
+  gap: 18px;
   align-items: flex-start;
-  padding: 16px 18px;
-  background: linear-gradient(105deg, #fff 0%, #fef9f0 100%);
-  border: 1px solid var(--line);
-  border-left: 3px solid var(--gold);
-  border-radius: 0 14px 14px 0;
+  padding: 14px 0 14px 0;
+  margin: 0;
+  background: none;
+  border: none;
+  border-radius: 0;
   font-family: "Mulish", sans-serif;
-  animation: stairIn 0.55s var(--ease) both;
+  position: relative;
+  animation: stairIn 0.5s var(--ease) both;
 }
-.stair-step:nth-child(1) { margin-left: 0; animation-delay: 0.05s; }
-.stair-step:nth-child(2) { margin-left: 4%; animation-delay: 0.1s; }
-.stair-step:nth-child(3) { margin-left: 8%; animation-delay: 0.15s; }
-.stair-step:nth-child(4) { margin-left: 12%; animation-delay: 0.2s; }
-.stair-step:nth-child(5) { margin-left: 16%; animation-delay: 0.25s; }
-.stair-step:nth-child(6) { margin-left: 20%; animation-delay: 0.3s; }
-.stair-step:nth-child(7) {
-  margin-left: 24%;
-  animation-delay: 0.35s;
-  background: linear-gradient(105deg, #fef3de 0%, #f7dfa0 100%);
-  border-left-color: var(--accent);
+.stair-step:nth-child(1) { animation-delay: 0.04s; }
+.stair-step:nth-child(2) { animation-delay: 0.08s; }
+.stair-step:nth-child(3) { animation-delay: 0.12s; }
+.stair-step:nth-child(4) { animation-delay: 0.16s; }
+.stair-step:nth-child(5) { animation-delay: 0.2s; }
+.stair-step:nth-child(6) { animation-delay: 0.24s; }
+.stair-step:nth-child(7) { animation-delay: 0.28s; }
+.stair-step > div {
+  flex: 1;
+  min-width: 0;
+  padding: 14px 18px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+}
+.stair-step-last > div {
+  background: linear-gradient(135deg, #fef9f0 0%, #f7dfa0 100%);
+  border-color: var(--accent-mid);
 }
 .stair-num {
-  flex: 0 0 2rem;
-  width: 2rem;
-  height: 2rem;
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   font-family: "Mulish", sans-serif;
   font-weight: 800;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   color: #fff;
   background: var(--gold);
-  margin-top: 2px;
+  margin-top: 8px;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 0 0 6px var(--bg-warm);
 }
 .stair-step-last .stair-num { background: var(--accent); }
 .stair-step h3 {
@@ -434,11 +458,8 @@ h3 {
   line-height: 1.5;
 }
 @keyframes stairIn {
-  from { opacity: 0; transform: translateX(-12px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-@media (max-width: 640px) {
-  .stair-step:nth-child(n) { margin-left: 0; }
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* ─── Mini label ─────────────────────────────────────────────────────────────── */
