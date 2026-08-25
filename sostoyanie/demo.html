@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Демо бота — Состояние смены</title>
-  <meta name="description" content="Как выглядит бот «Состояние смены»: оценка после смены, отчёты и горящие вопросы для управляющего, ИИ-помощник." />
+  <meta name="description" content="Демо бота «Состояние смены»: оценка 1–10 после смены, отчёты и горящие вопросы, ИИ-помощник в диалоге." />
   <meta name="robots" content="index,follow" />
   <link rel="canonical" href="https://www.pulseteam.online/sostoyanie/demo.html" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -389,7 +389,7 @@
       <div class="slide-copy">
         <span class="slide-tag">01 · Оценка после смены</span>
         <h1>Как проходит обновлённая оценка персонала</h1>
-        <p>Коротко и анонимно: оценка дня, что мешало на смене и что мешало лично. В группе не видно, кто что нажал.</p>
+        <p>За 30–60 секунд в личке: оценка 1–10, что повлияло, что было хорошего и что мешало, нужно ли внимание. Анонимно — в группе имён нет.</p>
       </div>
       <div class="phone">
         <div class="phone-notch"><span></span></div>
@@ -405,36 +405,48 @@
           <div class="tg-date">Пятница, 23:40</div>
           <div class="msg msg-in">
             <div class="bubble">
-              <b>Как прошёл сегодняшний день?</b><br />
-              Оцените от 1 до 5 — только здесь, анонимно.
+              <b>Оцените смену от 1 до 10</b><br />
+              Только здесь, анонимно.
               <span class="time">23:40</span>
             </div>
           </div>
           <div class="tg-kbd msg-in">
-            <button type="button" class="stars">1 ⭐  2 ⭐  3 ⭐  4 ⭐  5 ⭐</button>
+            <button type="button" class="stars">1  2  3  4  5  6  7  8  9  10</button>
           </div>
           <div class="msg msg-in">
             <div class="bubble">
-              Спасибо! Оценка <b>4</b> сохранена ⭐<br />
-              Что мешало на смене? Можно несколько пунктов.
+              Оценка <b>7</b> сохранена.<br />
+              <b>Что повлияло на смену?</b> Можно несколько.
               <span class="time">23:41</span>
             </div>
           </div>
           <div class="tg-kbd msg-in">
-            <button type="button">🍽 Медленная кухня</button>
-            <button type="button">👥 Нехватка персонала</button>
-            <button type="button">😓 Сильная нагрузка</button>
+            <button type="button">👥 Команда</button>
+            <button type="button">🍽 Гости</button>
+            <button type="button">😓 Нагрузка</button>
+            <button type="button">⚡ Конфликт</button>
           </div>
           <div class="msg msg-in">
             <div class="bubble">
-              <b>Что мешало лично вам?</b>
+              Коротко: <b>что было хорошего</b> и <b>что мешало</b>?
               <span class="time">23:42</span>
             </div>
           </div>
+          <div class="msg msg-out">
+            <div class="bubble">
+              Хорошо: гости спокойные. Мешало: долго ждали блюда с кухни.
+              <span class="time">23:43</span>
+            </div>
+          </div>
+          <div class="msg msg-in">
+            <div class="bubble">
+              Нужно ли обратить внимание руководства?
+              <span class="time">23:43</span>
+            </div>
+          </div>
           <div class="tg-kbd msg-in">
-            <button type="button">😴 Усталость</button>
-            <button type="button">⏱ Не успевал по времени</button>
-            <button type="button">Пропустить</button>
+            <button type="button">Да</button>
+            <button type="button">Нет</button>
           </div>
         </div>
       </div>
@@ -445,7 +457,7 @@
       <div class="slide-copy">
         <span class="slide-tag">02 · Управляющий</span>
         <h1>Отчёты и горящие вопросы</h1>
-        <p>Сводка по залу и кухне — и темы, которые повторяются. Берёте в работу, пишете комментарий — команда видит реакцию.</p>
+        <p>Индекс команды, динамика по неделям, факторы снижения и красные флаги. Повторяющиеся темы — в работу с комментарием для смены.</p>
       </div>
       <div class="phone">
         <div class="phone-notch"><span></span></div>
@@ -460,17 +472,22 @@
         <div class="tg-chat">
           <div class="msg msg-in">
             <div class="bubble report-block">
-              <div class="r-title">📊 Сводка за неделю</div>
+              <div class="r-title">📊 Индекс состояния команды</div>
               <b>Бистро на Невском</b><br />
-              <span class="r-muted">27.05 — 03.06</span>
+              <span class="r-muted">Неделя · 27.05 — 03.06</span>
               <div class="r-section">
-                Средняя оценка: <b>3,8</b> ⭐ · ответов: <b>42</b>
+                Индекс: <b>7,1 / 10</b> · было 7,8 (−0,7)<br />
+                Ответов: <b>42</b> · «нужно внимание»: <b>9</b>
               </div>
               <div class="r-section">
-                <b>Что мешало чаще всего</b>
-                <li>• Нехватка персонала — <b>12</b></li>
-                <li>• Медленная кухня — <b>9</b></li>
-                <li>• Сильная нагрузка — <b>7</b></li>
+                <b>Факторы снижения</b>
+                <li>• Нагрузка — <b>14</b></li>
+                <li>• Команда — <b>11</b></li>
+                <li>• Гости — <b>6</b></li>
+              </div>
+              <div class="r-section">
+                <b>🚩 Красный флаг</b><br />
+                <span class="r-muted">Индекс падает 3 недели подряд</span>
               </div>
               <span class="time">09:15</span>
             </div>
@@ -480,14 +497,14 @@
               <div class="r-title">🔥 Горящие вопросы</div>
               <div class="problem-card">
                 <span class="status">🟡 В работе</span><br />
-                <b>Нехватка персонала</b><br />
-                12 отметок за 7 дней<br />
-                <span class="r-muted">Комментарий: усилили пятницу +1 в зале.</span>
+                <b>Долго ждут блюда с кухни</b><br />
+                8 отметок · «нужно внимание»<br />
+                <span class="r-muted">Комментарий: усилили пятницу +1 на раздаче.</span>
               </div>
               <div class="problem-card">
                 <span class="status" style="background:rgba(239,68,68,.2);color:#f87171">🔴 Новая</span><br />
-                <b>Медленная кухня</b><br />
-                9 отметок за 7 дней
+                <b>Напряжение в команде</b><br />
+                5 отметок за 7 дней
               </div>
               <span class="time">11:20</span>
             </div>
@@ -505,52 +522,56 @@
     <section class="slide" id="s3">
       <div class="slide-copy">
         <span class="slide-tag">03 · ИИ-помощник</span>
-        <h1>Готовые выводы без разбора чатов</h1>
-        <p>Помощник собирает повторяющиеся сигналы и предлагает, что проверить на планёрке — без поиска виноватых.</p>
+        <h1>Спросите бота — он ответит по данным смены</h1>
+        <p>Не готовый отчёт «на всё», а разговор: почему упал индекс, что повторяется, на что смотреть на планёрке.</p>
       </div>
       <div class="phone">
         <div class="phone-notch"><span></span></div>
         <div class="tg-head">
           <span class="tg-back">‹</span>
-          <div class="tg-avatar">СС</div>
+          <div class="tg-avatar">ИИ</div>
           <div class="tg-title">
-            <strong>Состояние смены</strong>
-            <small>ИИ-помощник</small>
+            <strong>ИИ-помощник</strong>
+            <small>Состояние смены</small>
           </div>
         </div>
         <div class="tg-chat">
           <div class="msg msg-in">
-            <div class="bubble report-block">
-              <div class="r-section" style="border:0;padding:0;margin:0">
-                <b>🧠 Выводы за неделю</b><br />
-                <span class="r-muted">Бистро на Невском</span>
-              </div>
-              <div class="insight">
-                <b>1. Перегрузка в часы пика</b>
-                <div class="factors"><i>Факторы:</i><br />
-                • Медленная кухня — <b>9</b><br />
-                • Нехватка персонала — <b>12</b></div>
-                <span class="rec-label">Что проверить:</span>
-                <span class="r-muted">График кухни и укомплектованность смены в пятницу–субботу.</span>
-              </div>
-              <div class="insight">
-                <b>2. Признаки усталости в команде</b>
-                <div class="factors"><i>Факторы:</i><br />
-                • Усталость — <b>11</b><br />
-                • Сильная нагрузка — <b>7</b></div>
-                <span class="rec-label">Что проверить:</span>
-                <span class="r-muted">Переработки и плотность графика — без персональных оценок.</span>
-              </div>
-              <div class="insight">
-                <b>3. Сбой в передаче зал ↔ кухня</b>
-                <div class="factors"><i>Факторы:</i><br />
-                • Сложности в общении — <b>5</b><br />
-                • Организация — <b>4</b></div>
-                <span class="rec-label">Что проверить:</span>
-                <span class="r-muted">Приоритеты заказов и кто подтверждает готовность блюд.</span>
-              </div>
-              <span class="time">09:16</span>
+            <div class="bubble">
+              Могу разобрать ответы смены за период. Спросите, например: почему упал индекс, что чаще мешало, где красные флаги.
+              <span class="time">09:18</span>
             </div>
+          </div>
+          <div class="msg msg-out">
+            <div class="bubble">
+              Почему индекс упал на этой неделе?
+              <span class="time">09:19</span>
+            </div>
+          </div>
+          <div class="msg msg-in">
+            <div class="bubble">
+              Индекс <b>7,1</b> (−0,7 к прошлой неделе). Главные факторы: <b>нагрузка</b> (14) и <b>команда</b> (11). Пик — пятница–суббота. В комментариях часто «долго ждут с кухни».
+              <span class="time">09:19</span>
+            </div>
+          </div>
+          <div class="msg msg-out">
+            <div class="bubble">
+              Что взять на планёрку?
+              <span class="time">09:20</span>
+            </div>
+          </div>
+          <div class="msg msg-in">
+            <div class="bubble">
+              1) Раздача в пик пятницы — уже в «горящих».<br />
+              2) Напряжение в команде — 5 отметок, статус «новая».<br />
+              3) Не искать виноватых: смотреть график и передачу зал ↔ кухня.
+              <span class="time">09:20</span>
+            </div>
+          </div>
+          <div class="tg-kbd msg-in">
+            <button type="button">Почему упал индекс?</button>
+            <button type="button">Что повторяется?</button>
+            <button type="button">Красные флаги</button>
           </div>
         </div>
       </div>

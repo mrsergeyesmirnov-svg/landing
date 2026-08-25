@@ -487,6 +487,7 @@
     }
     @media (min-width: 700px) {
       .pricing-cards { grid-template-columns: repeat(2, 1fr); }
+      .pricing-cards-single { grid-template-columns: 1fr; max-width: 520px; }
     }
     .price-card {
       background: var(--surface);
