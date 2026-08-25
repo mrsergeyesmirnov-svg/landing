@@ -272,6 +272,11 @@
             <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required placeholder="+7 9XX XXX-XX-XX" />
             <p class="hint" style="margin:6px 0 0">Нужен, чтобы мы понимали, кто скачал КП, и могли связаться.</p>
           </div>
+          <div class="field">
+            <label for="telegram">Telegram <span style="color:var(--gold)">*</span></label>
+            <input id="telegram" name="telegram" autocomplete="username" required placeholder="@username или числовой ID" />
+            <p class="hint" style="margin:6px 0 0">Username (@ник) или числовой Telegram ID — для связи и CRM.</p>
+          </div>
 
           <div class="field">
             <label for="size">Сколько сотрудников</label>
@@ -338,7 +343,8 @@
             <input type="checkbox" id="consent" name="consent" required />
             <span>
               Используя калькулятор и скачивая коммерческое предложение, я даю согласие на обработку
-              персональных данных (имя, телефон, сведения о ресторане) в соответствии с
+              персональных данных (имя, телефон, Telegram username/ID, сведения о ресторане)
+              в соответствии с
               <a href="/sostoyanie/privacy.html" target="_blank" rel="noopener">Политикой конфиденциальности</a>.
             </span>
           </label>
@@ -361,8 +367,8 @@
           <div class="tg-box">
             <p>
               <strong>Цена — ориентир, не счёт.</strong>
-              Чтобы скачать КП и написать нам, нужны телефон и согласие на обработку данных.
-              После скачивания откроется Telegram с уже подставленным расчётом и телефоном —
+              Чтобы скачать КП и написать нам, нужны телефон, Telegram и согласие на обработку данных.
+              После скачивания откроется Telegram с уже подставленным расчётом, телефоном и ником —
               так заявка доходит до нас.
             </p>
             <a class="btn btn-primary" id="btnTgBig" href="https://t.me/yank0vski" target="_blank" rel="noopener">Открыть Telegram →</a>
@@ -432,6 +438,22 @@
     function phoneOk(raw) {
       return normalizePhone(raw).length === 11;
     }
+    function normalizeTelegram(raw) {
+      var t = String(raw || "").trim();
+      if (!t) return "";
+      if (t.charAt(0) === "@") t = t.slice(1);
+      t = t.replace(/^https?:\/\/(t\.me|telegram\.me)\//i, "");
+      t = t.replace(/\/$/, "").trim();
+      return t;
+    }
+    function telegramOk(raw) {
+      var t = normalizeTelegram(raw);
+      if (!t) return false;
+      // username 5–32: a-z, 0-9, underscore; или числовой ID
+      if (/^\d{5,15}$/.test(t)) return true;
+      if (/^[A-Za-z0-9_]{5,32}$/.test(t)) return true;
+      return false;
+    }
     function consentOk() {
       return document.getElementById("consent").checked;
     }
@@ -450,8 +472,10 @@
       else box.classList.remove("is-bad");
     }
     function gateReady() {
-      var phone = document.getElementById("phone").value;
-      var ok = phoneOk(phone) && consentOk();
+      var ok =
+        phoneOk(document.getElementById("phone").value) &&
+        telegramOk(document.getElementById("telegram").value) &&
+        consentOk();
       document.getElementById("btnPdf").disabled = !ok;
       document.getElementById("btnPdf").classList.toggle("is-disabled", !ok);
       return ok;
@@ -470,12 +494,16 @@
       var hMax = hoursMax * k;
       var phoneRaw = document.getElementById("phone").value.trim();
       var phoneDigits = normalizePhone(phoneRaw);
+      var tg = normalizeTelegram(document.getElementById("telegram").value);
+      var tgDisplay = /^\d+$/.test(tg) ? tg : (tg ? "@" + tg : "");
       return {
         restaurant: document.getElementById("restaurant").value.trim() || "Ресторан",
         city: document.getElementById("city").value.trim() || "—",
         contact: document.getElementById("contact").value.trim() || "—",
         phone: formatPhone(phoneDigits) || phoneRaw,
         phoneDigits: phoneDigits,
+        telegram: tgDisplay,
+        telegramRaw: tg,
         note: document.getElementById("note").value.trim(),
         size: size,
         sizeLabel: m.label,
@@ -501,6 +529,7 @@
         "Город: " + s.city,
         "Имя: " + s.contact,
         "Телефон: " + s.phone,
+        "Telegram: " + s.telegram,
         "Сотрудники: " + s.sizeLabel,
         "Уровень проблемы: " + s.problemLabel + " (×" + s.problemK.toFixed(1) + ")",
         "Специалист: " + s.expertLabel,
@@ -542,7 +571,8 @@
         "<p><strong>Клиент:</strong> " + s.restaurant + "<br/>" +
         "<strong>Город:</strong> " + s.city + "<br/>" +
         "<strong>Контакт:</strong> " + s.contact + "<br/>" +
-        "<strong>Телефон:</strong> " + s.phone + "</p>" +
+        "<strong>Телефон:</strong> " + s.phone + "<br/>" +
+        "<strong>Telegram:</strong> " + s.telegram + "</p>" +
         "<table><thead><tr><th>Параметр</th><th>Значение</th></tr></thead><tbody>" +
         "<tr><td>Масштаб команды</td><td>" + s.sizeLabel + "</td></tr>" +
         "<tr><td>Уровень проблемы</td><td>" + s.problemLabel + "</td></tr>" +
@@ -565,6 +595,11 @@
       if (!phoneOk(document.getElementById("phone").value)) {
         showErr("Укажите телефон в формате +7… — без него КП не скачивается.");
         document.getElementById("phone").focus();
+        return false;
+      }
+      if (!telegramOk(document.getElementById("telegram").value)) {
+        showErr("Укажите Telegram: @username (от 5 символов) или числовой ID.");
+        document.getElementById("telegram").focus();
         return false;
       }
       if (!consentOk()) {
@@ -590,6 +625,7 @@
           city: s.city === "—" ? "" : s.city,
           contact: s.contact === "—" ? "" : s.contact,
           phone: s.phone,
+          telegram: s.telegram,
           size: s.size,
           sizeLabel: s.sizeLabel,
           problemLabel: s.problemLabel,
@@ -639,7 +675,7 @@
       saveLeadToCrm(calc());
     });
 
-    ["size", "restaurant", "city", "contact", "phone", "note", "consent"].forEach(function (id) {
+    ["size", "restaurant", "city", "contact", "phone", "telegram", "note", "consent"].forEach(function (id) {
       var el = document.getElementById(id);
       el.addEventListener("input", function () { showErr(""); calc(); });
       el.addEventListener("change", function () { showErr(""); calc(); });

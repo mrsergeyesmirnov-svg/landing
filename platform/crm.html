@@ -174,7 +174,7 @@
             '<div class="sticker-title">' + escapeHtml(c.name || "Без названия") +
             (badge ? '<span class="sticker-badge">' + badge + "</span>" : "") +
             "</div>" +
-            '<p class="sticker-sub">' + escapeHtml([c.city, c.contact].filter(Boolean).join(" · ") || "—") + "</p>" +
+            '<p class="sticker-sub">' + escapeHtml([c.city, c.contact, c.phone, c.telegram].filter(Boolean).join(" · ") || "—") + "</p>" +
             (note ? '<p class="sticker-meta">' + escapeHtml(note) + "</p>" : "") +
             (files ? '<div class="sticker-files">' + files + "</div>" : "") +
             '<div class="sticker-foot"><span class="status-pill ' + statusClass(c.status) + '">' +
@@ -234,7 +234,10 @@
           '<div class="field"><label>Город</label><input id="fCity" value="' + escapeAttr(c.city) + '" /></div>' +
           '<div class="field"><label>Контакт</label><input id="fContact" value="' + escapeAttr(c.contact) + '" /></div>' +
           "</div>" +
-          '<div class="field"><label>Telegram / телефон</label><input id="fTg" value="' + escapeAttr(c.telegram) + '" /></div>' +
+          '<div class="field-row cols-2">' +
+          '<div class="field"><label>Телефон</label><input id="fPhone" value="' + escapeAttr(c.phone || "") + '" /></div>' +
+          '<div class="field"><label>Telegram</label><input id="fTg" value="' + escapeAttr(c.telegram) + '" placeholder="@username или ID" /></div>' +
+          "</div>" +
           '<div class="field"><label>Статус воронки</label><select id="fStatus">' + statusOpts + "</select></div>" +
           '<div class="field"><label>Заметка на стикере</label><textarea id="fNotes" rows="3">' + escapeHtml(c.notes) + "</textarea></div>" +
           '<div class="crm-actions">' +
@@ -260,6 +263,7 @@
             name: document.getElementById("fName").value.trim(),
             city: document.getElementById("fCity").value.trim(),
             contact: document.getElementById("fContact").value.trim(),
+            phone: document.getElementById("fPhone").value.trim(),
             telegram: document.getElementById("fTg").value.trim(),
             status: document.getElementById("fStatus").value,
             notes: document.getElementById("fNotes").value.trim()
