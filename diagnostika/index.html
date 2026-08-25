@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Mulish:wght@400;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/site.css?v=calc2" />
+  <link rel="stylesheet" href="/site.css?v=calc3" />
   <script src="/platform/config.js"></script>
   <style>
     .calc-page { padding: 40px 0 72px; }
@@ -419,6 +419,38 @@
       if (digits.length !== 11 || digits[0] !== "7") return "";
       return "+7 " + digits.slice(1, 4) + " " + digits.slice(4, 7) + "-" + digits.slice(7, 9) + "-" + digits.slice(9);
     }
+    /** Маска ввода: сразу +7, формат +7 9XX XXX-XX-XX */
+    function maskRuPhone(raw) {
+      var d = String(raw || "").replace(/\D/g, "");
+      if (d.charAt(0) === "8") d = "7" + d.slice(1);
+      if (d.length && d.charAt(0) !== "7") d = "7" + d;
+      if (!d) return "+7 ";
+      d = d.slice(0, 11);
+      var rest = d.slice(1);
+      var out = "+7";
+      if (rest.length) out += " " + rest.slice(0, 3);
+      if (rest.length > 3) out += " " + rest.slice(3, 6);
+      if (rest.length > 6) out += "-" + rest.slice(6, 8);
+      if (rest.length > 8) out += "-" + rest.slice(8, 10);
+      return out;
+    }
+    function bindPhoneMask(el) {
+      if (!el) return;
+      el.addEventListener("focus", function () {
+        if (!String(el.value || "").replace(/\D/g, "")) el.value = "+7 ";
+      });
+      el.addEventListener("input", function () {
+        el.value = maskRuPhone(el.value);
+      });
+      el.addEventListener("keydown", function (e) {
+        if (e.key !== "Backspace") return;
+        var digits = String(el.value || "").replace(/\D/g, "");
+        if (digits.length <= 1) {
+          e.preventDefault();
+          el.value = "+7 ";
+        }
+      });
+    }
     function phoneOk(raw) { return normalizePhone(raw).length === 11; }
     function normalizeTelegram(raw) {
       var x = String(raw || "").trim();
@@ -670,6 +702,8 @@
       calc();
       saveLeadToCrm(calc());
     });
+
+    bindPhoneMask(document.getElementById("phone"));
 
     ["size", "restaurant", "city", "contact", "phone", "telegram", "note", "consent", "contactOk"].forEach(function (id) {
       var el = document.getElementById(id);

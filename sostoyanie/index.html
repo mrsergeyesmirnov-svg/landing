@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="site.css?v=s6" />
+  <link rel="stylesheet" href="site.css?v=s7" />
 </head>
 <body>
   <header class="no-print">
@@ -290,6 +290,37 @@
       if (d.length === 11 && d[0] === "8") d = "7" + d.slice(1);
       if (d.length === 10) d = "7" + d;
       return d;
+    }
+    function maskRuPhone(raw) {
+      var d = String(raw || "").replace(/\D/g, "");
+      if (d.charAt(0) === "8") d = "7" + d.slice(1);
+      if (d.length && d.charAt(0) !== "7") d = "7" + d;
+      if (!d) return "+7 ";
+      d = d.slice(0, 11);
+      var rest = d.slice(1);
+      var out = "+7";
+      if (rest.length) out += " " + rest.slice(0, 3);
+      if (rest.length > 3) out += " " + rest.slice(3, 6);
+      if (rest.length > 6) out += "-" + rest.slice(6, 8);
+      if (rest.length > 8) out += "-" + rest.slice(8, 10);
+      return out;
+    }
+    var phoneEl = document.getElementById("dPhone");
+    if (phoneEl) {
+      phoneEl.addEventListener("focus", function () {
+        if (!String(phoneEl.value || "").replace(/\D/g, "")) phoneEl.value = "+7 ";
+      });
+      phoneEl.addEventListener("input", function () {
+        phoneEl.value = maskRuPhone(phoneEl.value);
+      });
+      phoneEl.addEventListener("keydown", function (e) {
+        if (e.key !== "Backspace") return;
+        var d = String(phoneEl.value || "").replace(/\D/g, "");
+        if (d.length <= 1) {
+          e.preventDefault();
+          phoneEl.value = "+7 ";
+        }
+      });
     }
     form.addEventListener("submit", function (e) {
       e.preventDefault();
