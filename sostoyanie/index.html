@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="site.css?v=s4" />
+  <link rel="stylesheet" href="site.css?v=s5" />
 </head>
 <body>
   <header class="no-print">
@@ -215,46 +215,12 @@
       </div>
     </section>
 
-    <section class="white" id="project-estimate">
-      <div class="wrap">
-        <div class="section-intro">
-          <p class="section-label">Оценка проекта</p>
-          <h2>Не только по числу сотрудников</h2>
-          <p>
-            Ресторан на 30 человек может быть сложнее, чем на 100. Не считаем только по штату.
-            Шесть факторов: размер, число проблем, готовность собственника, состояние УК, срочность, сколько блоков в работе.
-          </p>
-        </div>
-        <div class="table-wrap">
-          <table class="matrix">
-            <thead>
-              <tr><th>Масштаб</th><th>Сотрудники</th><th>Сложность</th><th>Диагностика</th><th>Работа</th><th>Контроль</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>S</td><td>до 20</td><td>низкая</td><td>4–6 ч</td><td>8–12 ч</td><td>2–3 ч</td></tr>
-              <tr><td>M</td><td>20–50</td><td>средняя</td><td>8–12 ч</td><td>15–25 ч</td><td>4–6 ч</td></tr>
-              <tr><td>L</td><td>50–100</td><td>высокая</td><td>12–20 ч</td><td>25–45 ч</td><td>6–10 ч</td></tr>
-              <tr><td>XL</td><td>100+</td><td>системная</td><td>20–40+ ч</td><td>40–80+ ч</td><td>10–20 ч</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <p class="muted-sm" style="margin-top:16px">
-          Коэффициенты к базовому времени: много проблем ×1,2 · слабая УК ×1,3 · собственник мало вовлечён ×1,3 · срочный ×1,5 · кризис ×2.
-          Это проектная оценка, не норматив: калибровка после первых проектов.
-        </p>
-        <div class="hero-actions" style="margin-top:20px">
-          <a class="btn btn-primary" href="/diagnostika/">Обсудить диагностику</a>
-          <a class="btn btn-ghost" href="/">На главную академии</a>
-        </div>
-      </div>
-    </section>
-
     <section class="alt" id="discuss">
       <div class="wrap">
         <div class="section-intro">
           <p class="section-label">Обсудить проект</p>
           <h2>Оставьте контакты — мы свяжемся</h2>
-          <p>Имя, телефон и коротко, что беспокоит. Заявка уходит в нашу CRM.</p>
+          <p>Имя, телефон, Telegram и коротко, что беспокоит. Заявка уходит в нашу CRM.</p>
         </div>
         <form id="discussForm" class="discuss-form" autocomplete="on">
           <div class="field">
@@ -264,6 +230,10 @@
           <div class="field">
             <label for="dPhone">Телефон <span style="color:var(--accent)">*</span></label>
             <input id="dPhone" name="phone" type="tel" inputmode="tel" required placeholder="+7 9XX XXX-XX-XX" />
+          </div>
+          <div class="field">
+            <label for="dTelegram">Telegram <span style="color:var(--accent)">*</span></label>
+            <input id="dTelegram" name="telegram" required placeholder="@username или числовой ID" />
           </div>
           <div class="field">
             <label for="dRestaurant">Ресторан / город</label>
@@ -333,6 +303,15 @@
         err.hidden = false;
         return;
       }
+      var tg = String(document.getElementById("dTelegram").value || "").trim();
+      if (tg.charAt(0) === "@") tg = tg.slice(1);
+      tg = tg.replace(/^https?:\/\/(t\.me|telegram\.me)\//i, "").replace(/\/$/, "").trim();
+      var tgOk = /^\d{5,15}$/.test(tg) || /^[A-Za-z0-9_]{5,32}$/.test(tg);
+      if (!tgOk) {
+        err.textContent = "Укажите Telegram: @username или числовой ID.";
+        err.hidden = false;
+        return;
+      }
       if (!document.getElementById("dConsent").checked) {
         err.textContent = "Нужно согласие на обработку данных и связь.";
         err.hidden = false;
@@ -342,6 +321,7 @@
       var rest = document.getElementById("dRestaurant").value.trim();
       var note = document.getElementById("dNote").value.trim();
       var phoneFmt = "+7 " + phone.slice(1, 4) + " " + phone.slice(4, 7) + "-" + phone.slice(7, 9) + "-" + phone.slice(9);
+      var tgDisplay = /^\d+$/.test(tg) ? tg : ("@" + tg);
       var btn = document.getElementById("dSubmit");
       btn.disabled = true;
       var base = (window.PLATFORM_API_URL || "").replace(/\/$/, "");
@@ -350,6 +330,7 @@
         city: "",
         contact: name,
         phone: phoneFmt,
+        telegram: tgDisplay,
         size: "",
         sizeLabel: "",
         problemLabel: "Обсудить проект",
