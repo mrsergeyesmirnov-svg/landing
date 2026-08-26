@@ -3,21 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Академия счастья — среда, в которой людям хорошо</title>
-  <meta name="description" content="Академия счастья помогает ресторанам диагностировать состояние команды, находить причины проблем и внедрять изменения, которые влияют на людей, гостя и результат бизнеса." />
+  <title>Академия счастья — диагностика команды ресторана</title>
+  <meta name="description" content="Академия счастья: диагностика состояния команды ресторана, проект «Состояние смены», туры и образование для собственников и управляющих HoReCa." />
   <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
   <meta name="yandex-verification" content="3ba19479d2e6410e" />
   <link rel="canonical" href="https://www.pulseteam.online/" />
   <meta property="og:locale" content="ru_RU" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Академия счастья" />
-  <meta property="og:title" content="Академия счастья — среда, в которой людям хорошо" />
+  <meta property="og:title" content="Академия счастья — диагностика команды ресторана" />
   <meta property="og:description" content="Диагностика команды, проект «Состояние смены», туры и образование для ресторанов." />
   <meta property="og:url" content="https://www.pulseteam.online/" />
+  <meta property="og:image" content="https://www.pulseteam.online/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Mulish:wght@400;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/site.css?v=brief1" />
+  <link rel="stylesheet" href="/site.css?v=seo1" />
 </head>
 <body>
   <header>
@@ -272,6 +276,32 @@
       </div>
     </section>
 
+    <!-- FAQ для поиска -->
+    <section class="band" id="faq">
+      <div class="wrap">
+        <p class="section-label">Частые вопросы</p>
+        <h2>Коротко о работе с Академией</h2>
+        <div class="faq-list">
+          <details class="faq-item">
+            <summary>С чего начать, если в ресторане «что-то не так»?</summary>
+            <p>С диагностики: разбираем людей, гостя, финансы и процессы. По итогу — ясная картина и первый план действий. <a href="/diagnostika/">Оценить проект</a>.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Что такое «Состояние смены»?</summary>
+            <p>Проект Академии: консалтинг + Telegram-бот для оценки смены, отчётов управляющему и горящих вопросов. <a href="/sostoyanie/">Подробнее</a>.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Сколько стоит аудит?</summary>
+            <p>Экспресс-аудит — 20 000 ₽. Проектная работа считается по масштабу команды и сложности — ориентир в <a href="/diagnostika/">калькуляторе</a>.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Можно только бот, без консалтинга?</summary>
+            <p>Да. Подписка на мониторинг смены — от 2 990 ₽/мес, пилот 14 дней бесплатно. <a href="/sostoyanie/demo.html">Демо бота</a>.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
     <!-- 10 CTA -->
     <section class="cta-final" id="cta">
       <div class="wrap">
@@ -298,16 +328,62 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Академия счастья",
-    "url": "https://www.pulseteam.online/",
-    "description": "Диагностика команд и внедрение изменений в ресторанах. Проект «Состояние смены».",
-    "email": "sergey@pulseteam.online",
-    "sameAs": ["https://t.me/yank0vski"],
-    "founder": {
-      "@type": "Person",
-      "name": "Сергей Смирнов"
-    }
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://www.pulseteam.online/#org",
+        "name": "Академия счастья",
+        "url": "https://www.pulseteam.online/",
+        "description": "Диагностика команд и внедрение изменений в ресторанах. Проект «Состояние смены».",
+        "sameAs": ["https://t.me/yank0vski"],
+        "founder": { "@type": "Person", "name": "Сергей Смирнов" }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://www.pulseteam.online/#website",
+        "url": "https://www.pulseteam.online/",
+        "name": "Академия счастья",
+        "publisher": { "@id": "https://www.pulseteam.online/#org" },
+        "inLanguage": "ru-RU"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "С чего начать, если в ресторане «что-то не так»?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "С диагностики: разбираем людей, гостя, финансы и процессы. По итогу — ясная картина и первый план действий."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Что такое «Состояние смены»?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Проект Академии: консалтинг и Telegram-бот для оценки смены, отчётов управляющему и горящих вопросов."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Сколько стоит аудит?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Экспресс-аудит — 20 000 ₽. Проектная работа считается по масштабу команды и сложности."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Можно только бот, без консалтинга?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Да. Подписка на мониторинг смены — от 2 990 ₽/мес, пилот 14 дней бесплатно."
+            }
+          }
+        ]
+      }
+    ]
   }
   </script>
 </body>

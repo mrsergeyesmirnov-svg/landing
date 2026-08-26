@@ -546,6 +546,48 @@ h3 {
 .case-frame strong { display: block; margin-bottom: 6px; font-family: "Mulish", sans-serif; font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gold); }
 .case-frame span { color: var(--muted); font-family: "Mulish", sans-serif; font-size: 0.9rem; }
 
+/* ─── FAQ ─────────────────────────────────────────────────────────────────────── */
+.faq-list {
+  max-width: 40em;
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.faq-item {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  padding: 0;
+  overflow: hidden;
+}
+.faq-item summary {
+  list-style: none;
+  cursor: pointer;
+  font-family: "Mulish", sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 16px 18px;
+  color: var(--ink);
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+  content: "+";
+  float: right;
+  color: var(--gold);
+  font-weight: 800;
+}
+.faq-item[open] summary::after { content: "−"; }
+.faq-item p {
+  margin: 0;
+  padding: 0 18px 16px;
+  font-family: "Mulish", sans-serif;
+  font-size: 0.95rem;
+  color: var(--muted);
+  line-height: 1.55;
+}
+.faq-item a { color: var(--gold); }
+
 /* ─── CTA final ──────────────────────────────────────────────────────────────── */
 .cta-final {
   padding: 64px 0 72px;

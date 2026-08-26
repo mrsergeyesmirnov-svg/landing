@@ -8,5 +8,14 @@ Disallow: /docs/
 Disallow: /schet.html
 Disallow: /akt.html
 Disallow: /sostoyanie/audit.html
+Disallow: /landing3.html
+Disallow: /index1.html
+Disallow: /demo.html
+Disallow: /why.html
+Disallow: /one-pager.html
+
+# Яндекс: схлопывать UTM-дубли
+User-agent: Yandex
+Clean-param: utm_source&utm_medium&utm_campaign&utm_content&utm_term&yclid&ymclid&gclid&fbclid
 
 Sitemap: https://www.pulseteam.online/sitemap.xml
