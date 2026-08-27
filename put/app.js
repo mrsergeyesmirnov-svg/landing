@@ -306,10 +306,9 @@
       panel.innerHTML =
         '<p class="kicker">' + roleLabel(state.role) + "</p>" +
         "<h1>" + (br.introTitle || "Несколько вопросов") + "</h1>" +
-        '<p class="lead">Коротко. Один экран — один ответ. Без оценок «правильно/неправильно».</p>' +
         '<div class="actions">' +
           '<button type="button" class="btn btn-ghost" id="back">Назад</button>' +
-          '<button type="button" class="btn btn-primary" id="go">Узнать →</button>' +
+          '<button type="button" class="btn btn-primary" id="go">Продолжить →</button>' +
         "</div>";
       $("#back").onclick = function () {
         state.phase = "role";
@@ -342,11 +341,9 @@
         : !!answerValue(q.id);
 
       panel.innerHTML =
-        '<p class="reaction' + (state.reaction ? " is-on" : "") + '" id="reaction">' +
-          (state.reaction || "") + "</p>" +
         '<p class="kicker">' + roleLabel(state.role) + "</p>" +
         '<h1 class="ink">' + q.text + "</h1>" +
-        (multi ? '<p class="lead">Можно выбрать несколько.</p>' : "") +
+        (multi ? '<p class="lead">Можно выбрать несколько вариантов.</p>' : "") +
         '<div class="choices" id="opts"></div>' +
         '<div class="actions">' +
           '<button type="button" class="btn btn-ghost" id="back">Назад</button>' +
@@ -367,13 +364,12 @@
             render();
           } else {
             setSingle(q.id, o.id);
-            state.reaction = pickReaction();
+            state.reaction = "";
             save();
-            // короткая пауза и следующий вопрос
             render();
             setTimeout(function () {
               goNextQuestion();
-            }, 320);
+            }, 280);
           }
         };
         opts.appendChild(b);
@@ -394,7 +390,7 @@
       if (multi) {
         $("#next").onclick = function () {
           if (!selectedOk) return;
-          state.reaction = pickReaction();
+          state.reaction = "";
           goNextQuestion();
         };
       }

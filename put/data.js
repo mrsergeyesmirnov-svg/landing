@@ -14,8 +14,8 @@ window.PUT_DATA = {
     cta: "Проверить своё состояние →"
   },
   roleStep: {
-    title: "Сначала расскажите немного о себе",
-    lead: "Это не анкета. Просто чтобы говорить на вашем языке."
+    title: "Сначала укажите вашу роль",
+    lead: "От этого зависят формулировки вопросов."
   },
   roles: [
     { id: "owner", label: "Владелец" },
@@ -23,9 +23,9 @@ window.PUT_DATA = {
     { id: "manager", label: "Управляющий" },
     { id: "chef", label: "Шеф" },
     { id: "team", label: "Команда" },
-    { id: "guest", label: "Я просто смотрю 👀" }
+    { id: "guest", label: "Я просто смотрю" }
   ],
-  reactions: ["Поняли.", "Это важно.", "Ещё один вопрос.", "Хорошо.", "Спасибо."],
+  reactions: [],
   blockLabels: {
     PEOPLE: "Люди",
     PROCESS: "Процессы",
@@ -38,7 +38,7 @@ window.PUT_DATA = {
   },
   branches: {
     owner: {
-      introTitle: "Давайте посмотрим, что происходит у вас на самом деле",
+      introTitle: "Разберём, что происходит в вашем проекте",
       showScores: true,
       questions: [
         {
@@ -46,10 +46,10 @@ window.PUT_DATA = {
           type: "single",
           text: "Если завтра вы на неделю исчезнете из бизнеса — что произойдёт?",
           options: [
-            { id: "fine", label: "Ничего, всё работает", scores: { PEOPLE: 0, PROCESS: 0 } },
-            { id: "calls", label: "Где-то начнут звонить мне", scores: { PEOPLE: 2, PROCESS: 2 } },
-            { id: "fix", label: "Скорее всего, придётся разруливать несколько вещей", scores: { PEOPLE: 3, PROCESS: 3 } },
-            { id: "nope", label: "Лучше даже не проверять 😅", scores: { PEOPLE: 4, PROCESS: 4, FINANCE: 2 } }
+            { id: "fine", label: "Ничего — всё работает без меня", scores: { PEOPLE: 0, PROCESS: 0 } },
+            { id: "calls", label: "Начнут звонить по ряду вопросов", scores: { PEOPLE: 2, PROCESS: 2 } },
+            { id: "fix", label: "Придётся разбирать несколько ситуаций", scores: { PEOPLE: 3, PROCESS: 3 } },
+            { id: "nope", label: "Предпочитаю даже не проверять", scores: { PEOPLE: 4, PROCESS: 4, FINANCE: 2 } }
           ]
         },
         {
@@ -59,7 +59,7 @@ window.PUT_DATA = {
           options: [
             { id: "recent", label: "Недавно — и это было спокойно", scores: { PEOPLE: 0, PROCESS: 0 } },
             { id: "sometimes", label: "Бывает, но редко", scores: { PEOPLE: 2, PROCESS: 1 } },
-            { id: "long", label: "Давно… если честно", scores: { PEOPLE: 3, PROCESS: 3 } },
+            { id: "long", label: "Давно", scores: { PEOPLE: 3, PROCESS: 3 } },
             { id: "never", label: "Не припомню такого", scores: { PEOPLE: 4, PROCESS: 4 } }
           ]
         },
@@ -101,7 +101,7 @@ window.PUT_DATA = {
       ]
     },
     ops: {
-      introTitle: "Давайте посмотрим на вашу операционную картину",
+      introTitle: "Разберём вашу операционную картину",
       showScores: true,
       questions: [
         {
@@ -111,20 +111,20 @@ window.PUT_DATA = {
           options: [
             { id: "all", label: "Все", scores: { PROCESS: 0 }, meta: { locations: 2 } },
             { id: "most", label: "Большинство", scores: { PROCESS: 1 }, meta: { locations: 2 } },
-            { id: "numbers", label: "Только если посмотреть цифры", scores: { PROCESS: 2, FINANCE: 1 }, meta: { locations: 2 } },
-            { id: "late", label: "Обычно узнаю, когда проблема уже случилась", scores: { PROCESS: 4, PEOPLE: 1 }, meta: { locations: 2 } }
+            { id: "numbers", label: "Только по цифрам", scores: { PROCESS: 2, FINANCE: 1 }, meta: { locations: 2 } },
+            { id: "late", label: "Узнаю, когда проблема уже случилась", scores: { PROCESS: 4, PEOPLE: 1 }, meta: { locations: 2 } }
           ]
         },
         {
           id: "ops_tonight",
           type: "single",
-          text: "Представьте: сегодня вечером в одной из точек что-то начинает идти не так. Когда вы об этом узнаете?",
+          text: "Если сегодня вечером в одной из точек начнётся сбой — когда вы об этом узнаете?",
           options: [
             { id: "today", label: "Сегодня", scores: { PROCESS: 0 } },
             { id: "tomorrow", label: "Завтра", scores: { PROCESS: 2 } },
-            { id: "manager", label: "Когда управляющий скажет", scores: { PROCESS: 3, PEOPLE: 1 } },
-            { id: "numbers", label: "Когда увидим цифры", scores: { FINANCE: 2, PROCESS: 3 } },
-            { id: "guest", label: "Когда уже пожалуется гость", scores: { GUEST: 4, PROCESS: 4 } }
+            { id: "manager", label: "Когда сообщит управляющий", scores: { PROCESS: 3, PEOPLE: 1 } },
+            { id: "numbers", label: "Когда появятся цифры", scores: { FINANCE: 2, PROCESS: 3 } },
+            { id: "guest", label: "Когда пожалуется гость", scores: { GUEST: 4, PROCESS: 4 } }
           ]
         },
         {
@@ -133,27 +133,27 @@ window.PUT_DATA = {
           text: "На что уходит больше всего вашей энергии на этой неделе?",
           options: [
             { id: "people", label: "Люди и управляющие", scores: { PEOPLE: 3 }, problem: "people" },
-            { id: "fire", label: "Тушение пожаров по точкам", scores: { PROCESS: 3 }, problem: "process" },
+            { id: "fire", label: "Срочные проблемы по точкам", scores: { PROCESS: 3 }, problem: "process" },
             { id: "numbers", label: "Сбор и сверка цифр", scores: { FINANCE: 2, PROCESS: 2 }, problem: "finance" },
-            { id: "guest", label: "Разбор гостевых историй", scores: { GUEST: 3 }, problem: "guest" },
-            { id: "all", label: "Всё сразу — и это утомляет", scores: { PEOPLE: 2, PROCESS: 2, FINANCE: 1, GUEST: 1 }, problem: "process" }
+            { id: "guest", label: "Разбор гостевых обращений", scores: { GUEST: 3 }, problem: "guest" },
+            { id: "all", label: "Всё сразу — и это истощает", scores: { PEOPLE: 2, PROCESS: 2, FINANCE: 1, GUEST: 1 }, problem: "process" }
           ]
         },
         {
           id: "ops_one_place",
           type: "single",
-          text: "Хотелось бы видеть состояние всех точек в одном спокойном месте — без охоты за сообщениями?",
+          text: "Нужна ли вам сводка по всем точкам в одном месте — без поиска по чатам?",
           options: [
             { id: "yes", label: "Да", scores: { PROCESS: 1 }, meta: { wantsPulse: true } },
-            { id: "need", label: "Очень нужно", scores: { PROCESS: 2 }, meta: { wantsPulse: true } },
-            { id: "have", label: "У нас уже что-то похожее есть", scores: {} },
-            { id: "later", label: "Пока не сейчас", scores: {} }
+            { id: "need", label: "Да, это приоритет", scores: { PROCESS: 2 }, meta: { wantsPulse: true } },
+            { id: "have", label: "У нас уже есть похожий контур", scores: {} },
+            { id: "later", label: "Пока не актуально", scores: {} }
           ]
         }
       ]
     },
     manager: {
-      introTitle: "Давайте посмотрим, как вам держится смена",
+      introTitle: "Разберём, как устроена ваша смена",
       showScores: false,
       questions: [
         {
@@ -161,7 +161,7 @@ window.PUT_DATA = {
           type: "single",
           text: "Бывает ощущение, что весь ресторан держится на вас?",
           options: [
-            { id: "no", label: "Нет, у меня сильная команда", scores: { PEOPLE: 0 } },
+            { id: "no", label: "Нет, команда справляется", scores: { PEOPLE: 0 } },
             { id: "sometimes", label: "Иногда", scores: { PEOPLE: 2 } },
             { id: "often", label: "Часто", scores: { PEOPLE: 3, PROCESS: 2 } },
             { id: "always", label: "Практически всегда", scores: { PEOPLE: 4, PROCESS: 3 } }
@@ -172,63 +172,63 @@ window.PUT_DATA = {
           type: "single",
           text: "Если сегодня один сильный человек из команды не выйдет, что произойдёт?",
           options: [
-            { id: "nothing", label: "Ничего", scores: { PEOPLE: 0, PROCESS: 0 } },
-            { id: "redis", label: "Перераспределим", scores: { PEOPLE: 1, PROCESS: 1 } },
-            { id: "hard", label: "Будет тяжело", scores: { PEOPLE: 3, PROCESS: 2 } },
-            { id: "stop", label: "Всё встанет", scores: { PEOPLE: 4, PROCESS: 3, GUEST: 2 } }
+            { id: "nothing", label: "Ничего критичного", scores: { PEOPLE: 0, PROCESS: 0 } },
+            { id: "redis", label: "Перераспределим нагрузку", scores: { PEOPLE: 1, PROCESS: 1 } },
+            { id: "hard", label: "Смена пройдёт тяжело", scores: { PEOPLE: 3, PROCESS: 2 } },
+            { id: "stop", label: "Работа заметно просядет", scores: { PEOPLE: 4, PROCESS: 3, GUEST: 2 } }
           ]
         },
         {
           id: "mgr_end",
           type: "single",
-          text: "Когда вы заканчиваете смену, вы чаще чувствуете…",
+          text: "Когда вы заканчиваете смену, какое ощущение чаще всего остаётся?",
           options: [
-            { id: "beautiful", label: "«Красиво сделали»", scores: { PEOPLE: 0, GUEST: 0 } },
-            { id: "phew", label: "«Фух, всё получилось»", scores: { PEOPLE: 1, PROCESS: 1 } },
-            { id: "more", label: "«Надо было ещё кое-что сделать»", scores: { PEOPLE: 2, PROCESS: 2 } },
-            { id: "again", label: "«Завтра опять всё сначала»", scores: { PEOPLE: 3, PROCESS: 3 } }
+            { id: "beautiful", label: "Удовлетворение от результата", scores: { PEOPLE: 0, GUEST: 0 } },
+            { id: "phew", label: "Облегчение: справились", scores: { PEOPLE: 1, PROCESS: 1 } },
+            { id: "more", label: "Осталось недоделанное", scores: { PEOPLE: 2, PROCESS: 2 } },
+            { id: "again", label: "Завтра снова начинать с нуля", scores: { PEOPLE: 3, PROCESS: 3 } }
           ]
         },
         {
           id: "mgr_need",
           type: "single",
-          text: "Чего вам сейчас не хватает больше всего, чтобы смена шла легче?",
+          text: "Чего вам сейчас не хватает, чтобы смена шла устойчивее?",
           options: [
             { id: "team", label: "Людей, на которых можно опереться", scores: { PEOPLE: 3 }, problem: "people" },
-            { id: "clarity", label: "Ясной картины «что происходит»", scores: { PROCESS: 3 }, problem: "process" },
-            { id: "support", label: "Поддержки сверху", scores: { PEOPLE: 2, PROCESS: 1 }, problem: "people" },
-            { id: "breath", label: "Просто выдохнуть", scores: { PEOPLE: 2 }, problem: "people" }
+            { id: "clarity", label: "Ясной картины происходящего", scores: { PROCESS: 3 }, problem: "process" },
+            { id: "support", label: "Поддержки руководства", scores: { PEOPLE: 2, PROCESS: 1 }, problem: "people" },
+            { id: "breath", label: "Паузы и восстановления", scores: { PEOPLE: 2 }, problem: "people" }
           ]
         }
       ]
     },
     chef: {
-      introTitle: "Давайте посмотрим, куда вам хочется расти",
+      introTitle: "Разберём, куда вы хотите расти",
       showScores: false,
       questions: [
         {
           id: "chef_day",
           type: "single",
-          text: "Если бы завтра у вас появился один свободный день только на себя — чему бы вы хотели научиться?",
+          text: "Если бы завтра у вас появился один свободный день только на развитие — чему бы вы уделили его?",
           options: [
-            { id: "manage", label: "Управлять командой", scores: { PEOPLE: 1 }, problem: "education", meta: { wantsGrowth: true } },
-            { id: "lead", label: "Стать сильнее как лидер", scores: { PEOPLE: 1 }, problem: "education", meta: { wantsGrowth: true } },
-            { id: "people", label: "Лучше понимать людей", scores: { PEOPLE: 1 }, problem: "education", meta: { wantsGrowth: true } },
-            { id: "kitchen", label: "Развивать кухню", scores: { PROCESS: 1, GUEST: 1 }, problem: "education" },
-            { id: "teach", label: "Передавать знания", scores: { PEOPLE: 1 }, problem: "education", meta: { wantsGrowth: true } },
-            { id: "rest", label: "Просто выдохнуть и перезагрузиться", scores: { PEOPLE: 1 }, problem: "people" }
+            { id: "manage", label: "Управлению командой", scores: { PEOPLE: 1 }, problem: "education", meta: { wantsGrowth: true } },
+            { id: "lead", label: "Лидерским навыкам", scores: { PEOPLE: 1 }, problem: "education", meta: { wantsGrowth: true } },
+            { id: "people", label: "Пониманию людей", scores: { PEOPLE: 1 }, problem: "education", meta: { wantsGrowth: true } },
+            { id: "kitchen", label: "Развитию кухни", scores: { PROCESS: 1, GUEST: 1 }, problem: "education" },
+            { id: "teach", label: "Передаче знаний", scores: { PEOPLE: 1 }, problem: "education", meta: { wantsGrowth: true } },
+            { id: "rest", label: "Восстановлению", scores: { PEOPLE: 1 }, problem: "people" }
           ]
         },
         {
           id: "chef_joy",
           type: "multi",
-          text: "Когда вы смотрите на свою команду, что радует вас больше всего?",
+          text: "Когда вы смотрите на свою команду, что для вас важнее всего?",
           options: [
-            { id: "grow", label: "Когда люди растут", scores: {}, goal: "people" },
-            { id: "solo", label: "Когда работают самостоятельно", scores: {}, goal: "process" },
-            { id: "care", label: "Когда им не всё равно", scores: {}, goal: "people" },
-            { id: "bond", label: "Когда команда держится друг за друга", scores: {}, goal: "people" },
-            { id: "guests", label: "Когда гости возвращаются", scores: { GUEST: 1 }, goal: "guest" }
+            { id: "grow", label: "Рост людей", scores: {}, goal: "people" },
+            { id: "solo", label: "Самостоятельность", scores: {}, goal: "process" },
+            { id: "care", label: "Ответственность и вовлечённость", scores: {}, goal: "people" },
+            { id: "bond", label: "Сплочённость команды", scores: {}, goal: "people" },
+            { id: "guests", label: "Возвращающиеся гости", scores: { GUEST: 1 }, goal: "guest" }
           ]
         },
         {
@@ -238,50 +238,50 @@ window.PUT_DATA = {
           options: [
             { id: "people", label: "Люди и атмосфера в цехе", scores: { PEOPLE: 3 }, problem: "people" },
             { id: "pace", label: "Темп и хаос смены", scores: { PROCESS: 3 }, problem: "process" },
-            { id: "quality", label: "Держать качество каждый день", scores: { GUEST: 2, PROCESS: 2 }, problem: "process" },
+            { id: "quality", label: "Удержание качества каждый день", scores: { GUEST: 2, PROCESS: 2 }, problem: "process" },
             { id: "alone", label: "Ощущение, что тяну один", scores: { PEOPLE: 4 }, problem: "people" }
           ]
         },
         {
           id: "chef_space",
           type: "single",
-          text: "Хотелось бы среды, где можно прокачать себя рядом с другими руководителями — без лекций «для галочки»?",
+          text: "Нужна ли вам среда для развития рядом с другими руководителями — без формальных лекций?",
           options: [
             { id: "yes", label: "Да", scores: {}, meta: { wantsGrowth: true }, problem: "education" },
-            { id: "very", label: "Очень хочу", scores: {}, meta: { wantsGrowth: true }, problem: "education" },
+            { id: "very", label: "Да, это важно", scores: {}, meta: { wantsGrowth: true }, problem: "education" },
             { id: "maybe", label: "Возможно", scores: {}, problem: "education" },
-            { id: "no", label: "Пока не сейчас", scores: {} }
+            { id: "no", label: "Пока не актуально", scores: {} }
           ]
         }
       ]
     },
     team: {
-      introTitle: "Давайте посмотрим, как вам здесь",
+      introTitle: "Несколько вопросов о вашей работе",
       showScores: false,
       questions: [
         {
           id: "team_friends",
           type: "single",
-          text: "Когда вы рассказываете друзьям о своей работе, что вы говорите?",
+          text: "Когда вы рассказываете о своей работе, что обычно говорите?",
           options: [
-            { id: "love", label: "«Я люблю свою работу»", scores: { PEOPLE: 0 } },
-            { id: "ok", label: "«Нормально»", scores: { PEOPLE: 1 } },
-            { id: "mixed", label: "«По-разному»", scores: { PEOPLE: 2 } },
-            { id: "show", label: "«Лучше один раз покажу»", scores: { PEOPLE: 2 } },
-            { id: "next", label: "«Я сейчас как раз думаю, куда дальше»", scores: { PEOPLE: 4 } }
+            { id: "love", label: "Мне нравится эта работа", scores: { PEOPLE: 0 } },
+            { id: "ok", label: "В целом нормально", scores: { PEOPLE: 1 } },
+            { id: "mixed", label: "По-разному", scores: { PEOPLE: 2 } },
+            { id: "show", label: "Сложно объяснить словами", scores: { PEOPLE: 2 } },
+            { id: "next", label: "Думаю, куда двигаться дальше", scores: { PEOPLE: 4 } }
           ]
         },
         {
           id: "team_halfyear",
           type: "multi",
-          text: "Что должно произойти, чтобы через полгода вы сказали: «Вот теперь я действительно кайфую от этой работы»?",
+          text: "Что должно измениться, чтобы через полгода вы были действительно довольны этой работой?",
           options: [
-            { id: "money", label: "Больше денег", scores: { FINANCE: 1 }, problem: "finance" },
-            { id: "team", label: "Хорошая команда", scores: { PEOPLE: 2 }, problem: "people" },
-            { id: "boss", label: "Сильный руководитель", scores: { PEOPLE: 2 }, problem: "people" },
+            { id: "money", label: "Доход", scores: { FINANCE: 1 }, problem: "finance" },
+            { id: "team", label: "Команда", scores: { PEOPLE: 2 }, problem: "people" },
+            { id: "boss", label: "Руководитель", scores: { PEOPLE: 2 }, problem: "people" },
             { id: "grow", label: "Возможность расти", scores: { PEOPLE: 2 }, problem: "education" },
-            { id: "respect", label: "Больше уважения", scores: { PEOPLE: 2 }, problem: "people" },
-            { id: "interest", label: "Интереснее работа", scores: { PEOPLE: 1, PROCESS: 1 }, problem: "education" },
+            { id: "respect", label: "Уважение", scores: { PEOPLE: 2 }, problem: "people" },
+            { id: "interest", label: "Интерес к задачам", scores: { PEOPLE: 1, PROCESS: 1 }, problem: "education" },
             { id: "dunno", label: "Пока не знаю", scores: {} }
           ]
         },
@@ -290,8 +290,8 @@ window.PUT_DATA = {
           type: "single",
           text: "После смены вы чаще уходите с ощущением…",
           options: [
-            { id: "proud", label: "Гордости", scores: { PEOPLE: 0, GUEST: 0 } },
-            { id: "ok", label: "«Нормально отработали»", scores: { PEOPLE: 1 } },
+            { id: "proud", label: "Гордости за результат", scores: { PEOPLE: 0, GUEST: 0 } },
+            { id: "ok", label: "Спокойной отработки", scores: { PEOPLE: 1 } },
             { id: "empty", label: "Пустоты", scores: { PEOPLE: 3 } },
             { id: "heavy", label: "Тяжести", scores: { PEOPLE: 4 } }
           ]
@@ -310,7 +310,7 @@ window.PUT_DATA = {
       ]
     },
     guest: {
-      introTitle: "Рады, что вы здесь",
+      introTitle: "Несколько коротких вопросов",
       showScores: false,
       questions: [
         {
