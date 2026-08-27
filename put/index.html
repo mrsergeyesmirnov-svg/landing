@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Путь — Академия счастья</title>
+  <meta name="description" content="Короткий путь: кто вы, что беспокоит — и куда идти в Академии счастья. Ориентир цены и заявка на связь." />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://www.pulseteam.online/put/" />
+  <meta property="og:title" content="Путь — Академия счастья" />
+  <meta property="og:description" content="Ответьте на несколько вопросов — подскажем, с чего начать, и ориентир по цене." />
+  <meta property="og:url" content="https://www.pulseteam.online/put/" />
+  <meta property="og:image" content="https://www.pulseteam.online/og-image.png?v=2" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Mulish:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <script src="/platform/config.js"></script>
+  <style>
+    :root {
+      --bg: #fdfaf5;
+      --bg-warm: #fdf6ec;
+      --ink: #1c1917;
+      --muted: #6b6460;
+      --line: #ede8e0;
+      --accent: #c5860a;
+      --accent-hover: #a86e06;
+      --gold: #b8922a;
+      --gold-light: #e8c96a;
+      --surface: #fff;
+      --soft: #fdf3de;
+      --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; }
+    body {
+      font-family: "Mulish", system-ui, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(ellipse 80% 50% at 10% -10%, rgba(232, 201, 106, 0.28), transparent 55%),
+        radial-gradient(ellipse 60% 40% at 100% 0%, rgba(253, 243, 222, 0.9), transparent 50%),
+        linear-gradient(165deg, var(--bg) 0%, var(--bg-warm) 100%);
+      -webkit-font-smoothing: antialiased;
+    }
+    .shell {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      max-width: 560px;
+      margin: 0 auto;
+      padding: 28px 20px 40px;
+    }
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 28px;
+    }
+    .brand {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--gold);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+    .brand:hover { text-decoration: none; opacity: 0.85; }
+    .back-home {
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-decoration: none;
+    }
+    .progress {
+      height: 3px;
+      background: var(--line);
+      border-radius: 99px;
+      margin-bottom: 28px;
+      overflow: hidden;
+    }
+    .progress > i {
+      display: block;
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      transition: width 0.35s var(--ease);
+    }
+    .panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      animation: rise 0.45s var(--ease) both;
+    }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .kicker {
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin: 0 0 12px;
+    }
+    h1 {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-weight: 600;
+      font-size: clamp(2.1rem, 8vw, 3rem);
+      line-height: 1.12;
+      color: var(--gold);
+      margin: 0 0 14px;
+      letter-spacing: -0.02em;
+    }
+    .lead {
+      margin: 0 0 28px;
+      color: var(--muted);
+      font-size: 1.02rem;
+      line-height: 1.55;
+      max-width: 32em;
+    }
+    .choices {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+    .choice {
+      appearance: none;
+      width: 100%;
+      text-align: left;
+      font: inherit;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 16px 18px;
+      border-radius: 16px;
+      border: 1.5px solid var(--line);
+      background: var(--surface);
+      color: var(--ink);
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s, transform 0.15s;
+      box-shadow: 0 4px 20px rgba(180, 140, 40, 0.06);
+    }
+    .choice:hover { border-color: var(--gold-light); transform: translateY(-1px); }
+    .choice.is-on {
+      border-color: var(--accent);
+      background: var(--soft);
+      box-shadow: 0 0 0 1px var(--accent);
+    }
+    .choice small {
+      display: block;
+      margin-top: 4px;
+      font-weight: 500;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .btn {
+      appearance: none;
+      border: none;
+      font-family: inherit;
+      font-weight: 800;
+      font-size: 0.95rem;
+      padding: 14px 22px;
+      border-radius: 999px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: filter 0.15s, background 0.15s;
+    }
+    .btn:disabled { opacity: 0.45; cursor: not-allowed; }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), #d4a017);
+      color: #fff;
+      box-shadow: 0 8px 24px rgba(197, 134, 10, 0.28);
+    }
+    .btn-primary:hover:not(:disabled) { filter: brightness(1.05); text-decoration: none; }
+    .btn-ghost {
+      background: transparent;
+      color: var(--muted);
+      border: 1.5px solid var(--line);
+    }
+    .btn-ghost:hover { color: var(--ink); border-color: #d6cfc4; text-decoration: none; }
+    .result-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 22px 20px;
+      margin-bottom: 22px;
+      box-shadow: 0 8px 32px rgba(180, 140, 40, 0.08);
+    }
+    .result-card .path-label {
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin: 0 0 8px;
+    }
+    .result-card h2 {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 1.75rem;
+      font-weight: 600;
+      margin: 0 0 8px;
+      color: var(--ink);
+      line-height: 1.2;
+    }
+    .result-card .price {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--gold);
+      margin: 12px 0 4px;
+    }
+    .result-card p { margin: 0; color: var(--muted); font-size: 0.95rem; line-height: 1.5; }
+    .result-card .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 14px;
+    }
+    .result-card .tag {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: var(--soft);
+      color: var(--accent-hover);
+    }
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .field label {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .field input, .field textarea {
+      width: 100%;
+      font: inherit;
+      padding: 12px 14px;
+      border: 1.5px solid var(--line);
+      border-radius: 12px;
+      background: var(--surface);
+      color: var(--ink);
+    }
+    .field input:focus, .field textarea:focus {
+      outline: none;
+      border-color: var(--gold-light);
+      box-shadow: 0 0 0 3px rgba(232, 201, 106, 0.25);
+    }
+    .consent {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+    .consent input {
+      margin-top: 3px;
+      width: 16px;
+      height: 16px;
+      accent-color: var(--accent);
+      flex-shrink: 0;
+    }
+    .err { color: #be123c; font-size: 0.9rem; margin: 0; }
+    .ok { color: #0f766e; font-size: 0.95rem; font-weight: 700; margin: 0; }
+    .hint { font-size: 0.82rem; color: var(--muted); margin: 0 0 8px; }
+    footer {
+      margin-top: 36px;
+      text-align: center;
+      font-size: 0.78rem;
+      color: #b8b0a8;
+    }
+    footer a { color: #b8b0a8; }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="top">
+      <a class="brand" href="/">Академия счастья</a>
+      <a class="back-home" href="/">На главную</a>
+    </div>
+    <div class="progress" aria-hidden="true"><i id="bar"></i></div>
+    <div class="panel" id="panel"></div>
+    <footer>
+      Академия счастья · <a href="/sostoyanie/privacy.html">Конфиденциальность</a>
+    </footer>
+  </div>
+
+  <script>
+  (function () {
+    var ROLES = [
+      { id: "owner", label: "Владелец бизнеса", hint: "Смотрю на дом целиком" },
+      { id: "ops", label: "Операционный директор", hint: "Держу смены и управляющих" },
+      { id: "chef", label: "Шеф-повар", hint: "Кухня, вкус, команда цеха" },
+      { id: "waiter", label: "Официант", hint: "Зал, гости, сервис" }
+    ];
+
+    var QUESTIONS = {
+      owner: {
+        title: "Как поживает бизнес?",
+        lead: "Отметьте то, что сейчас ближе всего. Можно несколько пунктов.",
+        multi: true,
+        options: [
+          { id: "cash", label: "Выручка и маржа нестабильны" },
+          { id: "people", label: "Команда выгорает / текучка" },
+          { id: "blind", label: "Не вижу, что происходит на смене" },
+          { id: "system", label: "Нужна система, не разовые тренинги" }
+        ]
+      },
+      ops: {
+        title: "Что мешает больше всего?",
+        lead: "Выберите то, с чем сталкиваетесь каждую неделю.",
+        multi: true,
+        options: [
+          { id: "chaos", label: "Смены хаотичны, стандарты плывут" },
+          { id: "managers", label: "Управляющие не держат контур" },
+          { id: "data", label: "Нет ясных сигналов по команде" },
+          { id: "conflict", label: "Зал и кухня тянут в разные стороны" }
+        ]
+      },
+      chef: {
+        title: "Что сейчас важно для вас?",
+        lead: "Нажмите то, что откликается — подскажем следующий шаг.",
+        multi: true,
+        options: [
+          { id: "knowledge", label: "Нехватка знаний — хочу расти как шеф" },
+          { id: "crew", label: "Команда кухни не держит темп" },
+          { id: "hall", label: "Напряжение с залом" },
+          { id: "standards", label: "Нужны понятные стандарты на смене" }
+        ]
+      },
+      waiter: {
+        title: "Что откликается?",
+        lead: "Можно выбрать несколько — так точнее попадём в ваш запрос.",
+        multi: true,
+        options: [
+          { id: "guests", label: "Гости недовольны — не понимаю почему" },
+          { id: "chaos", label: "Устал(а) от хаоса на смене" },
+          { id: "growth", label: "Хочу расти в профессии" },
+          { id: "feedback", label: "Мало обратной связи от руководства" }
+        ]
+      }
+    };
+
+    var state = {
+      step: 0,
+      role: null,
+      answers: [],
+      offer: null
+    };
+
+    try {
+      var saved = JSON.parse(localStorage.getItem("academy_put_v1") || "null");
+      if (saved && saved.role) {
+        state.role = saved.role;
+        state.answers = saved.answers || [];
+      }
+    } catch (e) {}
+
+    function persist() {
+      try {
+        localStorage.setItem("academy_put_v1", JSON.stringify({
+          role: state.role,
+          answers: state.answers,
+          offerId: state.offer && state.offer.id,
+          at: Date.now()
+        }));
+      } catch (e) {}
+    }
+
+    function roleLabel(id) {
+      var r = ROLES.filter(function (x) { return x.id === id; })[0];
+      return r ? r.label : id;
+    }
+
+    function answerLabels() {
+      if (!state.role) return [];
+      var q = QUESTIONS[state.role];
+      return state.answers.map(function (id) {
+        var o = q.options.filter(function (x) { return x.id === id; })[0];
+        return o ? o.label : id;
+      });
+    }
+
+    function resolveOffer() {
+      var role = state.role;
+      var a = state.answers;
+      var has = function (id) { return a.indexOf(id) >= 0; };
+
+      if (role === "chef" && has("knowledge")) {
+        return {
+          id: "tour",
+          pathLabel: "Вам подойдёт",
+          title: "Тур Академии",
+          price: "по потоку",
+          priceNote: "Практика для шефов и команд — вместо конференций",
+          body: "Нехватка знаний лучше закрывается живой практикой, а не слайдами. Разберём, какой поток вам ближе.",
+          href: "/tury/",
+          cta: "Смотреть туры",
+          priceMin: 0,
+          priceMax: 0
+        };
+      }
+      if (role === "waiter" && has("growth")) {
+        return {
+          id: "edu",
+          pathLabel: "Вам подойдёт",
+          title: "Образование Академии",
+          price: "по программе",
+          priceNote: "Программы для тех, кто ведёт гостя и растёт в зале",
+          body: "Если хочется расти в профессии — стартуем с образовательных программ и, при желании, тура.",
+          href: "/obrazovanie/",
+          cta: "К образованию",
+          priceMin: 0,
+          priceMax: 0
+        };
+      }
+      if ((role === "owner" || role === "ops") && (has("blind") || has("data") || has("chaos") || has("managers"))) {
+        return {
+          id: "audit",
+          pathLabel: "Рекомендуем начать с",
+          title: "Диагностика / аудит",
+          price: "от 20 000 ₽",
+          priceNote: "Экспресс-аудит состояния команды и операций",
+          body: "Сначала ясная картина: что происходит с людьми и сменой. Потом — план и проект, если нужно.",
+          href: "/diagnostika/",
+          cta: "К калькулятору",
+          priceMin: 20000,
+          priceMax: 20000
+        };
+      }
+      if ((role === "owner" || role === "ops") && (has("system") || has("people") || has("conflict"))) {
+        return {
+          id: "sostoyanie",
+          pathLabel: "Вам ближе",
+          title: "Состояние смены",
+          price: "от 2 990 ₽/мес",
+          priceNote: "Бот + контур для команды · пилот 14 дней бесплатно",
+          body: "Ежедневные сигналы со смены, отчёты управляющему и горящие вопросы — без ручного разбора чатов.",
+          href: "/sostoyanie/",
+          cta: "К продукту",
+          priceMin: 2990,
+          priceMax: 8990
+        };
+      }
+      if (role === "chef" || role === "waiter") {
+        return {
+          id: "tour_soft",
+          pathLabel: "Следующий шаг",
+          title: "Тур или живой разбор",
+          price: "обсудим",
+          priceNote: "Подберём формат под вашу роль на смене",
+          body: "Для кухни и зала чаще всего работает практика и общий язык с командой. Оставьте контакт — подскажем вход.",
+          href: "/tury/",
+          cta: "К турам",
+          priceMin: 0,
+          priceMax: 0
+        };
+      }
+      return {
+        id: "audit_default",
+        pathLabel: "Хорошая точка входа",
+        title: "Диагностика",
+        price: "от 20 000 ₽",
+        priceNote: "Понять, что происходит — и куда бить первым",
+        body: "Начнём с короткой диагностики. Это быстрее, чем гадать по симптомам.",
+        href: "/diagnostika/",
+        cta: "Оценить проект",
+        priceMin: 20000,
+        priceMax: 20000
+      };
+    }
+
+    function setProgress(n, total) {
+      document.getElementById("bar").style.width = Math.round((n / total) * 100) + "%";
+    }
+
+    function el(html) {
+      var d = document.createElement("div");
+      d.innerHTML = html.trim();
+      return d.firstChild;
+    }
+
+    function render() {
+      var panel = document.getElementById("panel");
+      panel.innerHTML = "";
+      panel.style.animation = "none";
+      void panel.offsetWidth;
+      panel.style.animation = "";
+
+      if (state.step === 0) {
+        setProgress(1, 4);
+        panel.appendChild(el(
+          '<p class="kicker">Приветствие</p>' +
+          "<h1>Академия<br/>счастья</h1>" +
+          '<p class="lead">Среда, где людям хорошо — и растёт дело. Ответьте на несколько вопросов: подскажем, с чего начать именно вам.</p>' +
+          '<div class="actions"><button type="button" class="btn btn-primary" id="start">Кто ты? →</button></div>'
+        ));
+        document.getElementById("start").onclick = function () {
+          state.step = 1;
+          render();
+        };
+        return;
+      }
+
+      if (state.step === 1) {
+        setProgress(2, 4);
+        var box = el(
+          '<p class="kicker">Шаг 1</p>' +
+          "<h1>Кто ты?</h1>" +
+          '<p class="lead">Выберите роль — от неё зависят вопросы и рекомендация.</p>' +
+          '<div class="choices" id="roles"></div>' +
+          '<div class="actions">' +
+            '<button type="button" class="btn btn-ghost" id="back0">Назад</button>' +
+            '<button type="button" class="btn btn-primary" id="nextRole" disabled>Далее</button>' +
+          "</div>"
+        );
+        panel.appendChild(box);
+        var roles = document.getElementById("roles");
+        ROLES.forEach(function (r) {
+          var b = document.createElement("button");
+          b.type = "button";
+          b.className = "choice" + (state.role === r.id ? " is-on" : "");
+          b.innerHTML = r.label + "<small>" + r.hint + "</small>";
+          b.onclick = function () {
+            state.role = r.id;
+            state.answers = [];
+            persist();
+            render();
+          };
+          roles.appendChild(b);
+        });
+        document.getElementById("back0").onclick = function () { state.step = 0; render(); };
+        document.getElementById("nextRole").disabled = !state.role;
+        document.getElementById("nextRole").onclick = function () {
+          if (!state.role) return;
+          state.step = 2;
+          render();
+        };
+        return;
+      }
+
+      if (state.step === 2) {
+        setProgress(3, 4);
+        var q = QUESTIONS[state.role];
+        var box2 = el(
+          '<p class="kicker">' + roleLabel(state.role) + "</p>" +
+          "<h1>" + q.title + "</h1>" +
+          '<p class="lead">' + q.lead + "</p>" +
+          '<div class="choices" id="opts"></div>' +
+          '<div class="actions">' +
+            '<button type="button" class="btn btn-ghost" id="back1">Назад</button>' +
+            '<button type="button" class="btn btn-primary" id="nextAns" disabled>Показать путь</button>' +
+          "</div>"
+        );
+        panel.appendChild(box2);
+        var opts = document.getElementById("opts");
+        q.options.forEach(function (o) {
+          var b = document.createElement("button");
+          b.type = "button";
+          b.className = "choice" + (state.answers.indexOf(o.id) >= 0 ? " is-on" : "");
+          b.textContent = o.label;
+          b.onclick = function () {
+            var i = state.answers.indexOf(o.id);
+            if (q.multi) {
+              if (i >= 0) state.answers.splice(i, 1);
+              else state.answers.push(o.id);
+            } else {
+              state.answers = [o.id];
+            }
+            persist();
+            render();
+          };
+          opts.appendChild(b);
+        });
+        document.getElementById("back1").onclick = function () { state.step = 1; render(); };
+        document.getElementById("nextAns").disabled = state.answers.length === 0;
+        document.getElementById("nextAns").onclick = function () {
+          if (!state.answers.length) return;
+          state.offer = resolveOffer();
+          persist();
+          state.step = 3;
+          render();
+        };
+        return;
+      }
+
+      if (state.step === 3) {
+        setProgress(4, 4);
+        var offer = state.offer || resolveOffer();
+        state.offer = offer;
+        var tags = answerLabels().map(function (t) {
+          return '<span class="tag">' + t.replace(/</g, "&lt;") + "</span>";
+        }).join("");
+        var box3 = el(
+          '<p class="kicker">Ваш путь</p>' +
+          '<div class="result-card">' +
+            '<p class="path-label">' + offer.pathLabel + "</p>" +
+            "<h2>" + offer.title + "</h2>" +
+            '<div class="price">' + offer.price + "</div>" +
+            '<p>' + offer.priceNote + "</p>" +
+            '<p style="margin-top:12px">' + offer.body + "</p>" +
+            '<div class="tags"><span class="tag">' + roleLabel(state.role) + "</span>" + tags + "</div>" +
+          "</div>" +
+          '<p class="hint">Оставьте контакты — мы свяжемся с учётом вашей роли и выбора.</p>' +
+          '<form class="form" id="leadForm">' +
+            '<div class="field"><label for="name">Имя</label><input id="name" name="name" required placeholder="Как к вам обращаться" /></div>' +
+            '<div class="field"><label for="phone">Телефон *</label><input id="phone" name="phone" type="tel" inputmode="tel" required placeholder="+7 9XX XXX-XX-XX" /></div>' +
+            '<div class="field"><label for="telegram">Telegram *</label><input id="telegram" name="telegram" required placeholder="@username или числовой ID" /></div>' +
+            '<div class="field"><label for="note">Комментарий</label><textarea id="note" name="note" rows="2" placeholder="Коротко, если хотите уточнить"></textarea></div>' +
+            '<label class="consent"><input type="checkbox" id="consent" required /><span>Согласен(на) на обработку персональных данных и на то, чтобы со мной связались</span></label>' +
+            '<p class="err" id="err" hidden></p>' +
+            '<p class="ok" id="ok" hidden>Заявка отправлена. Мы напишем вам.</p>' +
+            '<div class="actions">' +
+              '<button type="button" class="btn btn-ghost" id="back2">Назад</button>' +
+              '<a class="btn btn-ghost" href="' + offer.href + '">' + offer.cta + "</a>" +
+              '<button type="submit" class="btn btn-primary" id="submit">Оставить заявку</button>' +
+            "</div>" +
+          "</form>"
+        );
+        panel.appendChild(box3);
+        document.getElementById("back2").onclick = function () { state.step = 2; render(); };
+
+        var phoneEl = document.getElementById("phone");
+        function maskRuPhone(raw) {
+          var d = String(raw || "").replace(/\D/g, "");
+          if (d.charAt(0) === "8") d = "7" + d.slice(1);
+          if (d.length && d.charAt(0) !== "7") d = "7" + d;
+          if (!d) return "+7 ";
+          d = d.slice(0, 11);
+          var rest = d.slice(1);
+          var out = "+7";
+          if (rest.length) out += " " + rest.slice(0, 3);
+          if (rest.length > 3) out += " " + rest.slice(3, 6);
+          if (rest.length > 6) out += "-" + rest.slice(6, 8);
+          if (rest.length > 8) out += "-" + rest.slice(8, 10);
+          return out;
+        }
+        phoneEl.addEventListener("focus", function () {
+          if (!String(phoneEl.value || "").replace(/\D/g, "")) phoneEl.value = "+7 ";
+        });
+        phoneEl.addEventListener("input", function () { phoneEl.value = maskRuPhone(phoneEl.value); });
+
+        document.getElementById("leadForm").addEventListener("submit", function (e) {
+          e.preventDefault();
+          var err = document.getElementById("err");
+          var ok = document.getElementById("ok");
+          err.hidden = true;
+          ok.hidden = true;
+          var digits = String(phoneEl.value || "").replace(/\D/g, "");
+          if (digits.length === 11 && digits[0] === "8") digits = "7" + digits.slice(1);
+          if (digits.length === 10) digits = "7" + digits;
+          if (digits.length !== 11) {
+            err.textContent = "Укажите телефон в формате +7…";
+            err.hidden = false;
+            return;
+          }
+          var tg = String(document.getElementById("telegram").value || "").trim();
+          if (tg.charAt(0) === "@") tg = tg.slice(1);
+          tg = tg.replace(/^https?:\/\/(t\.me|telegram\.me)\//i, "").replace(/\/$/, "").trim();
+          if (!(/^\d{5,15}$/.test(tg) || /^[A-Za-z0-9_]{5,32}$/.test(tg))) {
+            err.textContent = "Укажите Telegram: @username или числовой ID.";
+            err.hidden = false;
+            return;
+          }
+          if (!document.getElementById("consent").checked) {
+            err.textContent = "Нужно согласие на обработку данных.";
+            err.hidden = false;
+            return;
+          }
+          var name = document.getElementById("name").value.trim();
+          var noteUser = document.getElementById("note").value.trim();
+          var phoneFmt = "+7 " + digits.slice(1, 4) + " " + digits.slice(4, 7) + "-" + digits.slice(7, 9) + "-" + digits.slice(9);
+          var tgDisplay = /^\d+$/.test(tg) ? tg : ("@" + tg);
+          var answersText = answerLabels().join("; ");
+          var noteFull = [
+            "Роль: " + roleLabel(state.role) + " (" + state.role + ")",
+            "Выбор: " + answersText,
+            "Оффер: " + offer.title + " · " + offer.price,
+            noteUser ? ("Комментарий: " + noteUser) : ""
+          ].filter(Boolean).join("\n");
+
+          persist();
+          var btn = document.getElementById("submit");
+          btn.disabled = true;
+          var base = (window.PLATFORM_API_URL || "").replace(/\/$/, "");
+          var payload = {
+            restaurant: name ? ("Путь · " + name) : "Заявка с /put/",
+            city: "",
+            contact: name,
+            phone: phoneFmt,
+            telegram: tgDisplay,
+            size: "",
+            sizeLabel: roleLabel(state.role),
+            problemLabel: answersText.slice(0, 120) || offer.title,
+            problemK: 1,
+            expertLabel: state.role,
+            expertTier: offer.id,
+            priceMin: offer.priceMin || 0,
+            priceMax: offer.priceMax || 0,
+            note: noteFull.slice(0, 2000),
+            consent: true,
+            source: "put"
+          };
+          var done = function () {
+            ok.hidden = false;
+            btn.disabled = false;
+            document.getElementById("leadForm").reset();
+          };
+          if (!base) {
+            console.warn("[put] no API");
+            done();
+            return;
+          }
+          fetch(base + "/api/leads", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          }).then(function (r) {
+            if (!r.ok) throw new Error("HTTP " + r.status);
+            return r.json();
+          }).then(done).catch(function () {
+            err.textContent = "Не удалось отправить. Напишите в Telegram @yank0vski.";
+            err.hidden = false;
+            btn.disabled = false;
+          });
+        });
+      }
+    }
+
+    render();
+  })();
+  </script>
+</body>
+</html>
