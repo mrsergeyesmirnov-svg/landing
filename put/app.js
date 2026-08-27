@@ -420,11 +420,11 @@
         '<div class="actions">' +
           '<button type="button" class="btn btn-ghost" id="back">Назад</button>' +
           (result.ctaHref
-            ? '<a class="btn btn-ghost" href="' + result.ctaHref + '">' + result.cta + "</a>"
-            : "") +
-          '<button type="button" class="btn btn-primary" id="toForm">' +
-            (result.ctaHref ? (result.secondaryCta || "Оставить контакт") : result.cta) +
-          "</button>" +
+            ? '<a class="btn btn-primary" href="' + result.ctaHref + '">' + result.cta + "</a>" +
+              '<button type="button" class="btn btn-ghost" id="toForm">' +
+                (result.secondaryCta || "Оставить контакт") +
+              "</button>"
+            : '<button type="button" class="btn btn-primary" id="toForm">' + result.cta + "</button>") +
         "</div>";
 
       $("#back").onclick = function () {
@@ -433,11 +433,14 @@
         save();
         render();
       };
-      $("#toForm").onclick = function () {
-        state.phase = "form";
-        save();
-        render();
-      };
+      var toForm = $("#toForm");
+      if (toForm) {
+        toForm.onclick = function () {
+          state.phase = "form";
+          save();
+          render();
+        };
+      }
       return;
     }
 
