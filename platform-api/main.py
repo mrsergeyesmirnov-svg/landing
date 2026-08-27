@@ -164,7 +164,7 @@ def _norm_telegram(raw: str) -> str:
 
 
 _SOURCE_TITLE = {
-    "put": "Диагностика",
+    "put": "Состояние",
     "diagnostika": "Калькулятор",
     "sostoyanie": "Обсудить проект",
 }

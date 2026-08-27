@@ -1,11 +1,11 @@
 /**
- * UI-сценарий диагностики /put/
- * Состояние: intro → role → questions → result → form
+ * UI-сценарий /put/ — узнающий опрос Академии счастья
+ * intro → role → branchIntro → question → result → form
  */
 (function () {
   var DATA = window.PUT_DATA;
   var SCORING = window.PUT_SCORING;
-  var STORAGE_KEY = "academy_put_diagnostic_v2";
+  var STORAGE_KEY = "academy_put_reflect_v3";
 
   var state = {
     phase: "intro", // intro | role | branchIntro | question | result | form
@@ -187,7 +187,7 @@
     if (form.comment) noteParts.push("Комментарий: " + form.comment);
 
       return {
-      restaurant: form.name || ("Диагностика · " + roleLabel(state.role)),
+      restaurant: form.name || ("Состояние · " + roleLabel(state.role)),
       city: "",
       contact: form.name || "",
       phone: form.phone,
@@ -230,15 +230,19 @@
   function renderZones(blocks) {
     return '<div class="zones">' + blocks.map(function (b) {
       return '<div class="zone is-' + b.level + '">' +
-        '<span class="name">' + b.label.toUpperCase() + "</span>" +
-        "<span>" + b.emoji + "</span></div>";
+        '<span class="name">' + b.label + "</span>" +
+        "<span class=\"zone-score\">" + (typeof b.display === "number" ? b.display : "") +
+        " " + b.emoji + "</span></div>";
     }).join("") + "</div>";
   }
 
-  function renderOpsBlocks(result) {
-    return '<div class="ops-grid">' + result.resultBlocks.map(function (b) {
-      return '<div class="ops-cell">' + b.label +
-        "<small>" + b.emoji + " " + b.level + "</small></div>";
+  function renderScoreBars(blocks) {
+    return '<div class="score-bars">' + blocks.map(function (b) {
+      var n = typeof b.display === "number" ? b.display : 0;
+      return '<div class="score-row">' +
+        '<div class="score-label">' + b.label + "</div>" +
+        '<div class="score-track"><i style="width:' + n + '%"></i></div>' +
+        '<div class="score-num">' + n + "</div></div>";
     }).join("") + "</div>";
   }
 
@@ -249,9 +253,10 @@
 
     if (state.phase === "intro") {
       panel.innerHTML =
-        '<p class="kicker">Диагностика</p>' +
+        '<p class="kicker">Академия счастья</p>' +
         "<h1>" + DATA.intro.title.replace(" ", "<br/>") + "</h1>" +
         '<p class="lead">' + DATA.intro.subtitle + "</p>" +
+        (DATA.intro.prompt ? '<p class="prompt">' + DATA.intro.prompt + "</p>" : "") +
         '<div class="actions"><button type="button" class="btn btn-primary" id="start">' +
         DATA.intro.cta + "</button></div>";
       $("#start").onclick = function () {
@@ -264,7 +269,7 @@
 
     if (state.phase === "role") {
       panel.innerHTML =
-        '<p class="kicker">Шаг</p>' +
+        '<p class="kicker">О себе</p>' +
         "<h1>" + DATA.roleStep.title + "</h1>" +
         '<p class="lead">' + DATA.roleStep.lead + "</p>" +
         '<div class="choices" id="roles"></div>' +
@@ -300,11 +305,11 @@
       var br = branch();
       panel.innerHTML =
         '<p class="kicker">' + roleLabel(state.role) + "</p>" +
-        "<h1>" + (br.introTitle || "Вопросы") + "</h1>" +
-        '<p class="lead">Несколько коротких вопросов — один экран, один ответ.</p>' +
+        "<h1>" + (br.introTitle || "Несколько вопросов") + "</h1>" +
+        '<p class="lead">Коротко. Один экран — один ответ. Без оценок «правильно/неправильно».</p>' +
         '<div class="actions">' +
           '<button type="button" class="btn btn-ghost" id="back">Назад</button>' +
-          '<button type="button" class="btn btn-primary" id="go">Далее</button>' +
+          '<button type="button" class="btn btn-primary" id="go">Узнать →</button>' +
         "</div>";
       $("#back").onclick = function () {
         state.phase = "role";
@@ -399,19 +404,18 @@
     if (state.phase === "result") {
       var result = state.result || computeResult();
       var zonesHtml = "";
-      if (state.role === "ops") {
-        zonesHtml = renderOpsBlocks(result);
-      } else if (state.role === "owner" || state.role === "employee") {
+      if (result.showScores) {
         zonesHtml =
           '<p class="kicker" style="margin-top:8px">Зоны внимания</p>' +
-          renderZones(result.attentionBlocks || result.resultBlocks.slice(0, 3));
+          renderScoreBars(result.resultBlocks || []);
       }
 
       panel.innerHTML =
-        '<p class="kicker">Результат</p>' +
+        '<p class="kicker">Для вас</p>' +
         '<div class="result-card">' +
           "<h2>" + result.headline + "</h2>" +
           '<p class="body">' + result.body + "</p>" +
+          (result.softLine ? '<p class="soft">' + result.softLine + "</p>" : "") +
           zonesHtml +
           (result.priceHint ? '<p class="price">' + result.priceHint + "</p>" : "") +
         "</div>" +

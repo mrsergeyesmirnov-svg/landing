@@ -170,7 +170,7 @@
           var note = (c.notes || (c.comments && c.comments[0] && c.comments[0].text) || "").slice(0, 160);
           var badge = (c.docs || []).length + (c.comments || []).length;
           var meta = c.leadMeta || {};
-          var srcMap = { put: "Диагностика", diagnostika: "Калькулятор", sostoyanie: "Сайт" };
+          var srcMap = { put: "Состояние", diagnostika: "Калькулятор", sostoyanie: "Сайт" };
           var src = srcMap[meta.source] || "";
           return (
             '<button type="button" class="sticker" data-id="' + c.id + '">' +
