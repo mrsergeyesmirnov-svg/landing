@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Mulish:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/site.css?v=v1" />
+  <link rel="stylesheet" href="/site.css?v=v2" />
   <script src="/platform/config.js"></script>
   <style>
     .calc-page { padding: 40px 0 72px; }
@@ -27,7 +27,7 @@
       font-weight: 500;
       color: var(--ink);
       margin: 0 0 12px;
-      line-height: 1.1;
+      line-height: 1.2;
       letter-spacing: -0.02em;
     }
     .calc-intro p {
@@ -44,10 +44,10 @@
       .calc-grid { grid-template-columns: 1.15fr 0.85fr; align-items: start; }
     }
     .panel {
-      background: var(--surface);
-      border: 1px solid var(--line);
+      background: var(--bg-warm, #f3f0e9);
+      border: 0;
       border-radius: var(--radius-lg);
-      padding: 24px 22px;
+      padding: 28px 24px;
       box-shadow: none;
     }
     .panel h2 {
@@ -95,19 +95,20 @@
     .choice {
       display: block;
       cursor: pointer;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 14px 14px;
-      background: var(--surface);
-      transition: border-color .15s, background .15s;
+      border: 0;
+      border-bottom: 1px solid var(--line);
+      border-radius: 0;
+      padding: 14px 8px 14px 12px;
+      background: transparent;
+      transition: background .2s;
       box-shadow: none;
     }
-    .choice:hover { background: #f1ece4; border-color: var(--line-strong, #d2cbc0); }
+    .choice:hover { background: var(--bg-warm, #f3f0e9); }
     .choice input { position: absolute; opacity: 0; pointer-events: none; }
     .choice.is-on {
-      border-color: rgba(184,146,42,.55);
-      background: var(--accent-soft);
-      box-shadow: inset 3px 0 0 var(--gold);
+      border-color: var(--line);
+      background: transparent;
+      box-shadow: inset 2px 0 0 var(--gold);
     }
     .choice strong {
       display: block;

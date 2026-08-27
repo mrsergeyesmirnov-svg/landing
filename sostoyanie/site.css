@@ -1,25 +1,25 @@
 
     :root {
-      --bg: #f6f3ed;
-      --bg-warm: #efeae2;
-      --surface: #fffcf7;
-      --ink: #1a1816;
-      --muted: #6f6a64;
-      --line: #e2ddd4;
-      --accent: #b8922a;
-      --accent-hover: #8f6f18;
-      --accent-soft: #faf6ee;
-      --calm: #6f6a64;
-      --calm-soft: rgba(184, 146, 42, 0.12);
+      --bg: #fbf9f6;
+      --bg-warm: #f3f0e9;
+      --surface: #fbf9f6;
+      --ink: #1c1917;
+      --muted: #6b645c;
+      --line: #ebe6dc;
+      --accent: #c9a96e;
+      --accent-hover: #a8894a;
+      --accent-soft: #f3f0e9;
+      --calm: #6b645c;
+      --calm-soft: rgba(201, 169, 110, 0.14);
       --radius-lg: 16px;
-      --radius-md: 12px;
+      --radius-md: 8px;
       --radius-sm: 8px;
       --shadow: none;
       --shadow-hover: none;
       --max: 1120px;
       --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
-      --gold: #b8922a;
-      --gold-ink: #8f6f18;
+      --gold: #c9a96e;
+      --gold-ink: #a8894a;
     }
 
     *, *::before, *::after { box-sizing: border-box; }
@@ -28,7 +28,7 @@
       margin: 0;
       font-family: "Mulish", system-ui, -apple-system, sans-serif;
       font-size: 17px;
-      line-height: 1.55;
+      line-height: 1.7;
       color: var(--ink);
       background: var(--bg);
       -webkit-font-smoothing: antialiased;
@@ -43,7 +43,7 @@
       position: sticky;
       top: 0;
       z-index: 50;
-      background: rgba(250, 247, 243, 0.92);
+      background: rgba(251, 249, 246, 0.94);
       /* no glass */
       border-bottom: 1px solid var(--line);
     }
@@ -128,7 +128,7 @@
     .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
 
     .hero {
-      padding: 48px 0 80px;
+      padding: 72px 0 96px;
       position: relative;
       overflow: hidden;
     }
@@ -183,11 +183,11 @@
       line-height: 1.4;
     }
     .hero-card {
-      background: var(--surface);
+      background: var(--bg-warm);
       border-radius: var(--radius-lg);
       padding: 28px;
       box-shadow: none;
-      border: 1px solid var(--line);
+      border: 0;
     }
     .hero-card h3 {
       margin: 0 0 8px;
@@ -665,7 +665,7 @@
       margin-top: 16px;
       font-size: 0.8125rem;
       color: var(--muted);
-      line-height: 1.55;
+      line-height: 1.7;
     }
     .footer-requisites a { font-weight: 600; }
 
@@ -688,7 +688,7 @@
       margin: 0;
       font-size: 0.875rem;
       color: var(--muted);
-      line-height: 1.55;
+      line-height: 1.7;
       max-width: 46em;
     }
     .consulting-strip-text strong {
@@ -747,7 +747,7 @@
       color: var(--muted);
       margin: 0 0 20px;
       font-size: 1.0625rem;
-      line-height: 1.55;
+      line-height: 1.7;
     }
     .memo-bridge {
       padding: 28px 32px;
@@ -759,7 +759,7 @@
     .memo-bridge p {
       margin: 0;
       font-size: 1rem;
-      line-height: 1.55;
+      line-height: 1.7;
       color: var(--muted);
     }
     .memo-bridge a { font-weight: 700; }
@@ -805,7 +805,7 @@
       padding: 0 0 0 18px;
       font-size: 0.875rem;
       color: var(--muted);
-      line-height: 1.55;
+      line-height: 1.7;
     }
     .feature-card li { margin-bottom: 4px; }
     .roles-row {

@@ -1,32 +1,32 @@
 /* Academy product visual system
    calm · editorial · gold as accent only */
 :root {
-  --bg:         #f6f3ed;
-  --bg-warm:    #efeae2;
-  --bg-gold:    #f6f3ed;
-  --surface:    #fffcf7;
-  --ink:        #1a1816;
-  --muted:      #6f6a64;
-  --line:       #e2ddd4;
-  --line-strong:#d2cbc0;
+  --bg:         #fbf9f6;
+  --bg-warm:    #f3f0e9;
+  --bg-gold:    #f3f0e9;
+  --surface:    #fbf9f6;
+  --ink:        #1c1917;
+  --muted:      #6b645c;
+  --line:       #ebe6dc;
+  --line-strong:#ddd6c8;
 
-  --accent:       #b8922a;
-  --accent-hover: #8f6f18;
-  --accent-soft:  #faf6ee;
-  --accent-mid:   #e2d4a8;
+  --accent:       #c9a96e;
+  --accent-hover: #a8894a;
+  --accent-soft:  #f3f0e9;
+  --accent-mid:   #e5d6b3;
 
   --love:       #c4a09a;
   --love-deep:  #9a6f68;
   --love-soft:  #f7f0ee;
 
-  --gold:       #b8922a;
-  --gold-light: #c9a84a;
-  --gold-ink:   #8f6f18;
+  --gold:       #c9a96e;
+  --gold-light: #d4b87e;
+  --gold-ink:   #a8894a;
 
-  --calm:       #6f6a64;
+  --calm:       #6b645c;
 
   --radius-lg: 16px;
-  --radius-md: 12px;
+  --radius-md: 8px;
   --radius-sm: 8px;
   --shadow:    none;
   --max:       1120px;
@@ -45,7 +45,7 @@ body {
   max-width: 100%;
   font-family: "Mulish", system-ui, sans-serif;
   font-size: 17px;
-  line-height: 1.55;
+  line-height: 1.7;
   color: var(--ink);
   background: var(--bg);
   -webkit-font-smoothing: antialiased;
@@ -68,7 +68,7 @@ header {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(246, 243, 237, 0.92);
+  background: rgba(251, 249, 246, 0.94);
   border-bottom: 1px solid var(--line);
 }
 .header-inner {
@@ -127,8 +127,8 @@ header {
 
 /* Hero */
 .hero {
-  padding: 64px 0 72px;
-  background: var(--bg);
+  padding: 80px 0 96px;
+  background: linear-gradient(180deg, #fbf9f6 0%, #f7f5f0 100%);
 }
 .hero-kicker {
   display: block;
@@ -143,7 +143,7 @@ h1 {
   font-family: "Cormorant Garamond", Georgia, serif;
   font-size: clamp(2.6rem, 8vw, 4.6rem);
   font-weight: 500;
-  line-height: 1.02;
+  line-height: 1.12;
   letter-spacing: -0.03em;
   color: var(--ink);
   margin: 0 0 20px;
@@ -164,8 +164,8 @@ h1 {
   max-width: 38em;
   font-size: 0.95rem;
   color: var(--muted);
-  margin: 0 0 28px;
-  line-height: 1.55;
+  margin: 0 0 32px;
+  line-height: 1.7;
 }
 
 .who-cards {
@@ -251,14 +251,14 @@ h1 {
 .btn-sm { font-size: 0.8rem; padding: 8px 14px; }
 
 /* Sections */
-section { padding: 64px 0; }
+section { padding: 88px 0; }
 .band { background: var(--bg-warm); }
 .band-gold { background: var(--bg-warm); }
 
 .section-label {
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 500;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--muted);
   margin: 0 0 12px;
@@ -269,7 +269,7 @@ h2 {
   font-weight: 500;
   letter-spacing: -0.02em;
   margin: 0 0 16px;
-  line-height: 1.15;
+  line-height: 1.2;
   color: var(--ink);
   max-width: 18ch;
 }
@@ -277,8 +277,8 @@ h2 {
   max-width: 38em;
   color: var(--muted);
   font-size: 0.95rem;
-  margin: 0 0 28px;
-  line-height: 1.55;
+  margin: 0 0 32px;
+  line-height: 1.7;
 }
 h3 {
   font-family: "Cormorant Garamond", Georgia, serif;
@@ -629,7 +629,7 @@ h3 {
 
 /* CTA final — calm dark, no glow */
 .cta-final {
-  padding: 64px 0 72px;
+  padding: 96px 0 100px;
   background: #1f1c19;
   color: var(--bg);
   position: relative;
@@ -751,7 +751,7 @@ footer a:hover { color: var(--ink); }
 
 @media (max-width: 640px) {
   h1 { font-size: clamp(2.2rem, 11vw, 3.2rem); }
-  .hero { padding: 44px 0 56px; }
+  .hero { padding: 56px 0 72px; }
   .wrap {
     padding-left: max(20px, env(safe-area-inset-left));
     padding-right: max(20px, env(safe-area-inset-right));
