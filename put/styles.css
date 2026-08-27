@@ -111,15 +111,8 @@ body {
   margin: 0 0 10px;
 }
 .reaction {
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: var(--accent-hover);
-  margin: 0 0 10px;
-  min-height: 1.2em;
-  opacity: 0;
-  transition: opacity 0.25s;
+  display: none;
 }
-.reaction.is-on { opacity: 1; }
 
 h1 {
   font-family: "Cormorant Garamond", Georgia, serif;
