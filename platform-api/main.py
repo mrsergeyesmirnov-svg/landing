@@ -146,8 +146,9 @@ class LeadIn(BaseModel):
     expertTier: str = Field(default="", max_length=40)
     priceMin: float = 0
     priceMax: float = 0
-    note: str = Field(default="", max_length=2000)
+    note: str = Field(default="", max_length=4000)
     consent: bool = False
+    contactConsent: bool = False
     source: str = Field(default="diagnostika", max_length=40)
 
 
@@ -162,6 +163,13 @@ def _norm_telegram(raw: str) -> str:
     return t.strip().rstrip("/")
 
 
+_SOURCE_TITLE = {
+    "put": "Диагностика",
+    "diagnostika": "Калькулятор",
+    "sostoyanie": "Обсудить проект",
+}
+
+
 @app.post("/api/leads")
 async def create_lead(body: LeadIn, request: Request) -> dict[str, Any]:
     if not body.consent:
@@ -174,7 +182,17 @@ async def create_lead(body: LeadIn, request: Request) -> dict[str, Any]:
     pool = await get_pool()
 
     source = (body.source or "diagnostika").strip()[:40] or "diagnostika"
-    name = (body.restaurant or "Лид с сайта").strip()
+    source_title = _SOURCE_TITLE.get(source, source)
+    contact = body.contact.strip()
+    restaurant = (body.restaurant or "").strip()
+    # Имя на доске CRM: контакт + метка источника (чтобы опросы было видно)
+    if contact:
+        name = f"{contact} · {source_title}"
+    elif restaurant:
+        name = restaurant
+    else:
+        name = f"Лид · {source_title}"
+
     meta = {
         "source": source,
         "size": body.size,
@@ -186,21 +204,23 @@ async def create_lead(body: LeadIn, request: Request) -> dict[str, Any]:
         "priceMin": body.priceMin,
         "priceMax": body.priceMax,
         "telegram": telegram,
+        "contactConsent": body.contactConsent,
         "ip": request.client.host if request.client else None,
     }
-    note_bits = []
+    note_bits = [
+        f"=== {source_title} · {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M')} UTC ==="
+    ]
     if body.note:
         note_bits.append(body.note)
     if tg_store:
         note_bits.append(f"Telegram: {tg_store}")
-    if body.priceMin or body.sizeLabel or body.expertLabel:
+    if body.expertLabel or body.expertTier or body.sizeLabel:
         note_bits.append(
-            f"{source}: {body.sizeLabel or body.size}, "
-            f"{body.problemLabel}, {body.expertLabel}, "
-            f"{int(body.priceMin):,} ₽".replace(",", " ")
+            f"Роль/метка: {body.expertLabel or '—'} · продукт: {body.expertTier or '—'} · "
+            f"{body.sizeLabel or body.size or '—'}"
         )
-    elif body.problemLabel:
-        note_bits.append(f"{source}: {body.problemLabel}")
+    if body.problemLabel:
+        note_bits.append(f"Итог: {body.problemLabel}")
     notes = "\n".join(note_bits)
 
     async with pool.acquire() as conn:
@@ -220,22 +240,24 @@ async def create_lead(body: LeadIn, request: Request) -> dict[str, Any]:
             await conn.execute(
                 """
                 UPDATE academy_clients SET
-                  city = COALESCE(NULLIF($2, ''), city),
-                  contact = COALESCE(NULLIF($3, ''), contact),
-                  phone = $4,
-                  telegram = COALESCE(NULLIF($5, ''), telegram),
+                  name = $2,
+                  city = COALESCE(NULLIF($3, ''), city),
+                  contact = COALESCE(NULLIF($4, ''), contact),
+                  phone = $5,
+                  telegram = COALESCE(NULLIF($6, ''), telegram),
                   notes = CASE
-                    WHEN notes = '' OR notes IS NULL THEN $6
-                    ELSE notes || E'\\n---\\n' || $6
+                    WHEN notes = '' OR notes IS NULL THEN $7
+                    ELSE $7 || E'\\n---\\n' || notes
                   END,
-                  lead_meta = $7::jsonb,
+                  lead_meta = $8::jsonb,
                   status = CASE WHEN status = 'lost' THEN 'lead' ELSE status END,
-                  updated_at = $8
+                  updated_at = $9
                 WHERE id = $1
                 """,
                 client_id,
+                name,
                 body.city.strip(),
-                body.contact.strip(),
+                contact,
                 body.phone.strip(),
                 tg_store,
                 notes,
@@ -253,7 +275,7 @@ async def create_lead(body: LeadIn, request: Request) -> dict[str, Any]:
                 client_id,
                 name,
                 body.city.strip(),
-                body.contact.strip(),
+                contact,
                 body.phone.strip(),
                 tg_store,
                 notes,
@@ -272,7 +294,7 @@ async def create_lead(body: LeadIn, request: Request) -> dict[str, Any]:
             client_id,
             name,
             body.city.strip(),
-            body.contact.strip(),
+            contact,
             body.phone.strip(),
             body.size,
             body.problemLabel,

@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="site.css?v=s7" />
+  <link rel="stylesheet" href="site.css?v=s8" />
 </head>
 <body>
   <header class="no-print">
@@ -255,7 +255,11 @@
           </div>
           <label class="discuss-consent">
             <input type="checkbox" id="dConsent" required />
-            <span>Согласен(на) на обработку персональных данных и на то, чтобы со мной связались</span>
+            <span>Согласен(на) с <a href="privacy.html" target="_blank" rel="noopener">политикой конфиденциальности</a> и обработкой персональных данных</span>
+          </label>
+          <label class="discuss-consent">
+            <input type="checkbox" id="dContactOk" required />
+            <span>Напишите мне — согласен(на), чтобы со мной связались</span>
           </label>
           <p class="discuss-err" id="dErr" hidden></p>
           <p class="discuss-ok" id="dOk" hidden>Заявка отправлена. Мы напишем вам.</p>
@@ -355,7 +359,12 @@
         return;
       }
       if (!document.getElementById("dConsent").checked) {
-        err.textContent = "Нужно согласие на обработку данных и связь.";
+        err.textContent = "Нужно согласие с политикой конфиденциальности.";
+        err.hidden = false;
+        return;
+      }
+      if (!document.getElementById("dContactOk").checked) {
+        err.textContent = "Отметьте «Напишите мне», чтобы мы могли связаться.";
         err.hidden = false;
         return;
       }
@@ -383,6 +392,7 @@
         priceMax: 0,
         note: note || "Форма «Обсудить проект»",
         consent: true,
+        contactConsent: true,
         source: "sostoyanie"
       };
       var done = function () {

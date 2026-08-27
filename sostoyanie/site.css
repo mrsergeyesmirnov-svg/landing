@@ -553,7 +553,9 @@
       line-height: 1.45;
       text-align: left;
       max-width: 100%;
+      margin: 4px 0;
     }
+    .discuss-consent a { color: var(--accent); font-weight: 700; }
     .discuss-consent input {
       flex: 0 0 auto;
       width: 18px;

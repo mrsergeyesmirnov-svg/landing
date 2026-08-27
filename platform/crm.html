@@ -169,12 +169,20 @@
           }).join("");
           var note = (c.notes || (c.comments && c.comments[0] && c.comments[0].text) || "").slice(0, 160);
           var badge = (c.docs || []).length + (c.comments || []).length;
+          var meta = c.leadMeta || {};
+          var srcMap = { put: "Диагностика", diagnostika: "Калькулятор", sostoyanie: "Сайт" };
+          var src = srcMap[meta.source] || "";
           return (
             '<button type="button" class="sticker" data-id="' + c.id + '">' +
             '<div class="sticker-title">' + escapeHtml(c.name || "Без названия") +
             (badge ? '<span class="sticker-badge">' + badge + "</span>" : "") +
             "</div>" +
-            '<p class="sticker-sub">' + escapeHtml([c.city, c.contact].filter(Boolean).join(" · ") || "—") + "</p>" +
+            '<p class="sticker-sub">' + escapeHtml([c.city, c.contact, c.telegram, c.phone].filter(Boolean).join(" · ") || "—") + "</p>" +
+            (src ? '<p class="sticker-meta"><strong>' + escapeHtml(src) + "</strong>" +
+              (meta.expertLabel ? " · " + escapeHtml(meta.expertLabel) : "") +
+              (meta.expertTier ? " → " + escapeHtml(meta.expertTier) : "") +
+              (meta.problemLabel ? " · " + escapeHtml(String(meta.problemLabel).slice(0, 80)) : "") +
+              "</p>" : "") +
             (note ? '<p class="sticker-meta">' + escapeHtml(note) + "</p>" : "") +
             (files ? '<div class="sticker-files">' + files + "</div>" : "") +
             '<div class="sticker-foot"><span class="status-pill ' + statusClass(c.status) + '">' +

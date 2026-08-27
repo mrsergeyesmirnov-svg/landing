@@ -328,15 +328,15 @@
           <label class="consent" id="consentBox">
             <input type="checkbox" id="consent" name="consent" required />
             <span>
-              Используя калькулятор и скачивая коммерческое предложение, я даю согласие на обработку
-              персональных данных (имя, телефон, сведения о ресторане) в соответствии с
-              <a href="/sostoyanie/privacy.html" target="_blank" rel="noopener">Политикой конфиденциальности</a>.
+              Согласен(на) с
+              <a href="/sostoyanie/privacy.html" target="_blank" rel="noopener">политикой конфиденциальности</a>
+              и обработкой персональных данных (имя, телефон, Telegram, сведения о ресторане).
             </span>
           </label>
           <label class="consent" id="contactBox" style="margin-top:10px">
             <input type="checkbox" id="contactOk" name="contactOk" required />
             <span>
-              Согласен(на), чтобы со мной связались по указанному телефону по поводу расчёта и диагностики.
+              Напишите мне — согласен(на), чтобы со мной связались по указанным контактам.
             </span>
           </label>
           <p class="err" id="formErr"></p>
@@ -679,6 +679,7 @@
           priceMax: s.price,
           note: s.note,
           consent: true,
+          contactConsent: true,
           source: "diagnostika"
         })
       }).then(function (r) {

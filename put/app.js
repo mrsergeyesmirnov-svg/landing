@@ -186,8 +186,8 @@
     if (form.email) noteParts.push("Email: " + form.email);
     if (form.comment) noteParts.push("Комментарий: " + form.comment);
 
-    return {
-      restaurant: form.name ? ("Диагностика · " + form.name) : "Диагностика /put/",
+      return {
+      restaurant: form.name || ("Диагностика · " + roleLabel(state.role)),
       city: "",
       contact: form.name || "",
       phone: form.phone,
@@ -200,8 +200,9 @@
       expertTier: result.recommendedProduct,
       priceMin: 0,
       priceMax: 0,
-      note: noteParts.join("\n").slice(0, 2000),
+      note: noteParts.join("\n").slice(0, 3900),
       consent: true,
+      contactConsent: true,
       source: "put",
       // расширенный payload для будущего API (бэкенд сейчас кладёт в lead_meta/note)
       _diagnostic: {
@@ -451,7 +452,8 @@
           '<div class="field"><label for="email">Email <span style="font-weight:600;text-transform:none;letter-spacing:0">(необязательно)</span></label><input id="email" type="email" autocomplete="email" placeholder="name@company.ru" /></div>' +
           '<div class="field"><label>Как с вами связаться?</label><div class="channel" id="channels"></div></div>' +
           '<div class="field"><label for="comment">Комментарий</label><textarea id="comment" rows="2" placeholder="Если хотите уточнить"></textarea></div>' +
-          '<label class="consent"><input type="checkbox" id="consent" required /><span>Согласен(на) на обработку персональных данных и на то, чтобы со мной связались</span></label>' +
+          '<label class="consent"><input type="checkbox" id="consent" required /><span>Согласен(на) с <a href="/sostoyanie/privacy.html" target="_blank" rel="noopener">политикой конфиденциальности</a> и обработкой персональных данных</span></label>' +
+          '<label class="consent"><input type="checkbox" id="contactOk" required /><span>Напишите мне — согласен(на), чтобы со мной связались</span></label>' +
           '<p class="err" id="err" hidden></p>' +
           '<p class="ok" id="ok" hidden>Заявка отправлена. Мы напишем вам.</p>' +
           '<div class="actions">' +
@@ -511,7 +513,12 @@
           return;
         }
         if (!$("#consent").checked) {
-          err.textContent = "Нужно согласие на обработку данных.";
+          err.textContent = "Нужно согласие с политикой конфиденциальности.";
+          err.hidden = false;
+          return;
+        }
+        if (!$("#contactOk").checked) {
+          err.textContent = "Отметьте «Напишите мне», чтобы мы могли связаться.";
           err.hidden = false;
           return;
         }
@@ -544,22 +551,27 @@
         }
 
         if (!base) {
-          console.warn("[put] PLATFORM_API_URL не задан — лид сохранён локально", payload);
-          done();
+          err.textContent = "Не удалось отправить на сервер. Напишите @yank0vski в Telegram.";
+          err.hidden = false;
+          btn.disabled = false;
+          console.warn("[put] PLATFORM_API_URL не задан", payload);
           return;
         }
 
-        // В note уже есть полный разбор; дополнительно enrich expert fields
         fetch(base + "/api/leads", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(apiBody)
         }).then(function (r) {
-          if (!r.ok) throw new Error("HTTP " + r.status);
+          if (!r.ok) {
+            return r.text().then(function (t) { throw new Error(t || ("HTTP " + r.status)); });
+          }
           return r.json();
-        }).then(function () {
+        }).then(function (data) {
+          console.log("[put] lead saved", data);
           done();
-        }).catch(function () {
+        }).catch(function (ex) {
+          console.warn("[put] lead failed", ex);
           err.textContent = "Не удалось отправить. Напишите @yank0vski в Telegram.";
           err.hidden = false;
           btn.disabled = false;
