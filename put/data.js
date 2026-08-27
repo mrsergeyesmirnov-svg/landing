@@ -78,7 +78,7 @@ window.PUT_DATA = {
         {
           id: "owner_signal",
           type: "single",
-          text: "Откуда вы обычно узнаёте, что в доме что-то не так?",
+          text: "Откуда вы обычно узнаёте, что в проекте что-то не так?",
           options: [
             { id: "feel", label: "Чувствую сам, когда захожу", scores: { PEOPLE: 1, PROCESS: 1 } },
             { id: "numbers", label: "По цифрам", scores: { FINANCE: 2 } },

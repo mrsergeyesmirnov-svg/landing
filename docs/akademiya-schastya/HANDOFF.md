@@ -20,7 +20,7 @@ git clone --depth 1 -b cursor/akademiya-schastya-a3f9 \
 
 | Путь | Зачем |
 |---|---|
-| `docs/akademiya-schastya/` | Витрина дома: прижимает к продукту |
+| `docs/akademiya-schastya/` | Витрина проекта: прижимает к продукту |
 | `docs/akademiya-schastya/tours.html` | Первый выезд шефов |
 | `docs/sostoyanie-smeny/` | Полная страница продукта |
 | `docs/sostoyanie-smeny/metodika-sostoyanie-smeny-1.0.pdf` | Методичка 1.0 |
