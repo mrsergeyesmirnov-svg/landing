@@ -96,7 +96,9 @@
       bar.style.width = "5%";
       return;
     }
-    meta.innerHTML = 'Шаг <strong>' + n + "</strong> из " + total;
+    var nn = (n < 10 ? "0" : "") + n;
+    var tt = (total < 10 ? "0" : "") + total;
+    meta.innerHTML = "<strong>" + nn + "</strong> / " + tt;
     bar.style.width = Math.round((n / total) * 100) + "%";
   }
 

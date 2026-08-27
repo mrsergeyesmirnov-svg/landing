@@ -1,23 +1,25 @@
 
     :root {
-      --bg: #faf7f3;
-      --bg-warm: #fff5ee;
-      --surface: #ffffff;
-      --ink: #1c1917;
-      --muted: #57534e;
-      --line: #e7e2dc;
-      --accent: #ff5a1f;
-      --accent-hover: #e54d15;
-      --accent-soft: rgba(255, 90, 31, 0.12);
-      --calm: #0d9488;
-      --calm-soft: rgba(13, 148, 136, 0.1);
-      --radius-lg: 24px;
-      --radius-md: 16px;
-      --radius-sm: 12px;
-      --shadow: 0 4px 24px rgba(28, 25, 23, 0.06);
-      --shadow-hover: 0 8px 32px rgba(28, 25, 23, 0.1);
+      --bg: #f6f3ed;
+      --bg-warm: #efeae2;
+      --surface: #fffcf7;
+      --ink: #1a1816;
+      --muted: #6f6a64;
+      --line: #e2ddd4;
+      --accent: #b8922a;
+      --accent-hover: #8f6f18;
+      --accent-soft: #faf6ee;
+      --calm: #6f6a64;
+      --calm-soft: rgba(184, 146, 42, 0.12);
+      --radius-lg: 16px;
+      --radius-md: 12px;
+      --radius-sm: 8px;
+      --shadow: none;
+      --shadow-hover: none;
       --max: 1120px;
-      --ease: cubic-bezier(0.4, 0, 0.2, 1);
+      --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+      --gold: #b8922a;
+      --gold-ink: #8f6f18;
     }
 
     *, *::before, *::after { box-sizing: border-box; }
@@ -42,7 +44,7 @@
       top: 0;
       z-index: 50;
       background: rgba(250, 247, 243, 0.92);
-      backdrop-filter: blur(12px);
+      /* no glass */
       border-bottom: 1px solid var(--line);
     }
     .header-inner {
@@ -80,12 +82,12 @@
       padding: 10px 20px;
       background: var(--accent);
       color: #fff !important;
-      border-radius: 999px;
+      border-radius: 8px;
       text-decoration: none !important;
       transition: background 0.2s var(--ease), transform 0.2s var(--ease);
       white-space: nowrap;
     }
-    .header-cta:hover { background: var(--accent-hover); transform: translateY(-1px); }
+    .header-cta:hover { background: var(--accent-hover); transform: none; }
     @media (min-width: 640px) { .header-cta { display: inline-flex; } }
 
     .btn {
@@ -97,7 +99,7 @@
       font-weight: 700;
       font-size: 1rem;
       padding: 16px 28px;
-      border-radius: 999px;
+      border-radius: 8px;
       border: none;
       cursor: pointer;
       transition: background 0.2s var(--ease), color 0.2s var(--ease), box-shadow 0.2s var(--ease), transform 0.2s var(--ease);
@@ -106,12 +108,12 @@
     .btn-primary {
       background: var(--accent);
       color: #fff;
-      box-shadow: 0 4px 20px rgba(255, 90, 31, 0.35);
+      box-shadow: none;
     }
     .btn-primary:hover {
       background: var(--accent-hover);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 28px rgba(255, 90, 31, 0.4);
+      transform: none;
+      box-shadow: none;
     }
     .btn-ghost {
       background: var(--surface);
@@ -130,17 +132,7 @@
       position: relative;
       overflow: hidden;
     }
-    .hero::before {
-      content: "";
-      position: absolute;
-      top: -20%;
-      right: -10%;
-      width: 55%;
-      max-width: 520px;
-      aspect-ratio: 1;
-      background: radial-gradient(circle, var(--accent-soft) 0%, transparent 70%);
-      pointer-events: none;
-    }
+    .hero::before { display: none; }
     .hero-grid {
       display: grid;
       gap: 48px;
@@ -180,7 +172,7 @@
       background: var(--surface);
       border-left: 4px solid var(--accent);
       border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-      box-shadow: var(--shadow);
+      box-shadow: none;
     }
     .hero-quote p {
       margin: 0;
@@ -194,7 +186,7 @@
       background: var(--surface);
       border-radius: var(--radius-lg);
       padding: 28px;
-      box-shadow: var(--shadow);
+      box-shadow: none;
       border: 1px solid var(--line);
     }
     .hero-card h3 {
@@ -314,7 +306,7 @@
       border-radius: 22px;
       padding: 18px 16px 20px;
       border: 1px solid rgba(255,255,255,0.08);
-      box-shadow: var(--shadow-hover);
+      box-shadow: none;
       max-width: 340px;
     }
     .tg-top {
@@ -494,12 +486,12 @@
       border-radius: var(--radius-lg);
       padding: 32px;
       border: 1px solid var(--line);
-      box-shadow: var(--shadow);
+      box-shadow: none;
     }
     section.alt .price-card { background: var(--bg); }
     .price-card.featured {
-      border-color: var(--accent);
-      box-shadow: 0 8px 40px rgba(255, 90, 31, 0.15);
+      border-color: rgba(184, 146, 42, 0.55);
+      box-shadow: inset 3px 0 0 var(--accent);
     }
     .price-card h3 { margin: 0 0 8px; font-size: 1.25rem; }
     .price-tag {
@@ -726,7 +718,7 @@
       border: 1px solid var(--line);
       border-radius: var(--radius-lg);
       background: var(--bg-warm);
-      box-shadow: var(--shadow);
+      box-shadow: none;
     }
     .referral-eyebrow {
       margin: 0 0 6px;
@@ -826,7 +818,7 @@
       font-size: 0.8125rem;
       font-weight: 700;
       padding: 8px 14px;
-      border-radius: 999px;
+      border-radius: 8px;
       background: var(--accent-soft);
       color: var(--ink);
       border: 1px solid rgba(255, 90, 31, 0.2);
@@ -838,7 +830,7 @@
 }
 .gate-card {
   width: min(420px, 100%); background: var(--surface); border: 1px solid var(--line);
-  border-radius: var(--radius-lg); padding: 28px 24px; box-shadow: var(--shadow);
+  border-radius: var(--radius-lg); padding: 28px 24px; box-shadow: none;
 }
 .gate-card h1 { font-size: 1.35rem; margin: 0 0 8px; letter-spacing: -0.03em; }
 .gate-card p { color: var(--muted); margin: 0 0 18px; font-size: .92rem; }
@@ -866,7 +858,7 @@
 @media (min-width: 900px) { .audit-layout { grid-template-columns: 1.2fr .8fr; align-items: start; } }
 .panel-box {
   background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-md);
-  padding: 18px; box-shadow: var(--shadow);
+  padding: 18px; box-shadow: none;
 }
 .panel-box h2 { margin: 0 0 14px; font-size: 1.05rem; }
 .result-price { font-size: 1.8rem; font-weight: 800; letter-spacing: -0.03em; margin: 8px 0; }
@@ -892,7 +884,7 @@
 @media (min-width: 1100px) { .path-grid { grid-template-columns: repeat(8, 1fr); } }
 .path-card {
   background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-md);
-  padding: 14px 12px; box-shadow: var(--shadow);
+  padding: 14px 12px; box-shadow: none;
 }
 .path-card strong { display: block; font-size: .78rem; color: var(--accent); margin-bottom: 4px; }
 .path-card h3 { margin: 0 0 4px; font-size: .9rem; }

@@ -15,8 +15,8 @@
   <meta property="og:image" content="https://www.pulseteam.online/og-image.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Mulish:wght@400;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/site.css?v=calc3" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Mulish:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/site.css?v=v1" />
   <script src="/platform/config.js"></script>
   <style>
     .calc-page { padding: 40px 0 72px; }
@@ -24,20 +24,21 @@
     .calc-intro h1 {
       font-family: "Cormorant Garamond", Georgia, serif;
       font-size: clamp(2rem, 5vw, 3.2rem);
-      font-weight: 600;
-      color: var(--gold);
+      font-weight: 500;
+      color: var(--ink);
       margin: 0 0 12px;
       line-height: 1.1;
+      letter-spacing: -0.02em;
     }
     .calc-intro p {
       font-family: "Mulish", sans-serif;
       color: var(--muted);
       margin: 0;
-      font-size: 0.98rem;
+      font-size: 0.95rem;
     }
     .calc-grid {
       display: grid;
-      gap: 20px;
+      gap: 28px;
     }
     @media (min-width: 900px) {
       .calc-grid { grid-template-columns: 1.15fr 0.85fr; align-items: start; }
@@ -47,12 +48,12 @@
       border: 1px solid var(--line);
       border-radius: var(--radius-lg);
       padding: 24px 22px;
-      box-shadow: var(--shadow);
+      box-shadow: none;
     }
     .panel h2 {
       font-family: "Cormorant Garamond", Georgia, serif;
-      font-size: 1.45rem;
-      font-weight: 600;
+      font-size: 1.4rem;
+      font-weight: 500;
       margin: 0 0 18px;
       color: var(--ink);
     }
@@ -60,19 +61,19 @@
     .field label {
       display: block;
       font-family: "Mulish", sans-serif;
-      font-size: 0.72rem;
-      font-weight: 800;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0;
+      text-transform: none;
       color: var(--muted);
       margin-bottom: 6px;
     }
     .field input, .field select, .field textarea {
       width: 100%;
       padding: 12px 14px;
-      border-radius: 12px;
-      border: 1px solid var(--line);
-      background: #fff;
+      border-radius: 8px;
+      border: 1px solid var(--line-strong, var(--line));
+      background: var(--surface);
       color: var(--ink);
       font: inherit;
       font-family: "Mulish", sans-serif;
@@ -80,8 +81,8 @@
       outline: none;
     }
     .field input:focus, .field select:focus, .field textarea:focus {
-      border-color: rgba(184,146,42,.5);
-      box-shadow: 0 0 0 3px rgba(184,146,42,.12);
+      border-color: rgba(184,146,42,.55);
+      box-shadow: none;
     }
     .choice-grid {
       display: grid;
@@ -94,24 +95,25 @@
     .choice {
       display: block;
       cursor: pointer;
-      border: 1.5px solid var(--line);
-      border-radius: 14px;
-      padding: 14px 12px;
-      background: #fff;
-      transition: border-color .15s, background .15s, box-shadow .15s;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px 14px;
+      background: var(--surface);
+      transition: border-color .15s, background .15s;
+      box-shadow: none;
     }
-    .choice:hover { border-color: var(--accent-mid); }
+    .choice:hover { background: #f1ece4; border-color: var(--line-strong, #d2cbc0); }
     .choice input { position: absolute; opacity: 0; pointer-events: none; }
     .choice.is-on {
-      border-color: var(--gold);
+      border-color: rgba(184,146,42,.55);
       background: var(--accent-soft);
-      box-shadow: 0 2px 12px rgba(184,146,42,.1);
+      box-shadow: inset 3px 0 0 var(--gold);
     }
     .choice strong {
       display: block;
       font-family: "Mulish", sans-serif;
       font-size: 0.9rem;
-      font-weight: 800;
+      font-weight: 500;
       color: var(--ink);
       margin-bottom: 4px;
     }
@@ -124,10 +126,10 @@
     }
     .choice .tier {
       font-size: 0.68rem;
-      font-weight: 800;
-      letter-spacing: 0.06em;
+      font-weight: 500;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: var(--gold);
+      color: var(--gold-ink, #8f6f18);
       margin-bottom: 4px;
     }
     .result-price {
@@ -158,7 +160,7 @@
     .tg-box {
       margin-top: 20px;
       padding: 18px 16px;
-      border-radius: 14px;
+      border-radius: 12px;
       background: var(--bg-warm);
       border: 1px solid var(--line);
     }
@@ -180,11 +182,11 @@
       display: flex;
       gap: 10px;
       align-items: flex-start;
-      margin-top: 18px;
-      padding: 14px 12px;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      background: var(--bg-warm);
+      margin-top: 14px;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
       font-family: "Mulish", sans-serif;
       font-size: 0.82rem;
       color: var(--muted);
