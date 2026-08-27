@@ -1,16 +1,16 @@
 
     :root {
-      --bg: #fbf9f6;
-      --bg-warm: #f3f0e9;
-      --surface: #fbf9f6;
-      --ink: #1c1917;
-      --muted: #6b645c;
-      --line: #ebe6dc;
-      --accent: #c9a96e;
-      --accent-hover: #a8894a;
-      --accent-soft: #f3f0e9;
-      --calm: #6b645c;
-      --calm-soft: rgba(201, 169, 110, 0.14);
+      --bg: #fffcf7;
+      --bg-warm: #fbf3e4;
+      --surface: #ffffff;
+      --ink: #1a1612;
+      --muted: #5c5348;
+      --line: #efe6d6;
+      --accent: #d4a84b;
+      --accent-hover: #b8892e;
+      --accent-soft: #fbf3e4;
+      --calm: #5c5348;
+      --calm-soft: rgba(212, 168, 75, 0.16);
       --radius-lg: 16px;
       --radius-md: 8px;
       --radius-sm: 8px;
@@ -18,8 +18,8 @@
       --shadow-hover: none;
       --max: 1120px;
       --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
-      --gold: #c9a96e;
-      --gold-ink: #a8894a;
+      --gold: #d4a84b;
+      --gold-ink: #b8892e;
     }
 
     *, *::before, *::after { box-sizing: border-box; }
@@ -43,7 +43,7 @@
       position: sticky;
       top: 0;
       z-index: 50;
-      background: rgba(251, 249, 246, 0.94);
+      background: rgba(255, 252, 247, 0.95);
       /* no glass */
       border-bottom: 1px solid var(--line);
     }

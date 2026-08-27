@@ -1,16 +1,15 @@
-/* Warm editorial — /put/
-   paper · gold accent · list rows · no AI cards */
+/* Bright warm editorial — /put/ */
 :root {
-  --bg: #fbf9f6;
-  --bg-warm: #f3f0e9;
-  --ink: #1c1917;
-  --muted: #6b645c;
-  --line: #ebe6dc;
-  --line-strong: #ddd6c8;
-  --gold: #c9a96e;
-  --gold-ink: #a8894a;
-  --surface: #fbf9f6;
-  --hover: #f3f0e9;
+  --bg: #fffcf7;
+  --bg-warm: #fbf3e4;
+  --ink: #1a1612;
+  --muted: #5c5348;
+  --line: #efe6d6;
+  --line-strong: #e2d5bf;
+  --gold: #d4a84b;
+  --gold-ink: #b8892e;
+  --surface: #ffffff;
+  --hover: #fbf3e4;
   --selected: transparent;
   --r-sm: 8px;
   --r-md: 8px;
@@ -55,7 +54,7 @@ body {
   font-family: "Cormorant Garamond", Georgia, serif;
   font-size: 1.05rem;
   font-weight: 500;
-  color: var(--ink);
+  color: var(--gold-ink);
   text-decoration: none;
   letter-spacing: -0.02em;
 }
@@ -85,7 +84,7 @@ body {
 }
 
 .progress {
-  height: 1px;
+  height: 2px;
   background: var(--line);
   border-radius: 0;
   margin: 12px 0 0;
@@ -401,7 +400,7 @@ a.btn-ghost { color: var(--ink); }
   padding: 12px 14px;
   border: 1px solid var(--line-strong);
   border-radius: var(--r-sm);
-  background: #fff;
+  background: var(--surface);
   color: var(--ink);
 }
 .field input:focus, .field textarea:focus {
