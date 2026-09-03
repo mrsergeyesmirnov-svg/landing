@@ -92,7 +92,24 @@
     if (!toggle || !menu) return;
     toggle.setAttribute("aria-expanded", "false");
     toggle.setAttribute("aria-label", "Открыть меню");
-    menu.hidden = true;
+    menu.classList.remove("is-open");
+    document.body.classList.remove("menu-open");
+    window.setTimeout(function () {
+      if (!menu.classList.contains("is-open")) menu.hidden = true;
+    }, 520);
+  }
+
+  function openMenu() {
+    var toggle = $("#menuToggle");
+    var menu = $("#siteMenu");
+    if (!toggle || !menu) return;
+    menu.hidden = false;
+    // force reflow so clip-path animates
+    void menu.offsetWidth;
+    menu.classList.add("is-open");
+    toggle.setAttribute("aria-expanded", "true");
+    toggle.setAttribute("aria-label", "Закрыть меню");
+    document.body.classList.add("menu-open");
   }
 
   function setupMenu() {
@@ -102,16 +119,14 @@
     toggle.dataset.bound = "1";
     toggle.addEventListener("click", function () {
       var open = toggle.getAttribute("aria-expanded") === "true";
-      if (open) {
-        closeMenu();
-      } else {
-        toggle.setAttribute("aria-expanded", "true");
-        toggle.setAttribute("aria-label", "Закрыть меню");
-        menu.hidden = false;
-      }
+      if (open) closeMenu();
+      else openMenu();
     });
     menu.querySelectorAll("a").forEach(function (a) {
       a.addEventListener("click", closeMenu);
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") closeMenu();
     });
   }
 
@@ -292,7 +307,7 @@
         (DATA.intro.missionLabel ? '<p class="mission-label">' + DATA.intro.missionLabel + "</p>" : "") +
         '<p class="lead">' + DATA.intro.subtitle + "</p>" +
         (DATA.intro.lead ? '<p class="intro-lead">' + DATA.intro.lead + "</p>" : "") +
-        '<div class="actions"><button type="button" class="btn btn-primary" id="start">' +
+        '<div class="actions"><button type="button" class="btn btn-primary btn-cta" id="start">' +
         DATA.intro.cta + "</button></div>";
       $("#start").onclick = function () {
         closeMenu();
