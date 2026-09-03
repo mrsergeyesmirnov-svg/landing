@@ -480,6 +480,11 @@
     @media (min-width: 700px) {
       .pricing-cards { grid-template-columns: repeat(2, 1fr); }
       .pricing-cards-single { grid-template-columns: 1fr; max-width: 520px; }
+      .pricing-with-banner {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+        align-items: stretch;
+        max-width: none;
+      }
     }
     .price-card {
       background: var(--surface);
@@ -510,6 +515,83 @@
     }
     .price-card li { padding: 8px 0; border-bottom: 1px solid var(--line); }
     .price-card li:last-child { border-bottom: none; }
+
+    .pilot-banner {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 12px;
+      padding: 40px 36px;
+      border-radius: var(--radius-lg);
+      color: #1a1612;
+      background:
+        radial-gradient(ellipse 90% 70% at 100% 0%, rgba(255, 255, 255, 0.55), transparent 55%),
+        linear-gradient(145deg, #f0c96a 0%, #d4a84b 48%, #c4922f 100%);
+      border: none;
+      overflow: hidden;
+      min-height: 280px;
+      animation: pilot-in 0.7s var(--ease) both;
+    }
+    .pilot-banner::after {
+      content: "";
+      position: absolute;
+      inset: auto -20% -40% 40%;
+      height: 70%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.28), transparent 65%);
+      pointer-events: none;
+    }
+    @keyframes pilot-in {
+      from { opacity: 0; transform: translateX(12px); }
+      to { opacity: 1; transform: none; }
+    }
+    .pilot-banner-label {
+      margin: 0;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(26, 22, 18, 0.72);
+    }
+    .pilot-banner-title {
+      margin: 0;
+      font-size: clamp(1.75rem, 3.2vw, 2.35rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      color: #1a1612;
+    }
+    .pilot-banner-text {
+      margin: 4px 0 0;
+      max-width: 28em;
+      font-size: 0.98rem;
+      line-height: 1.55;
+      color: rgba(26, 22, 18, 0.82);
+    }
+    .pilot-banner-tag {
+      margin: 8px 0 0;
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      color: #1a1612;
+    }
+    .pilot-banner-cta {
+      align-self: flex-start;
+      margin-top: 8px;
+      background: #1a1612;
+      color: #fff;
+      border-color: #1a1612;
+      position: relative;
+      z-index: 1;
+    }
+    .pilot-banner-cta:hover {
+      background: #2e2820;
+      border-color: #2e2820;
+      text-decoration: none;
+    }
+    @media (max-width: 699px) {
+      .pilot-banner { min-height: 0; padding: 32px 28px; }
+    }
 
     .discuss-form {
       max-width: 520px;
