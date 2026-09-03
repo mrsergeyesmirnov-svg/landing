@@ -45,11 +45,90 @@ body {
 
 .top {
   display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 12px;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 14px;
   margin-bottom: 8px;
+  position: relative;
+  z-index: 30;
 }
+.menu-toggle {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  padding: 8px 4px;
+  margin: -8px 0 -8px -4px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.menu-bars,
+.menu-bars::before,
+.menu-bars::after {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--ink);
+  border-radius: 1px;
+  transition: transform 0.2s var(--ease), opacity 0.2s var(--ease);
+}
+.menu-bars {
+  position: relative;
+}
+.menu-bars::before,
+.menu-bars::after {
+  content: "";
+  position: absolute;
+  left: 0;
+}
+.menu-bars::before { top: -6px; }
+.menu-bars::after { top: 6px; }
+.menu-toggle[aria-expanded="true"] .menu-bars {
+  background: transparent;
+}
+.menu-toggle[aria-expanded="true"] .menu-bars::before {
+  top: 0;
+  transform: rotate(45deg);
+}
+.menu-toggle[aria-expanded="true"] .menu-bars::after {
+  top: 0;
+  transform: rotate(-45deg);
+}
+
+.site-menu {
+  margin: 4px 0 0;
+  padding: 8px 0 4px;
+  border-top: 1px solid var(--line-strong);
+  animation: menu-in 0.22s var(--ease) both;
+}
+.site-menu[hidden] { display: none !important; }
+@keyframes menu-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: none; }
+}
+.site-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.site-menu a {
+  display: block;
+  padding: 14px 2px;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 1.02rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+.site-menu a:hover {
+  color: var(--gold-ink);
+  text-decoration: none;
+}
+.site-menu li:last-child a { border-bottom: 0; }
+
 .brand {
   font-family: "Cormorant Garamond", Georgia, serif;
   font-size: 1.05rem;
@@ -59,12 +138,30 @@ body {
   letter-spacing: -0.02em;
 }
 .brand:hover { opacity: 0.7; text-decoration: none; }
-.back-home {
-  font-size: 0.75rem;
-  font-weight: 400;
+
+.shell.is-intro .progress,
+.shell.is-intro .step-meta {
+  display: none;
+}
+.shell.is-intro .panel {
+  padding-top: 48px;
+  justify-content: center;
+}
+
+.mission-label {
+  margin: 0 0 10px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold-ink);
+}
+.intro-lead {
+  margin: -12px 0 36px;
   color: var(--muted);
-  text-decoration: none;
-  white-space: nowrap;
+  font-size: 0.92rem;
+  line-height: 1.65;
+  max-width: 34ch;
 }
 
 .step-meta {

@@ -86,14 +86,47 @@
 
   function $(sel) { return document.querySelector(sel); }
 
+  function closeMenu() {
+    var toggle = $("#menuToggle");
+    var menu = $("#siteMenu");
+    if (!toggle || !menu) return;
+    toggle.setAttribute("aria-expanded", "false");
+    toggle.setAttribute("aria-label", "Открыть меню");
+    menu.hidden = true;
+  }
+
+  function setupMenu() {
+    var toggle = $("#menuToggle");
+    var menu = $("#siteMenu");
+    if (!toggle || !menu || toggle.dataset.bound) return;
+    toggle.dataset.bound = "1";
+    toggle.addEventListener("click", function () {
+      var open = toggle.getAttribute("aria-expanded") === "true";
+      if (open) {
+        closeMenu();
+      } else {
+        toggle.setAttribute("aria-expanded", "true");
+        toggle.setAttribute("aria-label", "Закрыть меню");
+        menu.hidden = false;
+      }
+    });
+    menu.querySelectorAll("a").forEach(function (a) {
+      a.addEventListener("click", closeMenu);
+    });
+  }
+
   function setProgress() {
     var total = Math.max(totalSteps(), 4);
     var n = currentStepNumber();
     var meta = $("#stepMeta");
     var bar = $("#bar");
+    var shell = document.querySelector(".shell");
+    if (shell) {
+      shell.classList.toggle("is-intro", state.phase === "intro");
+    }
     if (state.phase === "intro") {
       meta.innerHTML = "";
-      bar.style.width = "5%";
+      bar.style.width = "0%";
       return;
     }
     var nn = (n < 10 ? "0" : "") + n;
@@ -255,13 +288,14 @@
 
     if (state.phase === "intro") {
       panel.innerHTML =
-        '<p class="kicker">Академия счастья</p>' +
         "<h1>" + DATA.intro.title.replace(" ", "<br/>") + "</h1>" +
+        (DATA.intro.missionLabel ? '<p class="mission-label">' + DATA.intro.missionLabel + "</p>" : "") +
         '<p class="lead">' + DATA.intro.subtitle + "</p>" +
-        (DATA.intro.prompt ? '<p class="prompt">' + DATA.intro.prompt + "</p>" : "") +
+        (DATA.intro.lead ? '<p class="intro-lead">' + DATA.intro.lead + "</p>" : "") +
         '<div class="actions"><button type="button" class="btn btn-primary" id="start">' +
         DATA.intro.cta + "</button></div>";
       $("#start").onclick = function () {
+        closeMenu();
         state.phase = "role";
         save();
         render();
@@ -457,8 +491,8 @@
           '<div class="field"><label for="email">Email <span style="font-weight:600;text-transform:none;letter-spacing:0">(необязательно)</span></label><input id="email" type="email" autocomplete="email" placeholder="name@company.ru" /></div>' +
           '<div class="field"><label>Как с вами связаться?</label><div class="channel" id="channels"></div></div>' +
           '<div class="field"><label for="comment">Комментарий</label><textarea id="comment" rows="2" placeholder="Если хотите уточнить"></textarea></div>' +
-          '<label class="consent"><input type="checkbox" id="consent" required /><span>Согласен(на) с <a href="/sostoyanie/privacy.html" target="_blank" rel="noopener">политикой конфиденциальности</a> и обработкой персональных данных</span></label>' +
-          '<label class="consent"><input type="checkbox" id="contactOk" required /><span>Напишите мне — согласен(на), чтобы со мной связались</span></label>' +
+          '<label class="consent"><input type="checkbox" id="consent" required /><span>Соглашаюсь с <a href="/sostoyanie/privacy.html" target="_blank" rel="noopener">политикой конфиденциальности</a> и обработкой персональных данных</span></label>' +
+          '<label class="consent"><input type="checkbox" id="contactOk" required /><span>Напишите мне — соглашаюсь, чтобы со мной связались</span></label>' +
           '<p class="err" id="err" hidden></p>' +
           '<p class="ok" id="ok" hidden>Заявка отправлена. Мы напишем вам.</p>' +
           '<div class="actions">' +
@@ -600,6 +634,7 @@
   }
 
   // boot
+  setupMenu();
   load();
   // если восстановились на question без роли — сброс
   if ((state.phase === "question" || state.phase === "branchIntro" || state.phase === "result" || state.phase === "form") && !state.role) {
