@@ -22,6 +22,7 @@ window.PUT_DATA = {
     { id: "owner", label: "Владелец" },
     { id: "ops", label: "Операционный директор" },
     { id: "manager", label: "Управляющий" },
+    { id: "hr", label: "HR" },
     { id: "chef", label: "Шеф" },
     { id: "team", label: "Команда" },
     { id: "guest", label: "Просто смотрю" }
@@ -149,6 +150,58 @@ window.PUT_DATA = {
             { id: "need", label: "Да, это приоритет", scores: { PROCESS: 2 }, meta: { wantsPulse: true } },
             { id: "have", label: "У нас уже есть похожий инструмент", scores: {} },
             { id: "later", label: "Пока не актуально", scores: {} }
+          ]
+        }
+      ]
+    },
+    hr: {
+      introTitle: "Посмотрим, как вы видите людей в проекте",
+      showScores: false,
+      questions: [
+        {
+          id: "hr_signal",
+          type: "single",
+          text: "Откуда вы обычно узнаёте, что в команде что-то не так?",
+          options: [
+            { id: "pulse", label: "Из регулярных опросов или замеров", scores: { PEOPLE: 0, PROCESS: 0 } },
+            { id: "managers", label: "От управляющих", scores: { PEOPLE: 1, PROCESS: 1 } },
+            { id: "exit", label: "Когда человек уже уходит", scores: { PEOPLE: 4, PROCESS: 2 } },
+            { id: "late", label: "Когда конфликт уже разгорелся", scores: { PEOPLE: 4, PROCESS: 3 } },
+            { id: "feel", label: "Скорее по ощущению, без ясной картины", scores: { PEOPLE: 3, PROCESS: 2 } }
+          ]
+        },
+        {
+          id: "hr_turnover",
+          type: "single",
+          text: "Как сейчас с удержанием людей?",
+          options: [
+            { id: "stable", label: "В целом стабильно", scores: { PEOPLE: 0 } },
+            { id: "spot", label: "Есть точечные сложности", scores: { PEOPLE: 2 } },
+            { id: "leak", label: "Люди уходят чаще, чем хотелось бы", scores: { PEOPLE: 3, PROCESS: 1 } },
+            { id: "hard", label: "Удержание — главная боль", scores: { PEOPLE: 4, PROCESS: 2 } }
+          ]
+        },
+        {
+          id: "hr_early",
+          type: "single",
+          text: "Успеваете ли вы видеть напряжение в команде до того, как оно станет проблемой?",
+          options: [
+            { id: "yes", label: "Да, чаще успеваем", scores: { PEOPLE: 0, PROCESS: 0 } },
+            { id: "sometimes", label: "Иногда", scores: { PEOPLE: 2, PROCESS: 1 } },
+            { id: "rare", label: "Редко", scores: { PEOPLE: 3, PROCESS: 2 } },
+            { id: "no", label: "Обычно узнаём уже поздно", scores: { PEOPLE: 4, PROCESS: 3 } }
+          ]
+        },
+        {
+          id: "hr_need",
+          type: "single",
+          text: "Чего сейчас не хватает, чтобы работать с людьми увереннее?",
+          options: [
+            { id: "picture", label: "Ясной картины состояния команды", scores: { PROCESS: 3 }, problem: "process", meta: { wantsPulse: true } },
+            { id: "managers", label: "Опоры со стороны управляющих", scores: { PEOPLE: 3 }, problem: "people" },
+            { id: "tools", label: "Простого инструмента без тяжёлых отчётов", scores: { PROCESS: 2 }, problem: "process", meta: { wantsPulse: true } },
+            { id: "growth", label: "Среды развития для руководителей", scores: { PEOPLE: 1 }, problem: "education", meta: { wantsGrowth: true } },
+            { id: "breath", label: "Времени не только на срочное", scores: { PEOPLE: 2 }, problem: "people" }
           ]
         }
       ]

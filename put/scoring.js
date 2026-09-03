@@ -251,6 +251,41 @@ window.PUT_SCORING = (function () {
       };
     }
 
+    if (role === "hr") {
+      if (edu || meta.wantsGrowth) {
+        return {
+          product: "tour",
+          headline: "Вам важно развивать руководителей — не только закрывать вакансии",
+          body: "Туры и Академия помогают HR и лидерам работать с людьми осознаннее: слышать команду и выращивать опору внутри проекта.",
+          softLine: "Мы знаем, как с этим работать.",
+          cta: "Посмотреть туры",
+          ctaHref: "/tury/",
+          secondaryCta: "Оставить контакт",
+          priceHint: null
+        };
+      }
+      if (scores.PEOPLE >= 6 || scores.PROCESS >= 4 || meta.wantsPulse) {
+        return {
+          product: "pulse",
+          headline: "Состояние команды можно видеть раньше, чем человек уходит",
+          body: "Мы помогаем собирать сигналы от людей регулярно — чтобы HR и управляющие опирались не только на exit-интервью и срочные разборы.",
+          softLine: "Мы знаем, как с этим работать.",
+          cta: "Посмотреть, как это устроено",
+          ctaHref: "/sostoyanie/",
+          priceHint: "Пилот 1 месяц — бесплатно"
+        };
+      }
+      return {
+        product: "consultation",
+        headline: "У вас уже есть внимание к людям — можно сделать картину яснее",
+        body: "Если захотите — коротко разберём, где раньше всего замечать напряжение в команде и как это встроить в работу без лишней бюрократии.",
+        softLine: "Мы знаем, как с этим работать.",
+        cta: "Оставить контакт",
+        ctaHref: null,
+        priceHint: null
+      };
+    }
+
     if (role === "manager") {
       if (scores.PEOPLE >= 6 || scores.PROCESS >= 5) {
         return {
