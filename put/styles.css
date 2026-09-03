@@ -274,19 +274,20 @@ body.menu-open {
   margin: 0 0 auto;
 }
 .shell.is-intro .actions {
-  margin-top: clamp(40px, 10vh, 96px);
+  margin-top: clamp(48px, 12vh, 112px);
   padding-top: 0;
   width: 100%;
 }
 .shell.is-intro .btn-cta {
-  width: 100%;
-  max-width: 420px;
-  min-height: 64px;
-  padding: 20px 28px;
-  font-size: clamp(1.15rem, 3.2vw, 1.45rem);
-  font-weight: 600;
-  border-radius: 14px;
-  letter-spacing: -0.01em;
+  width: min(100%, 560px);
+  max-width: none;
+  min-height: 84px;
+  padding: 26px 36px;
+  font-size: clamp(1.35rem, 4vw, 1.85rem);
+  font-weight: 700;
+  border-radius: 16px;
+  letter-spacing: -0.02em;
+  box-shadow: 0 10px 28px rgba(184, 137, 46, 0.28);
 }
 
 .mission-label {
