@@ -307,8 +307,10 @@
         (DATA.intro.missionLabel ? '<p class="mission-label">' + DATA.intro.missionLabel + "</p>" : "") +
         '<p class="lead">' + DATA.intro.subtitle + "</p>" +
         (DATA.intro.lead ? '<p class="intro-lead">' + DATA.intro.lead + "</p>" : "") +
-        '<div class="actions"><button type="button" class="btn btn-primary btn-cta" id="start">' +
-        DATA.intro.cta + "</button></div>";
+        '<div class="actions">' +
+          '<button type="button" class="btn btn-primary btn-cta" id="start">' + DATA.intro.cta + "</button>" +
+          '<a class="btn btn-ghost btn-more" href="/akademiya/">Подробнее</a>' +
+        "</div>";
       $("#start").onclick = function () {
         closeMenu();
         state.phase = "role";

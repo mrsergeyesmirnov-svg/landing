@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Академия счастья — диагностика команды ресторана</title>
-  <meta name="description" content="Академия счастья: диагностика состояния команды ресторана, проект «Состояние смены», туры и образование для собственников и управляющих HoReCa." />
+  <title>А вы счастливы? — Академия счастья</title>
+  <meta name="description" content="Академия счастья: коротко посмотреть, что происходит у вас с бизнесом, командой и собой." />
   <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
   <meta name="yandex-verification" content="3ba19479d2e6410e" />
   <meta name="google-site-verification" content="qzHYg4l4rGPU4tUBNZViKhCSWrrNhyWXwZhWbH24CgU" />
@@ -12,386 +12,54 @@
   <meta property="og:locale" content="ru_RU" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Академия счастья" />
-  <meta property="og:title" content="Академия счастья — диагностика команды ресторана" />
-  <meta property="og:description" content="Помогаем владельцам бизнеса увидеть состояние команды и внедрить изменения. Проект «Состояние смены», туры и образование." />
+  <meta property="og:title" content="А вы счастливы? — Академия счастья" />
+  <meta property="og:description" content="Место, где бизнес, люди и гости становятся счастливее. Проверьте своё состояние." />
   <meta property="og:url" content="https://www.pulseteam.online/" />
   <meta property="og:image" content="https://www.pulseteam.online/og-image.png?v=2" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:type" content="image/png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Академия счастья — диагностика команды ресторана" />
-  <meta name="twitter:description" content="Помогаем владельцам бизнеса увидеть состояние команды и внедрить изменения. Проект «Состояние смены», туры и образование." />
+  <meta name="twitter:title" content="А вы счастливы? — Академия счастья" />
+  <meta name="twitter:description" content="Место, где бизнес, люди и гости становятся счастливее. Проверьте своё состояние." />
   <meta name="twitter:image" content="https://www.pulseteam.online/og-image.png?v=2" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Mulish:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/site.css?v=v3" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Mulish:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/put/styles.css?v=v10" />
+  <script src="/platform/config.js"></script>
 </head>
 <body>
-  <header>
-    <div class="wrap header-inner">
-      <a class="logo" href="/">Академия счастья</a>
-      <ul class="nav-links">
-        <li><a href="#product">Состояние смены</a></li>
-        <li><a href="#tours">Туры</a></li>
-        <li><a href="#edu">Образование</a></li>
-        <li><a href="#academy">Академия</a></li>
+  <button type="button" class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="siteMenu" aria-label="Открыть меню">
+    <span class="menu-bars" aria-hidden="true"></span>
+  </button>
+
+  <nav class="site-menu" id="siteMenu" hidden>
+    <div class="site-menu-inner">
+      <p class="site-menu-brand">Академия счастья</p>
+      <ul>
+        <li style="--i:0"><a href="/akademiya/#academy">Академия</a></li>
+        <li style="--i:1"><a href="/tury/">Туры</a></li>
+        <li style="--i:2"><a href="/diagnostika/">Диагностика</a></li>
+        <li style="--i:3"><a href="/akademiya/#academy">Кто мы</a></li>
+        <li style="--i:4"><a href="/akademiya/#cta">Контакты</a></li>
       </ul>
-      <a class="header-cta" href="/diagnostika/">Диагностика</a>
     </div>
-  </header>
+  </nav>
 
-  <main>
-
-    <!-- 01 Герой -->
-    <section class="hero" id="top">
-      <div class="wrap">
-        <p class="hero-kicker">Для рестораторов · отельеров · управляющих</p>
-        <h1>Академия<br/>счастья</h1>
-        <p class="hero-sub">Мы создаём среду, где счастливы люди,<br/>растёт бизнес и возвращаются гости.</p>
-        <p class="hero-lead">
-          Счастье команды — не бонус и не слоган. Это управляемая система.
-          Мы помогаем ресторанам диагностировать состояние людей,
-          находить причины операционных проблем и внедрять изменения,
-          которые влияют на команду, гостя и результат.
-        </p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="/diagnostika/">Диагностировать ресторан</a>
-          <a class="btn btn-ghost" href="#product">Смотреть продукты</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- 02 Проблема собственника -->
-    <section class="band" id="problem">
-      <div class="wrap">
-        <p class="section-label">Проблема собственника</p>
-        <h2>Где ресторан теряет энергию сегодня?</h2>
-        <ul class="pain-list">
-          <li>
-            <span class="pain-symptom">Команда устала?</span>
-            <span class="pain-truth">Мы неправильно выстраиваем работу — и люди тратят силы не туда.</span>
-          </li>
-          <li>
-            <span class="pain-symptom">Управляющие перегружены?</span>
-            <span class="pain-truth">Мы неправильно распределяем обязанности — и они тонут в операционке вместо того, чтобы вести людей.</span>
-          </li>
-          <li>
-            <span class="pain-symptom">Гости стали требовательнее?</span>
-            <span class="pain-truth">Мы перестали слышать команду — и это видно в зале раньше, чем в отзывах.</span>
-          </li>
-          <li>
-            <span class="pain-symptom">Проблемы повторяются, хотя их уже «решали»?</span>
-            <span class="pain-truth">Мы лечим симптомы, не причины — и колесо крутится снова.</span>
-          </li>
-          <li class="pain-last">
-            <span class="pain-symptom">Неясно, где именно теряется эффективность?</span>
-            <span class="pain-truth">Нет системы, которая показывает это честно — и приходится угадывать.</span>
-          </li>
-        </ul>
-        <a class="btn btn-primary" href="/diagnostika/">Провести диагностику</a>
-      </div>
-    </section>
-
-    <!-- 03 Методология -->
-    <section id="method">
-      <div class="wrap">
-        <p class="section-label">Методология</p>
-        <h2>Ресторан как четыре связанные системы</h2>
-        <div class="blocks-4">
-          <article class="block-card">
-            <h3>Люди</h3>
-            <p>Состояние команды, вовлечённость, руководитель, коммуникация, удержание.</p>
-          </article>
-          <article class="block-card">
-            <h3>Гости</h3>
-            <p>Сервис, эмоции, обратная связь, качество опыта.</p>
-          </article>
-          <article class="block-card">
-            <h3>Финансы</h3>
-            <p>Выручка, расходы, производительность, качество решений.</p>
-          </article>
-          <article class="block-card">
-            <h3>Процессы</h3>
-            <p>Организация смены, стандарты, коммуникация, эффективность.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- 04 Как мы работаем · лестница этапов -->
-    <section class="band" id="how">
-      <div class="wrap">
-        <p class="section-label">Путь к счастью команды и гостей</p>
-        <h2>Семь ступеней</h2>
-        <p class="section-lead" style="max-width:36em;margin-bottom:28px">
-          От ощущения: что-то не так, до результата, который видно в людях, сервисе и цифрах.
-        </p>
-        <ol class="stair">
-          <li class="stair-step">
-            <span class="stair-num">1</span>
-            <div>
-              <h3>Сомнение</h3>
-              <p>Что-то не так: люди, сервис, результат не радуют.</p>
-            </div>
-          </li>
-          <li class="stair-step">
-            <span class="stair-num">2</span>
-            <div>
-              <h3>Честный разговор</h3>
-              <p>Слушаем людей, собираем факты.</p>
-            </div>
-          </li>
-          <li class="stair-step">
-            <span class="stair-num">3</span>
-            <div>
-              <h3>Осознание</h3>
-              <p>Видим симптомы и принимаем решение меняться.</p>
-            </div>
-          </li>
-          <li class="stair-step">
-            <span class="stair-num">4</span>
-            <div>
-              <h3>Диагноз</h3>
-              <p>Находим причины проблем, определяем приоритеты.</p>
-            </div>
-          </li>
-          <li class="stair-step">
-            <span class="stair-num">5</span>
-            <div>
-              <h3>Действия</h3>
-              <p>Внедряем изменения, обучаем, поддерживаем команду.</p>
-            </div>
-          </li>
-          <li class="stair-step">
-            <span class="stair-num">6</span>
-            <div>
-              <h3>Закрепление</h3>
-              <p>Контроль, аналитика и постоянные улучшения.</p>
-            </div>
-          </li>
-          <li class="stair-step stair-step-last">
-            <span class="stair-num">7</span>
-            <div>
-              <h3>Результат</h3>
-              <p>Счастливая команда, довольные гости, растущий бизнес.</p>
-            </div>
-          </li>
-        </ol>
-      </div>
-    </section>
-
-    <!-- 05 Продукты -->
-    <section id="product">
-      <div class="wrap">
-        <p class="section-label">Продукты</p>
-        <h2>Три входа</h2>
-
-        <a class="product-card" href="/sostoyanie/">
-          <p class="mini-label">01 · главный продукт</p>
-          <h3>Состояние смены</h3>
-          <p class="product-lead">
-            Цифровая диагностика команды. Каждый день собираем короткие ответы со смены
-            и превращаем их в управленческие сигналы — до падения сервиса и выручки.
-          </p>
-          <p>Зачем это бизнесу:</p>
-          <ul>
-            <li>метрика состояния команды, а не «мне кажется, устали»</li>
-            <li>проблемные зоны: кухня, зал, смена, роль</li>
-            <li>сигналы риска, пока ещё можно вмешаться</li>
-            <li>причины, не только симптомы</li>
-            <li>что делать дальше — консультанту и управляющему</li>
-          </ul>
-          <span class="door-go">Как это работает →</span>
-        </a>
-
-        <div class="doors two" id="tours">
-          <article class="door">
-            <span class="door-num">02 · туры</span>
-            <h2>Практика вместо конференций</h2>
-            <p>
-              Закрытые выезды и мастер-классы для собственников и управляющих.
-              Чужой опыт → разбор → инструменты, которые увозят в свой ресторан.
-              Потоки планируются.
-            </p>
-            <a class="door-go" href="/tury/">О турах →</a>
-          </article>
-          <article class="door" id="edu">
-            <span class="door-num">03 · образование</span>
-            <h2>Программы для руководителей</h2>
-            <p>
-              Не «курсы». Люди, лидерство, гостеприимство, операционка, коммуникация, финансы, изменения.
-              Для тех, кто ведёт людей и проект.
-            </p>
-            <a class="door-go" href="/obrazovanie/">Об образовании →</a>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- 06 Для кого -->
-    <section id="who">
-      <div class="wrap">
-        <p class="section-label">Для кого</p>
-        <h2>Вы готовы смотреть глубже</h2>
-        <div class="who-cards">
-          <div class="who-card">
-            <strong>Вы готовы смотреть глубже</strong>
-            <p>Вы чувствуете, но не понимаете — и хотите разобраться.</p>
-          </div>
-          <div class="who-card">
-            <strong>Вы не ищете тренинг</strong>
-            <p>Не универсальную инструкцию — а понимание, что происходит.</p>
-          </div>
-          <div class="who-card">
-            <strong>Вам важно почувствовать</strong>
-            <p>Что на самом деле с людьми, гостями и процессами — и почему система работает так.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 07 Академия -->
-    <section class="band" id="academy">
-      <div class="wrap">
-        <p class="section-label">Академия</p>
-        <h2>Ресторан начинается с людей</h2>
-        <p class="section-lead">
-          Когда человек осознаёт себя и свою роль — он лучше чувствует гостя. Когда команда умеет заботиться — гостеприимство становится настоящим. Когда процессы помогают — людям проще делать свою работу хорошо. Когда всё это соединяется — растёт и бизнес.
-        </p>
-        <p class="section-lead">
-          Мы называем это счастьем.
-        </p>
-        <p class="section-lead">
-          Формула: люди + гостеприимство + процессы + результат.
-        </p>
-      </div>
-    </section>
-
-    <!-- 09 Знания -->
-    <section id="knowledge">
-      <div class="wrap">
-        <p class="section-label">Исследования и знания</p>
-        <h2>Статьи, разборы, материалы — из практики</h2>
-        <p class="section-lead">
-          База появится из диагностики и выездов, не как пустая библиотека заранее.
-        </p>
-        <a class="door-go" href="/baza/">Как будет →</a>
-      </div>
-    </section>
-
-    <!-- FAQ для поиска -->
-    <section class="band" id="faq">
-      <div class="wrap">
-        <p class="section-label">Частые вопросы</p>
-        <h2>Коротко о работе с Академией</h2>
-        <div class="faq-list">
-          <details class="faq-item">
-            <summary>С чего начать, если в ресторане «что-то не так»?</summary>
-            <p>С диагностики: разбираем людей, гостя, финансы и процессы. По итогу — ясная картина и первый план действий. <a href="/diagnostika/">Оценить проект</a>.</p>
-          </details>
-          <details class="faq-item">
-            <summary>Что такое «Состояние смены»?</summary>
-            <p>Проект Академии: консалтинг + Telegram-бот для оценки смены, отчётов управляющему и горящих вопросов. <a href="/sostoyanie/">Подробнее</a>.</p>
-          </details>
-          <details class="faq-item">
-            <summary>Сколько стоит аудит?</summary>
-            <p>Экспресс-аудит — 20 000 ₽. Проектная работа считается по масштабу команды и сложности — ориентир в <a href="/diagnostika/">калькуляторе</a>.</p>
-          </details>
-          <details class="faq-item">
-            <summary>Можно только бот, без консалтинга?</summary>
-            <p>Да. Подписка на мониторинг смены — от 2 990 ₽/мес, пилот 1 месяц бесплатно. <a href="/sostoyanie/demo.html">Демо бота</a>.</p>
-          </details>
-        </div>
-      </div>
-    </section>
-
-    <!-- 10 CTA -->
-    <section class="cta-final" id="cta">
-      <div class="wrap">
-        <h2>Хотите понять, что происходит в ресторане?</h2>
-        <p>Первый шаг — диагностика. Без презентаций на 40 слайдов.</p>
-        <a class="btn btn-primary" href="/diagnostika/">Записаться на диагностику</a>
-      </div>
-    </section>
-
-  </main>
-
-  <footer>
-    <div class="wrap footer-inner">
-      <div>Академия счастья · ИП Смирнов С. Е. · <a href="https://t.me/yank0vski">Telegram</a></div>
-      <div>
-        <a href="/sostoyanie/">Состояние смены</a> ·
-        <a href="/tury/">Туры</a> ·
-        <a href="/obrazovanie/">Образование</a>
-        <span class="dot">·</span>
-        <a class="footer-quiet" href="/platform/">Платформа для консультантов</a>
-        <span class="dot">·</span>
-        <a class="footer-quiet" href="/put/">А вы счастливы?</a>
-      </div>
+  <div class="shell">
+    <div class="top">
+      <a class="brand" href="/akademiya/">Академия счастья</a>
     </div>
-  </footer>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Organization",
-        "@id": "https://www.pulseteam.online/#org",
-        "name": "Академия счастья",
-        "url": "https://www.pulseteam.online/",
-        "description": "Диагностика команд и внедрение изменений в ресторанах. Проект «Состояние смены».",
-        "sameAs": ["https://t.me/yank0vski"],
-        "founder": { "@type": "Person", "name": "Сергей Смирнов" }
-      },
-      {
-        "@type": "WebSite",
-        "@id": "https://www.pulseteam.online/#website",
-        "url": "https://www.pulseteam.online/",
-        "name": "Академия счастья",
-        "publisher": { "@id": "https://www.pulseteam.online/#org" },
-        "inLanguage": "ru-RU"
-      },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "С чего начать, если в ресторане «что-то не так»?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "С диагностики: разбираем людей, гостя, финансы и процессы. По итогу — ясная картина и первый план действий."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Что такое «Состояние смены»?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Проект Академии: консалтинг и Telegram-бот для оценки смены, отчётов управляющему и горящих вопросов."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Сколько стоит аудит?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Экспресс-аудит — 20 000 ₽. Проектная работа считается по масштабу команды и сложности."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Можно только бот, без консалтинга?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Да. Подписка на мониторинг смены — от 2 990 ₽/мес, пилот 1 месяц бесплатно."
-            }
-          }
-        ]
-      }
-    ]
-  }
-  </script>
+
+    <div class="step-meta" id="stepMeta"></div>
+    <div class="progress" aria-hidden="true"><i id="bar"></i></div>
+    <div class="panel" id="panel"></div>
+    <div class="foot">
+      Академия счастья · <a href="/sostoyanie/privacy.html">Конфиденциальность</a>
+    </div>
+  </div>
+  <script src="/put/data.js?v=v7"></script>
+  <script src="/put/scoring.js?v=v7"></script>
+  <script src="/put/app.js?v=v10"></script>
 </body>
 </html>
