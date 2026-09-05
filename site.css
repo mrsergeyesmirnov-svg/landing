@@ -329,40 +329,64 @@ h3 {
 }
 .pain-last .pain-symptom { color: var(--love-deep); }
 
-/* Blocks-4 — strip, not cards */
+/* Blocks-4 — strip with air around vertical rules */
 .blocks-4 {
   display: grid;
   gap: 0;
   border-top: 1px solid var(--line-strong);
 }
-@media (min-width: 800px)  { .blocks-4 { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1020px) { .blocks-4 { grid-template-columns: repeat(4, 1fr); } }
+@media (min-width: 800px) {
+  .blocks-4 {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 64px;
+  }
+}
+@media (min-width: 1020px) {
+  .blocks-4 {
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 64px;
+  }
+}
 
 .block-card {
   background: transparent;
   border: 0;
   border-radius: 0;
-  padding: 22px 8px 22px 0;
+  padding: 22px 0;
   box-shadow: none;
   border-bottom: 1px solid var(--line);
+  position: relative;
 }
 @media (min-width: 800px) {
   .block-card {
     border-bottom: 0;
-    border-right: 1px solid var(--line);
-    padding: 28px 28px 16px 28px;
+    border-right: 0;
+    padding: 28px 4px 16px 0;
   }
-  .block-card:nth-child(2n) { border-right: 0; padding-right: 0; }
-  .block-card:nth-child(2n-1) { padding-left: 0; }
+  .block-card:not(:nth-child(2n))::after {
+    content: "";
+    position: absolute;
+    top: 8px;
+    bottom: 8px;
+    right: -32px;
+    width: 1px;
+    background: var(--line);
+  }
 }
 @media (min-width: 1020px) {
   .block-card {
-    border-right: 1px solid var(--line);
-    padding: 32px 36px 18px 36px;
+    padding: 32px 8px 18px 0;
   }
-  .block-card:nth-child(2n) { border-right: 1px solid var(--line); padding-right: 36px; }
-  .block-card:first-child { padding-left: 0; }
-  .block-card:last-child { border-right: 0; padding-right: 0; }
+  .block-card:not(:nth-child(2n))::after { content: none; }
+  .block-card:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 8px;
+    bottom: 8px;
+    right: -32px;
+    width: 1px;
+    background: var(--line);
+  }
 }
 .block-card h3 { margin: 0 0 10px; color: var(--ink); }
 .block-card p { margin: 0; color: var(--muted); font-size: 0.9rem; line-height: 1.55; }
