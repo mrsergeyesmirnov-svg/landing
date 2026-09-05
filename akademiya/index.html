@@ -26,39 +26,42 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Mulish:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/site.css?v=v4" />
+  <link rel="stylesheet" href="/site.css?v=v5-preview" />
 </head>
-<body>
-  <header>
-    <div class="wrap header-inner">
-      <a class="logo" href="/akademiya/">Академия счастья</a>
-      <ul class="nav-links">
-        <li><a href="#product">Состояние смены</a></li>
-        <li><a href="#tours">Туры</a></li>
-        <li><a href="#edu">Образование</a></li>
-        <li><a href="#academy">Академия</a></li>
+<body class="page-academy">
+  <button type="button" class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="siteMenu" aria-label="Открыть меню">
+    <span class="menu-bars" aria-hidden="true"></span>
+  </button>
+
+  <nav class="site-menu" id="siteMenu" hidden>
+    <div class="site-menu-inner">
+      <p class="site-menu-brand">Академия счастья</p>
+      <ul>
+        <li style="--i:0"><a href="/">А вы счастливы?</a></li>
+        <li style="--i:1"><a href="#product">Состояние смены</a></li>
+        <li style="--i:2"><a href="#tours">Туры</a></li>
+        <li style="--i:3"><a href="#edu">Образование</a></li>
+        <li style="--i:4"><a href="#academy">Академия</a></li>
+        <li style="--i:5"><a href="/diagnostika/">Диагностика</a></li>
+        <li style="--i:6"><a href="#cta">Контакты</a></li>
       </ul>
-      <a class="header-cta" href="/">А вы счастливы?</a>
     </div>
-  </header>
+  </nav>
 
   <main>
 
-    <!-- 01 Герой -->
-    <section class="hero" id="top">
-      <div class="wrap">
-        <p class="hero-kicker">Для рестораторов · отельеров · управляющих</p>
+    <!-- 01 Герой — в формате первого экрана -->
+    <section class="hero hero-screen" id="top">
+      <div class="wrap hero-screen-inner">
         <h1>Академия<br/>счастья</h1>
+        <p class="mission-label">Миссия</p>
         <p class="hero-sub">Мы создаём среду, где счастливы люди,<br/>растёт бизнес и возвращаются гости.</p>
         <p class="hero-lead">
           Счастье команды — не бонус и не слоган. Это управляемая система.
-          Мы помогаем ресторанам диагностировать состояние людей,
-          находить причины операционных проблем и внедрять изменения,
-          которые влияют на команду, гостя и результат.
         </p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="/diagnostika/">Диагностировать ресторан</a>
-          <a class="btn btn-ghost" href="#product">Смотреть продукты</a>
+          <a class="btn btn-primary btn-cta" href="/diagnostika/">Провести диагностику</a>
+          <a class="btn btn-ghost btn-more" href="#method">Смотреть подход</a>
         </div>
       </div>
     </section>
@@ -382,6 +385,40 @@
       }
     ]
   }
+  </script>
+  <script>
+  (function () {
+    var toggle = document.getElementById("menuToggle");
+    var menu = document.getElementById("siteMenu");
+    if (!toggle || !menu) return;
+    function closeMenu() {
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-label", "Открыть меню");
+      menu.classList.remove("is-open");
+      document.body.classList.remove("menu-open");
+      setTimeout(function () {
+        if (!menu.classList.contains("is-open")) menu.hidden = true;
+      }, 520);
+    }
+    function openMenu() {
+      menu.hidden = false;
+      void menu.offsetWidth;
+      menu.classList.add("is-open");
+      toggle.setAttribute("aria-expanded", "true");
+      toggle.setAttribute("aria-label", "Закрыть меню");
+      document.body.classList.add("menu-open");
+    }
+    toggle.addEventListener("click", function () {
+      if (toggle.getAttribute("aria-expanded") === "true") closeMenu();
+      else openMenu();
+    });
+    menu.querySelectorAll("a").forEach(function (a) {
+      a.addEventListener("click", closeMenu);
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") closeMenu();
+    });
+  })();
   </script>
 </body>
 </html>
