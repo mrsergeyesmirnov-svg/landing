@@ -247,12 +247,13 @@
             <input id="dName" name="name" required placeholder="Как к вам обращаться" />
           </div>
           <div class="field">
-            <label for="dPhone">Телефон <span style="color:var(--accent)">*</span></label>
-            <input id="dPhone" name="phone" type="tel" inputmode="tel" required placeholder="+7 9XX XXX-XX-XX" />
+            <label for="dPhone">Телефон</label>
+            <input id="dPhone" name="phone" type="tel" inputmode="tel" placeholder="+7 9XX XXX-XX-XX" />
           </div>
           <div class="field">
-            <label for="dTelegram">Telegram <span style="color:var(--accent)">*</span></label>
-            <input id="dTelegram" name="telegram" required placeholder="@username или числовой ID" />
+            <label for="dTelegram">Telegram</label>
+            <input id="dTelegram" name="telegram" placeholder="@username" />
+            <small>Достаточно одного удобного контакта: телефона или Telegram.</small>
           </div>
           <div class="field">
             <label for="dRestaurant">Ресторан / город</label>
@@ -264,7 +265,7 @@
           </div>
           <label class="discuss-consent">
             <input type="checkbox" id="dConsent" required />
-            <span>Согласен(на) с <a href="privacy.html" target="_blank" rel="noopener">политикой конфиденциальности</a> и обработкой персональных данных</span>
+            <span>Принимаю <a href="consent.html" target="_blank" rel="noopener">согласие на обработку персональных данных</a></span>
           </label>
           <label class="discuss-consent">
             <input type="checkbox" id="dContactOk" required />
@@ -353,17 +354,12 @@
       err.hidden = true;
       ok.hidden = true;
       var phone = digits(document.getElementById("dPhone").value);
-      if (phone.length !== 11) {
-        err.textContent = "Укажите телефон в формате +7…";
-        err.hidden = false;
-        return;
-      }
       var tg = String(document.getElementById("dTelegram").value || "").trim();
       if (tg.charAt(0) === "@") tg = tg.slice(1);
       tg = tg.replace(/^https?:\/\/(t\.me|telegram\.me)\//i, "").replace(/\/$/, "").trim();
-      var tgOk = /^\d{5,15}$/.test(tg) || /^[A-Za-z0-9_]{5,32}$/.test(tg);
-      if (!tgOk) {
-        err.textContent = "Укажите Telegram: @username или числовой ID.";
+      var tgOk = /^[A-Za-z][A-Za-z0-9_]{4,31}$/.test(tg);
+      if (phone.length !== 11 && !tgOk) {
+        err.textContent = "Укажите один удобный контакт: телефон +7… или Telegram @username.";
         err.hidden = false;
         return;
       }
@@ -380,8 +376,8 @@
       var name = document.getElementById("dName").value.trim();
       var rest = document.getElementById("dRestaurant").value.trim();
       var note = document.getElementById("dNote").value.trim();
-      var phoneFmt = "+7 " + phone.slice(1, 4) + " " + phone.slice(4, 7) + "-" + phone.slice(7, 9) + "-" + phone.slice(9);
-      var tgDisplay = /^\d+$/.test(tg) ? tg : ("@" + tg);
+      var phoneFmt = phone.length === 11 ? "+7 " + phone.slice(1, 4) + " " + phone.slice(4, 7) + "-" + phone.slice(7, 9) + "-" + phone.slice(9) : "";
+      var tgDisplay = tgOk ? ("@" + tg) : "";
       var btn = document.getElementById("dSubmit");
       btn.disabled = true;
       var base = (window.PLATFORM_API_URL || "").replace(/\/$/, "");
@@ -402,6 +398,8 @@
         note: note || "Форма «Обсудить проект»",
         consent: true,
         contactConsent: true,
+        preferredContact: tgDisplay ? "telegram" : "phone",
+        consentVersion: "2026-09-09-v1",
         source: "sostoyanie"
       };
       var done = function () {
@@ -411,7 +409,9 @@
       };
       if (!base) {
         console.warn("[discuss] no API");
-        done();
+        err.textContent = "Не удалось отправить. Напишите в Telegram @yank0vski.";
+        err.hidden = false;
+        btn.disabled = false;
         return;
       }
       fetch(base + "/api/leads", {
