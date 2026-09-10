@@ -26,14 +26,15 @@ Railway project (уже есть)
 1. Railway → New → GitHub Repo `landing` → Root Directory: `platform-api`
 2. Variables:
    - `DATABASE_URL` = скопировать из Postgres / из бота
-   - `PLATFORM_TOKEN` = `smena2026` (тот же пароль платформы)
+   - `SESSION_SECRET` = случайная строка длиной не менее 32 символов
+   - `PLATFORM_USERS_JSON` = JSON-массив двух пользователей, созданных через `python create_user.py <логин>`
    - `CORS_ORIGINS` = `https://www.pulseteam.online,https://pulseteam.online`
 3. Deploy → скопировать публичный URL вида `https://platform-api-xxxx.up.railway.app`
-4. В репозитории `landing` файл `platform/config.js`:
+4. В Railway добавить custom domain `api.pulseteam.online` и настроить предложенную DNS-запись. Это обязательно для надёжной first-party HttpOnly-сессии.
+5. В репозитории `landing` файл `platform/config.js`:
 
 ```js
-window.PLATFORM_API_URL = "https://platform-API-URL.up.railway.app";
-window.PLATFORM_TOKEN = "smena2026";
+window.PLATFORM_API_URL = "https://api.pulseteam.online";
 ```
 
 5. Commit + push → Pages обновится.
@@ -43,7 +44,8 @@ window.PLATFORM_TOKEN = "smena2026";
 | Метод | Путь | Кто |
 |---|---|---|
 | POST | `/api/leads` | публично — калькулятор `/diagnostika/` |
-| GET/POST | `/api/clients` | CRM (заголовок `X-Platform-Token`) |
+| POST | `/api/auth/login` | пароль + TOTP, защищённая HttpOnly-сессия |
+| GET/POST | `/api/clients` | только авторизованная сессия |
 | POST | `/api/clients/{id}/comments` | CRM |
 | POST | `/api/clients/{id}/docs` | калькулятор счетов |
 | GET | `/api/leads` | список заявок |
@@ -56,7 +58,8 @@ cd platform-api
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 export DATABASE_URL='postgresql://...'
-export PLATFORM_TOKEN=smena2026
+export SESSION_SECRET='случайная-строка-минимум-32-символа'
+export PLATFORM_USERS_JSON='[{...}]'
 uvicorn main:app --reload --port 8000
 ```
 

@@ -21,10 +21,6 @@
     return u;
   }
 
-  function token() {
-    return global.PLATFORM_TOKEN || "smena2026";
-  }
-
   function uid() {
     return "c" + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
   }
@@ -57,12 +53,13 @@
     if (!base) return Promise.reject(new Error("no-api"));
     opts = opts || {};
     var headers = Object.assign(
-      { "Content-Type": "application/json", "X-Platform-Token": token() },
+      { "Content-Type": "application/json" },
       opts.headers || {}
     );
     return fetch(base + path, {
       method: opts.method || "GET",
       headers: headers,
+      credentials: "include",
       body: opts.body ? JSON.stringify(opts.body) : undefined
     }).then(function (r) {
       if (!r.ok) {

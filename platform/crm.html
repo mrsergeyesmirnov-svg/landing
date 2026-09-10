@@ -30,10 +30,13 @@
       <p>Вход в рабочий контур Академии. CRM, расчёты, финансы и туры — для команды.</p>
       <p class="err" id="gateErr"></p>
       <form id="gateForm">
+        <div class="field"><label for="username">Логин</label><input id="username" autocomplete="username" required /></div>
         <div class="field">
           <label for="pwd">Пароль</label>
           <input id="pwd" type="password" autocomplete="current-password" required />
         </div>
+        <div class="field"><label for="otp">Код из приложения</label><input id="otp" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" required /></div>
+        <label class="field"><input id="remember" type="checkbox" checked /> Запомнить на 30 дней</label>
         <button class="btn btn-primary" type="submit" style="width:100%">Войти</button>
       </form>
     </div>
@@ -61,6 +64,7 @@
   </aside>
 
   <script src="config.js"></script>
+  <script src="auth.js"></script>
   <script src="crm-store.js"></script>
   <script>
     (function () {
@@ -108,28 +112,6 @@
         }
       }
 
-      async function initAuth() {
-        EXPECT = await sha256("smena2026");
-        if (sessionStorage.getItem("ss_audit_ok") === "1") showApp();
-      }
-
-      document.getElementById("gateForm").onsubmit = async function (e) {
-        e.preventDefault();
-        var err = document.getElementById("gateErr");
-        err.classList.remove("on");
-        var h = await sha256(document.getElementById("pwd").value);
-        if (h !== EXPECT) {
-          err.textContent = "Неверный пароль";
-          err.classList.add("on");
-          return;
-        }
-        sessionStorage.setItem("ss_audit_ok", "1");
-        showApp();
-      };
-      document.getElementById("logoutBtn").onclick = function () {
-        sessionStorage.removeItem("ss_audit_ok");
-        location.reload();
-      };
 
       function renderFilters() {
         var box = document.getElementById("filters");
@@ -242,7 +224,10 @@
           '<div class="field"><label>Город</label><input id="fCity" value="' + escapeAttr(c.city) + '" /></div>' +
           '<div class="field"><label>Контакт</label><input id="fContact" value="' + escapeAttr(c.contact) + '" /></div>' +
           "</div>" +
-          '<div class="field"><label>Telegram / телефон</label><input id="fTg" value="' + escapeAttr(c.telegram) + '" /></div>' +
+          '<div class="field-row cols-2">' +
+          '<div class="field"><label>Телефон</label><input id="fPhone" value="' + escapeAttr(c.phone || "") + '" /></div>' +
+          '<div class="field"><label>Telegram</label><input id="fTg" value="' + escapeAttr(c.telegram) + '" /></div>' +
+          '</div>' +
           '<div class="field"><label>Статус воронки</label><select id="fStatus">' + statusOpts + "</select></div>" +
           '<div class="field"><label>Заметка на стикере</label><textarea id="fNotes" rows="3">' + escapeHtml(c.notes) + "</textarea></div>" +
           '<div class="crm-actions">' +
@@ -268,6 +253,7 @@
             name: document.getElementById("fName").value.trim(),
             city: document.getElementById("fCity").value.trim(),
             contact: document.getElementById("fContact").value.trim(),
+            phone: document.getElementById("fPhone").value.trim(),
             telegram: document.getElementById("fTg").value.trim(),
             status: document.getElementById("fStatus").value,
             notes: document.getElementById("fNotes").value.trim()
@@ -328,7 +314,7 @@
         openDrawer(c.id);
       };
 
-      initAuth();
+      PlatformAuth.init(showApp);
     })();
   </script>
 </body>

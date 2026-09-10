@@ -41,9 +41,18 @@ CREATE TABLE IF NOT EXISTS academy_leads (
   price_max NUMERIC,
   note TEXT NOT NULL DEFAULT '',
   consent BOOLEAN NOT NULL DEFAULT false,
+  contact_consent BOOLEAN NOT NULL DEFAULT false,
+  consent_version TEXT NOT NULL DEFAULT '',
+  preferred_contact TEXT NOT NULL DEFAULT '',
+  consented_at TIMESTAMPTZ,
   payload JSONB NOT NULL DEFAULT '{}'::jsonb,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
+
+ALTER TABLE academy_leads ADD COLUMN IF NOT EXISTS contact_consent BOOLEAN NOT NULL DEFAULT false;
+ALTER TABLE academy_leads ADD COLUMN IF NOT EXISTS consent_version TEXT NOT NULL DEFAULT '';
+ALTER TABLE academy_leads ADD COLUMN IF NOT EXISTS preferred_contact TEXT NOT NULL DEFAULT '';
+ALTER TABLE academy_leads ADD COLUMN IF NOT EXISTS consented_at TIMESTAMPTZ;
 
 CREATE INDEX IF NOT EXISTS idx_academy_leads_created
   ON academy_leads (created_at DESC);

@@ -19,7 +19,7 @@
 
   function load() {
     try {
-      var raw = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null");
+      var raw = JSON.parse(sessionStorage.getItem(STORAGE_KEY) || "null");
       if (!raw) return;
       if (raw.role) state.role = raw.role;
       if (raw.answers) state.answers = raw.answers;
@@ -31,7 +31,7 @@
 
   function save() {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      sessionStorage.setItem(STORAGE_KEY, JSON.stringify({
         role: state.role,
         answers: state.answers,
         phase: state.phase,
@@ -253,6 +253,8 @@
       note: noteParts.join("\n").slice(0, 3900),
       consent: true,
       contactConsent: true,
+      preferredContact: state.channel === "telegram" ? "telegram" : "phone",
+      consentVersion: "2026-09-09-v1",
       source: "put",
       // расширенный payload для будущего API (бэкенд сейчас кладёт в lead_meta/note)
       _diagnostic: {
@@ -503,12 +505,12 @@
         '<p class="lead">' + DATA.form.lead + "</p>" +
         '<form class="form" id="leadForm" novalidate>' +
           '<div class="field"><label for="name">Имя</label><input id="name" autocomplete="name" required placeholder="Как к вам обращаться" /></div>' +
-          '<div class="field"><label for="phone">Телефон *</label><input id="phone" type="tel" inputmode="tel" autocomplete="tel" required placeholder="+7 9XX XXX-XX-XX" /></div>' +
-          '<div class="field"><label for="telegram">Telegram *</label><input id="telegram" autocomplete="username" required placeholder="@username или ID" /></div>' +
+          '<div class="field"><label for="phone">Телефон</label><input id="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 9XX XXX-XX-XX" /></div>' +
+          '<div class="field"><label for="telegram">Telegram</label><input id="telegram" autocomplete="username" placeholder="@username" /></div>' +
           '<div class="field"><label for="email">Email <span style="font-weight:600;text-transform:none;letter-spacing:0">(необязательно)</span></label><input id="email" type="email" autocomplete="email" placeholder="name@company.ru" /></div>' +
           '<div class="field"><label>Как с вами связаться?</label><div class="channel" id="channels"></div></div>' +
           '<div class="field"><label for="comment">Комментарий</label><textarea id="comment" rows="2" placeholder="Если хотите уточнить"></textarea></div>' +
-          '<label class="consent"><input type="checkbox" id="consent" required /><span>Соглашаюсь с <a href="/sostoyanie/privacy.html" target="_blank" rel="noopener">политикой конфиденциальности</a> и обработкой персональных данных</span></label>' +
+          '<label class="consent"><input type="checkbox" id="consent" required /><span>Принимаю <a href="/sostoyanie/consent.html" target="_blank" rel="noopener">согласие на обработку персональных данных</a></span></label>' +
           '<label class="consent"><input type="checkbox" id="contactOk" required /><span>Напишите мне — соглашаюсь, чтобы со мной связались</span></label>' +
           '<p class="err" id="err" hidden></p>' +
           '<p class="ok" id="ok" hidden>Заявка отправлена. Мы напишем вам.</p>' +
@@ -555,16 +557,13 @@
         ok.hidden = true;
 
         var dig = digitsPhone(phoneEl.value);
-        if (dig.length !== 11) {
-          err.textContent = "Укажите телефон в формате +7…";
-          err.hidden = false;
-          return;
-        }
         var tg = String($("#telegram").value || "").trim();
         if (tg.charAt(0) === "@") tg = tg.slice(1);
         tg = tg.replace(/^https?:\/\/(t\.me|telegram\.me)\//i, "").replace(/\/$/, "").trim();
-        if (!(/^\d{5,15}$/.test(tg) || /^[A-Za-z0-9_]{5,32}$/.test(tg))) {
-          err.textContent = "Укажите Telegram: @username или числовой ID.";
+        var tgOk = /^[A-Za-z][A-Za-z0-9_]{4,31}$/.test(tg);
+        var needsTelegram = state.channel === "telegram";
+        if ((needsTelegram && !tgOk) || (!needsTelegram && dig.length !== 11)) {
+          err.textContent = needsTelegram ? "Укажите Telegram @username." : "Укажите телефон в формате +7…";
           err.hidden = false;
           return;
         }
@@ -581,16 +580,16 @@
 
         var form = {
           name: $("#name").value.trim(),
-          phone: "+7 " + dig.slice(1, 4) + " " + dig.slice(4, 7) + "-" + dig.slice(7, 9) + "-" + dig.slice(9),
-          telegram: /^\d+$/.test(tg) ? tg : ("@" + tg),
+          phone: dig.length === 11 ? "+7 " + dig.slice(1, 4) + " " + dig.slice(4, 7) + "-" + dig.slice(7, 9) + "-" + dig.slice(9) : "",
+          telegram: tgOk ? ("@" + tg) : "",
           email: $("#email").value.trim(),
           comment: $("#comment").value.trim()
         };
 
         var payload = buildLeadPayload(form);
-        // сохраняем полный диагностический пакет локально
+        // Держим диагностический пакет только в текущей вкладке до отправки.
         try {
-          localStorage.setItem(STORAGE_KEY + "_last_lead", JSON.stringify(payload._diagnostic));
+          sessionStorage.setItem(STORAGE_KEY + "_last_lead", JSON.stringify(payload._diagnostic));
         } catch (ex) {}
 
         var apiBody = Object.assign({}, payload);
@@ -601,6 +600,8 @@
         var base = (window.PLATFORM_API_URL || "").replace(/\/$/, "");
 
         function done() {
+          try { sessionStorage.removeItem(STORAGE_KEY + "_last_lead"); } catch (ex) {}
+          try { sessionStorage.removeItem(STORAGE_KEY); } catch (ex) {}
           ok.hidden = false;
           btn.disabled = false;
           $("#leadForm").reset();

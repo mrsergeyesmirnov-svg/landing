@@ -32,10 +32,13 @@
       <p>Учёт Академии: доходы, расходы, сметы, календарь, документы, распределяемая прибыль.</p>
       <p class="err" id="gateErr"></p>
       <form id="gateForm">
+        <div class="field"><label for="username">Логин</label><input id="username" autocomplete="username" required /></div>
         <div class="field">
-          <label for="pwd">Пароль команды</label>
+          <label for="pwd">Пароль</label>
           <input id="pwd" type="password" autocomplete="current-password" required />
         </div>
+        <div class="field"><label for="otp">Код из приложения</label><input id="otp" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" required /></div>
+        <label class="field"><input id="remember" type="checkbox" checked /> Запомнить на 30 дней</label>
         <button class="btn btn-primary" type="submit" style="width:100%">Войти</button>
       </form>
     </div>
@@ -242,6 +245,7 @@
   </main>
 
   <script src="config.js"></script>
+  <script src="auth.js"></script>
   <script src="crm-store.js"></script>
   <script src="finance-store.js"></script>
   <script>
@@ -298,27 +302,7 @@
         renderAll();
       }
 
-      async function initAuth() {
-        EXPECT = await sha256("smena2026");
-        if (sessionStorage.getItem("ss_audit_ok") === "1") showApp();
-      }
-
-      document.getElementById("gateForm").onsubmit = async function (e) {
-        e.preventDefault();
-        var err = document.getElementById("gateErr");
-        err.classList.remove("on");
-        if ((await sha256(document.getElementById("pwd").value)) !== EXPECT) {
-          err.textContent = "Неверный пароль";
-          err.classList.add("on");
-          return;
-        }
-        sessionStorage.setItem("ss_audit_ok", "1");
-        showApp();
-      };
-      document.getElementById("logoutBtn").onclick = function () {
-        sessionStorage.removeItem("ss_audit_ok");
-        location.reload();
-      };
+      async function initAuth() { PlatformAuth.init(showApp); }
 
       document.getElementById("tabs").onclick = function (e) {
         var btn = e.target.closest("[data-tab]");

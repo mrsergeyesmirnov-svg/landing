@@ -32,10 +32,13 @@
       <p>Рабочий контур Академии: клиенты, расчёты, финансы, туры. Не публичная витрина.</p>
       <p class="err" id="gateErr"></p>
       <form id="gateForm">
+        <div class="field"><label for="username">Логин</label><input id="username" autocomplete="username" required /></div>
         <div class="field">
-          <label for="pwd">Пароль команды</label>
+          <label for="pwd">Пароль</label>
           <input id="pwd" type="password" autocomplete="current-password" required />
         </div>
+        <div class="field"><label for="otp">Код из приложения</label><input id="otp" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" required /></div>
+        <label class="field"><input id="remember" type="checkbox" checked /> Запомнить на 30 дней</label>
         <button class="btn btn-primary" type="submit" style="width:100%">Войти</button>
       </form>
     </div>
@@ -86,41 +89,16 @@
     </div>
   </main>
 
+  <script src="config.js"></script>
+  <script src="auth.js"></script>
   <script>
     (function () {
-      var EXPECT = null;
-      async function sha256(text) {
-        var buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
-        return Array.from(new Uint8Array(buf)).map(function (b) {
-          return b.toString(16).padStart(2, "0");
-        }).join("");
-      }
       function showApp() {
         document.getElementById("gate").hidden = true;
         document.getElementById("app").hidden = false;
         document.getElementById("logoutBtn").hidden = false;
       }
-      async function init() {
-        EXPECT = await sha256("smena2026");
-        if (sessionStorage.getItem("ss_audit_ok") === "1") showApp();
-      }
-      document.getElementById("gateForm").onsubmit = async function (e) {
-        e.preventDefault();
-        var err = document.getElementById("gateErr");
-        err.classList.remove("on");
-        if ((await sha256(document.getElementById("pwd").value)) !== EXPECT) {
-          err.textContent = "Неверный пароль";
-          err.classList.add("on");
-          return;
-        }
-        sessionStorage.setItem("ss_audit_ok", "1");
-        showApp();
-      };
-      document.getElementById("logoutBtn").onclick = function () {
-        sessionStorage.removeItem("ss_audit_ok");
-        location.reload();
-      };
-      init();
+      PlatformAuth.init(showApp);
     })();
   </script>
 </body>

@@ -279,14 +279,13 @@
             <input id="contact" name="contact" placeholder="Как к вам обращаться" />
           </div>
           <div class="field">
-            <label for="phone">Телефон <span style="color:var(--gold)">*</span></label>
-            <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required placeholder="+7 9XX XXX-XX-XX" />
-            <p class="hint" style="margin:6px 0 0">Нужен, чтобы мы понимали, кто скачал КП, и могли связаться.</p>
+            <label for="phone">Телефон</label>
+            <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 9XX XXX-XX-XX" />
           </div>
           <div class="field">
-            <label for="telegram">Telegram <span style="color:var(--gold)">*</span></label>
-            <input id="telegram" name="telegram" autocomplete="username" required placeholder="@username или числовой ID" />
-            <p class="hint" style="margin:6px 0 0">Username или числовой ID — для связи в Telegram.</p>
+            <label for="telegram">Telegram</label>
+            <input id="telegram" name="telegram" autocomplete="username" placeholder="@username" />
+            <p class="hint" style="margin:6px 0 0">Оставьте один удобный контакт: телефон или Telegram username.</p>
           </div>
 
           <div class="field">
@@ -332,8 +331,7 @@
             <input type="checkbox" id="consent" name="consent" required />
             <span>
               Согласен(на) с
-              <a href="/sostoyanie/privacy.html" target="_blank" rel="noopener">политикой конфиденциальности</a>
-              и обработкой персональных данных (имя, телефон, Telegram, сведения о ресторане).
+              <a href="/sostoyanie/consent.html" target="_blank" rel="noopener">согласием на обработку персональных данных</a>.
             </span>
           </label>
           <label class="consent" id="contactBox" style="margin-top:10px">
@@ -406,6 +404,10 @@
     function money(n) {
       return Math.round(n).toLocaleString("ru-RU") + " ₽";
     }
+    function escapeHtml(value) {
+      return String(value || "").replace(/&/g, "&amp;").replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+    }
     function todayISO() {
       return new Date().toISOString().slice(0, 10);
     }
@@ -473,8 +475,7 @@
     function telegramOk(raw) {
       var x = normalizeTelegram(raw);
       if (!x) return false;
-      if (/^\d{5,15}$/.test(x)) return true;
-      return /^[A-Za-z0-9_]{5,32}$/.test(x);
+      return /^[A-Za-z][A-Za-z0-9_]{4,31}$/.test(x);
     }
     function telegramDisplay(raw) {
       var x = normalizeTelegram(raw);
@@ -502,8 +503,8 @@
     }
 
     function gateReady() {
-      var ok = phoneOk(document.getElementById("phone").value) &&
-        telegramOk(document.getElementById("telegram").value) &&
+      var ok = (phoneOk(document.getElementById("phone").value) ||
+        telegramOk(document.getElementById("telegram").value)) &&
         consentOk() && contactOk();
       document.getElementById("btnPdf").disabled = !ok;
       document.getElementById("btnPdf").classList.toggle("is-disabled", !ok);
@@ -602,15 +603,17 @@
     }
 
     function buildKp(s) {
+      var restaurant = escapeHtml(s.restaurant), city = escapeHtml(s.city), contact = escapeHtml(s.contact);
+      var phone = escapeHtml(s.phone), telegram = escapeHtml(s.telegram), note = escapeHtml(s.note);
       return (
         '<div class="print-doc">' +
         "<h1>Коммерческое предложение</h1>" +
         '<p class="meta">Академия счастья · проект «Состояние смены» · ' + s.date + "</p>" +
-        "<p><strong>Клиент:</strong> " + s.restaurant + "<br/>" +
-        "<strong>Город:</strong> " + s.city + "<br/>" +
-        "<strong>Контакт:</strong> " + s.contact + "<br/>" +
-        "<strong>Телефон:</strong> " + s.phone + "<br/>" +
-        "<strong>Telegram:</strong> " + s.telegram + "</p>" +
+        "<p><strong>Клиент:</strong> " + restaurant + "<br/>" +
+        "<strong>Город:</strong> " + city + "<br/>" +
+        "<strong>Контакт:</strong> " + contact + "<br/>" +
+        "<strong>Телефон:</strong> " + phone + "<br/>" +
+        "<strong>Telegram:</strong> " + telegram + "</p>" +
         "<table><thead><tr><th>Параметр</th><th>Значение</th></tr></thead><tbody>" +
         "<tr><td>Масштаб команды</td><td>" + s.sizeLabel + "</td></tr>" +
         "<tr><td>Как чувствуете ресторан</td><td>" + s.problemLabel + "</td></tr>" +
@@ -618,7 +621,7 @@
         (s.mode === "audit" ? "" : ("<tr><td>Ориентир часов</td><td>~" + Math.round(s.hours) + " ч</td></tr>")) +
         "</tbody></table>" +
         '<p class="sum">Ориентир стоимости: ' + money(s.price) + "</p>" +
-        (s.note ? "<p><strong>Запрос клиента:</strong> " + s.note.replace(/</g, "&lt;") + "</p>" : "") +
+        (s.note ? "<p><strong>Запрос клиента:</strong> " + note + "</p>" : "") +
         (s.mode === "audit"
           ? "<p>Состав: экспресс-аудит состояния команды и операций — ясная картина «что происходит». Стоимость аудита — 20 000 ₽.</p>"
           : "<p>Состав работы: диагностика состояния команды и операций, карта причин, план изменений, внедрение и контроль «было → стало».</p>") +
@@ -633,14 +636,15 @@
     }
 
     function requireLead() {
-      if (!phoneOk(document.getElementById("phone").value)) {
-        showErr("Укажите телефон в формате +7… — без него КП не скачивается.");
-        document.getElementById("phone").focus();
+      if (!document.getElementById("restaurant").value.trim()) {
+        showErr("Укажите ресторан или точку.");
+        document.getElementById("restaurant").focus();
         return false;
       }
-      if (!telegramOk(document.getElementById("telegram").value)) {
-        showErr("Укажите Telegram: @username или числовой ID.");
-        document.getElementById("telegram").focus();
+      var phone = document.getElementById("phone").value;
+      var telegram = document.getElementById("telegram").value;
+      if (!phoneOk(phone) && !telegramOk(telegram)) {
+        showErr("Укажите один удобный контакт: телефон +7… или Telegram @username.");
         return false;
       }
       if (!consentOk()) {
@@ -683,6 +687,8 @@
           note: s.note,
           consent: true,
           contactConsent: true,
+          preferredContact: s.telegram ? "telegram" : "phone",
+          consentVersion: "2026-09-09-v1",
           source: "diagnostika"
         })
       }).then(function (r) {
@@ -691,9 +697,6 @@
       }).then(function (data) {
         console.log("[diagnostika] lead saved", data);
         return data;
-      }).catch(function (e) {
-        console.warn("[diagnostika] lead save failed", e.message || e);
-        return null;
       });
     }
 
@@ -706,7 +709,7 @@
         root.hidden = false;
         window.print();
         setTimeout(function () { root.hidden = true; }, 400);
-      });
+      }).catch(function () { showErr("Не удалось сохранить заявку. Попробуйте ещё раз или напишите @yank0vski."); });
     };
 
     document.getElementById("btnTg").addEventListener("click", function (e) {
