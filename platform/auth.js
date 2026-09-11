@@ -23,10 +23,20 @@
     });
   }
 
+  function removeLegacyOtpField() {
+    var otp = document.getElementById("otp");
+    if (!otp) return;
+    otp.required = false;
+    var holder = otp.closest ? otp.closest(".field") : null;
+    if (holder) holder.hidden = true;
+    else otp.hidden = true;
+  }
+
   function init(showApp) {
     var form = document.getElementById("gateForm");
     var error = document.getElementById("gateErr");
     var logout = document.getElementById("logoutBtn");
+    removeLegacyOtpField();
     if (!form || !base()) return;
 
     request("/api/auth/me").then(showApp).catch(function () {});
