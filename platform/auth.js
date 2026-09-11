@@ -10,7 +10,15 @@
     options.credentials = "include";
     options.headers = Object.assign({ "Content-Type": "application/json" }, options.headers || {});
     return fetch(base() + path, options).then(function (response) {
-      if (!response.ok) throw new Error(response.status === 401 ? "Неверный логин, пароль или код" : "Ошибка сервера");
+      if (!response.ok) {
+        return response.json().catch(function () { return {}; }).then(function (data) {
+          throw new Error(
+            response.status === 401
+              ? "Неверный логин или пароль"
+              : (data.detail || data.error || "Ошибка сервера")
+          );
+        });
+      }
       return response.json();
     });
   }
@@ -30,8 +38,7 @@
         body: JSON.stringify({
           username: document.getElementById("username").value.trim(),
           password: document.getElementById("pwd").value,
-          otp: document.getElementById("otp").value.trim(),
-          remember: document.getElementById("remember").checked
+          remember: document.getElementById("remember") ? document.getElementById("remember").checked : true
         })
       }).then(showApp).catch(function (err) {
         error.textContent = err.message;
@@ -43,5 +50,5 @@
     });
   }
 
-  global.PlatformAuth = { init: init };
+  global.PlatformAuth = { init: init, request: request };
 })(window);
