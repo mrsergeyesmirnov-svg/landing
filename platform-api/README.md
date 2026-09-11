@@ -1,66 +1,83 @@
-# Platform API — CRM Академии на Railway Postgres
+# Platform API — CRM и Master Audit Академии на Railway Postgres
 
-Сайт на GitHub Pages — статический. Чтобы калькулятор писал в CRM и платформа хранила записи, нужен маленький бэкенд.
+Сайт на GitHub Pages статический. Backend `platform-api` хранит CRM и Master Audit в той же Railway Postgres, что используется проектом Pulse, но в отдельных таблицах `academy_*`.
 
-## Ответ на вопрос: новое пространство или подключиться?
+## Railway
 
-**Новый Railway-аккаунт / «пространство» не нужно.**
+В Railway используется сервис из папки `platform-api` и существующий `DATABASE_URL`.
 
-У Pulse-бота уже есть Postgres на Railway (`DATABASE_URL`). Делаем так:
+Переменные окружения:
 
-1. В **том же Railway-проекте**, где бот — добавить **новый сервис** `platform-api` (из этой папки).
-2. К сервису подключить **ту же Postgres** (Variables → `DATABASE_URL` = тот же, что у бота).
-3. API сам создаст таблицы `academy_clients` и `academy_leads` — они **не пересекаются** с `feedback_events` / `problems` бота.
+- `DATABASE_URL` — PostgreSQL;
+- `SESSION_SECRET` — случайная строка минимум 32 символа;
+- `PLATFORM_USERS_JSON` — JSON-массив пользователей платформы;
+- `CORS_ORIGINS` — `https://www.pulseteam.online,https://pulseteam.online`.
 
-Отдельную Postgres-базу создавать не обязательно. Отдельный сервис — да (это не БД, а приложение).
+Публичный API платформы: `https://api.pulseteam.online`.
 
-```
-Railway project (уже есть)
-├── pulse-bot          ← как сейчас
-├── Postgres           ← как сейчас, DATABASE_URL
-└── platform-api       ← НОВЫЙ сервис, тот же DATABASE_URL
-```
+`railway.toml` запускает `master_app:app`: он использует существующую CRM/API из `main.py`, убирает обязательный TOTP и добавляет Master Audit.
 
-## Деплой
+## Авторизация
 
-1. Railway → New → GitHub Repo `landing` → Root Directory: `platform-api`
-2. Variables:
-   - `DATABASE_URL` = скопировать из Postgres / из бота
-   - `SESSION_SECRET` = случайная строка длиной не менее 32 символов
-   - `PLATFORM_USERS_JSON` = JSON-массив двух пользователей, созданных через `python create_user.py <логин>`
-   - `CORS_ORIGINS` = `https://www.pulseteam.online,https://pulseteam.online`
-3. Deploy → скопировать публичный URL вида `https://platform-api-xxxx.up.railway.app`
-4. В Railway добавить custom domain `api.pulseteam.online` и настроить предложенную DNS-запись. Это обязательно для надёжной first-party HttpOnly-сессии.
-5. В репозитории `landing` файл `platform/config.js`:
+Только **логин + пароль**. Google Authenticator / TOTP не нужен.
 
-```js
-window.PLATFORM_API_URL = "https://api.pulseteam.online";
+Пароли не хранятся открытым текстом. Для каждого пользователя в `PLATFORM_USERS_JSON` хранится PBKDF2-SHA256 hash.
+
+Создать запись:
+
+```bash
+python create_user.py sergey
 ```
 
-5. Commit + push → Pages обновится.
+Скрипт попросит пароль и выведет только JSON-запись с `username` и `password_hash`.
 
-## Что умеет API
+Пример структуры переменной:
+
+```json
+[
+  {"username":"sergey","password_hash":"..."},
+  {"username":"partner","password_hash":"..."}
+]
+```
+
+Существующие записи с полем `totp_secret` можно не переделывать: новое приложение его просто игнорирует.
+
+Сессия — подписанная HttpOnly Secure cookie. Если включено «Запомнить», срок 30 дней; иначе 12 часов.
+
+## Master Audit
+
+Таблицы создаются автоматически при первом обращении к API аудита:
+
+- `academy_audit_sessions` — Day 0 / Day 30 / Day 60 / внеплановые аудиты;
+- `academy_audit_answers` — 150 ответов, оценки 0/1/2/N/A и комментарии/evidence;
+- `academy_audit_baselines` — зафиксированная Healthy Baseline ресторана.
+
+Основные endpoints:
+
+| Метод | Путь | Назначение |
+|---|---|---|
+| GET | `/api/audits` | история аудитов |
+| POST | `/api/audits` | создать аудит |
+| GET | `/api/audits/{id}` | открыть/продолжить аудит |
+| PUT | `/api/audits/{id}/answers/{item_id}` | автосохранить ответ |
+| POST | `/api/audits/{id}/complete` | завершить и посчитать результат |
+| POST | `/api/audits/{id}/baseline` | сохранить Healthy Baseline |
+| DELETE | `/api/audits/{id}` | удалить незавершённый черновик |
+
+Все эти endpoints требуют авторизованную сессию.
+
+## Остальной API
 
 | Метод | Путь | Кто |
 |---|---|---|
-| POST | `/api/leads` | публично — калькулятор `/diagnostika/` |
-| POST | `/api/auth/login` | пароль + TOTP, защищённая HttpOnly-сессия |
-| GET/POST | `/api/clients` | только авторизованная сессия |
-| POST | `/api/clients/{id}/comments` | CRM |
-| POST | `/api/clients/{id}/docs` | калькулятор счетов |
-| GET | `/api/leads` | список заявок |
-| GET | `/health` | проверка |
+| POST | `/api/leads` | публичная форма |
+| POST | `/api/auth/login` | логин + пароль |
+| GET | `/api/auth/me` | текущая сессия |
+| POST | `/api/auth/logout` | выход |
+| GET/POST | `/api/clients` | CRM |
+| POST | `/api/clients/{id}/comments` | комментарии CRM |
+| POST | `/api/clients/{id}/docs` | документы |
+| GET | `/api/leads` | лиды |
+| GET | `/health` | проверка backend/DB |
 
-## Локально
-
-```bash
-cd platform-api
-python3 -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
-export DATABASE_URL='postgresql://...'
-export SESSION_SECRET='случайная-строка-минимум-32-символа'
-export PLATFORM_USERS_JSON='[{...}]'
-uvicorn main:app --reload --port 8000
-```
-
-В `platform/config.js` временно: `http://127.0.0.1:8000`.
+Frontend платформы находится в `/platform/`, а `platform/config.js` указывает на `https://api.pulseteam.online`.
