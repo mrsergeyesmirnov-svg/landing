@@ -17,6 +17,7 @@
     <div class="wrap header-inner">
       <a class="logo" href="/">Академия<span>счастья</span><small>платформа</small></a>
       <ul class="nav-links">
+        <li><a href="restaurant-audit.html">Master Audit</a></li>
         <li><a href="crm.html">CRM</a></li>
         <li><a href="audit.html">Калькулятор</a></li>
         <li><a href="finance.html">Финансы</a></li>
@@ -29,15 +30,11 @@
   <div class="gate" id="gate">
     <div class="gate-card">
       <h1>Платформа для консультантов</h1>
-      <p>Рабочий контур Академии: клиенты, расчёты, финансы, туры. Не публичная витрина.</p>
+      <p>Рабочий контур Академии: аудит, клиенты, расчёты, финансы и туры.</p>
       <p class="err" id="gateErr"></p>
       <form id="gateForm">
         <div class="field"><label for="username">Логин</label><input id="username" autocomplete="username" required /></div>
-        <div class="field">
-          <label for="pwd">Пароль</label>
-          <input id="pwd" type="password" autocomplete="current-password" required />
-        </div>
-        <div class="field"><label for="otp">Код из приложения</label><input id="otp" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" required /></div>
+        <div class="field"><label for="pwd">Пароль</label><input id="pwd" type="password" autocomplete="current-password" required /></div>
         <label class="field"><input id="remember" type="checkbox" checked /> Запомнить на 30 дней</label>
         <button class="btn btn-primary" type="submit" style="width:100%">Войти</button>
       </form>
@@ -47,45 +44,43 @@
   <main id="app" hidden>
     <div class="crm-shell">
       <div class="crm-top">
-        <div>
-          <p class="hero-kicker" style="margin:0 0 6px">внутренний контур</p>
-          <h1>Платформа</h1>
-        </div>
+        <div><p class="hero-kicker" style="margin:0 0 6px">внутренний контур</p><h1>Платформа</h1></div>
         <a class="btn btn-ghost btn-sm" href="/">← Академия</a>
       </div>
-      <p class="platform-lead">
-        Основная CRM и операционка консультантов: клиенты и статусы воронки,
-        счета и акты из калькулятора, учёт денег, план туров.
-      </p>
+      <p class="platform-lead">Рабочая система консультанта: Day 0 → изменения → Day 30 / 60 → Healthy Baseline → дальнейший мониторинг.</p>
       <div class="sticker-list platform-grid">
+        <a class="sticker platform-card" href="restaurant-audit.html">
+          <div class="sticker-title">Master Audit · 150 стандартов</div>
+          <p class="sticker-sub">Day 0 / 30 / 60 · Red Flags · до/после</p>
+          <p class="sticker-meta">Заполнение с телефона. Каждый ответ сохраняется в Railway Postgres; итог выгружается в Excel.</p>
+          <div class="sticker-foot"><span class="status-pill change">живо</span><span class="door-go">Аудит →</span></div>
+        </a>
         <a class="sticker platform-card" href="crm.html">
           <div class="sticker-title">Клиенты · CRM</div>
           <p class="sticker-sub">Стикеры, статусы воронки, комментарии</p>
-          <p class="sticker-meta">Счета и акты сами приклеиваются из калькулятора. Это ядро платформы.</p>
+          <p class="sticker-meta">Карточки ресторанов и история работы.</p>
           <div class="sticker-foot"><span class="status-pill change">живо</span><span class="door-go">Открыть →</span></div>
         </a>
         <a class="sticker platform-card" href="audit.html">
-          <div class="sticker-title">Калькулятор · ИИ-аудитор</div>
+          <div class="sticker-title">Калькулятор проекта</div>
           <p class="sticker-sub">Часы × сложность → цена, счёт, акт</p>
-          <p class="sticker-meta">Печать документа сразу пишет его в карточку клиента.</p>
+          <p class="sticker-meta">Отдельный инструмент коммерческого расчёта, не Master Audit.</p>
           <div class="sticker-foot"><span class="status-pill change">живо</span><span class="door-go">Считать →</span></div>
         </a>
         <a class="sticker platform-card" href="finance.html">
           <div class="sticker-title">Финансы</div>
           <p class="sticker-sub">Доходы, расходы, сметы, календарь, PDF</p>
-          <p class="sticker-meta">Полный учёт: операции, комментарии, бюджет/баланс, документы и факт распределяемой прибыли — без 50/50.</p>
+          <p class="sticker-meta">Учёт Академии и проектных денег.</p>
           <div class="sticker-foot"><span class="status-pill change">живо</span><span class="door-go">Открыть →</span></div>
         </a>
         <a class="sticker platform-card" href="tours-plan.html">
           <div class="sticker-title">Планирование туров</div>
           <p class="sticker-sub">Потоки, даты, ведущие, набор</p>
-          <p class="sticker-meta">Календарь выездов и мастер-классов для команды, не публичная афиша.</p>
+          <p class="sticker-meta">Календарь выездов и мастер-классов.</p>
           <div class="sticker-foot"><span class="status-pill">скоро</span><span class="door-go">Заготовка →</span></div>
         </a>
       </div>
-      <p class="platform-foot-note">
-        Пароль тот же, что у аудита. CRM пишет в Postgres (Railway) через API; локальный кэш — запасной.
-      </p>
+      <p class="platform-foot-note">Вход — индивидуальный логин и пароль. CRM и Master Audit работают через Railway API и Postgres.</p>
     </div>
   </main>
 
