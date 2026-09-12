@@ -8,6 +8,7 @@ from pydantic import BaseModel, Field
 import main
 import master_audit
 import audit_ai
+import audit_exports
 
 app = main.app
 
@@ -52,3 +53,5 @@ async def password_login(
 
 app.include_router(master_audit.router)
 app.include_router(audit_ai.router)
+
+app.include_router(audit_exports.router)

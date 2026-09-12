@@ -1,0 +1,54 @@
+name: Audit exports
+on:
+  pull_request:
+    paths: ["platform-api/**", "platform/restaurant-audit.html", ".github/workflows/audit-exports.yml"]
+  push:
+    branches: [main]
+    paths: ["platform-api/**", "platform/restaurant-audit.html", ".github/workflows/audit-exports.yml"]
+permissions:
+  contents: read
+jobs:
+  exports:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: audit
+          POSTGRES_PASSWORD: audit-ci-only
+          POSTGRES_DB: audit_test
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    defaults:
+      run:
+        working-directory: platform-api
+    env:
+      TEST_DATABASE_URL: postgresql://audit:audit-ci-only@localhost:5432/audit_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies and Cyrillic fonts
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y fonts-dejavu-core poppler-utils
+          python -m pip install -r requirements.txt openpyxl==3.1.5 pypdf==5.9.0
+      - name: Existing security tests and exports against PostgreSQL
+        run: python -m unittest -v test_security test_audit_exports
+      - name: Check frontend JavaScript syntax
+        run: |
+          python -c "import re,pathlib; p=pathlib.Path('../platform/restaurant-audit.html').read_text(); pathlib.Path('/tmp/audit-inline.js').write_text('\n'.join(re.findall(r'<script>(.*?)</script>',p,re.S)))"
+          node --check /tmp/audit-inline.js
+      - name: Render all sample PDF pages
+        run: pdftoppm -scale-to 1300 -png test-artifacts/sample-report.pdf test-artifacts/page
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: audit-export-samples
+          path: platform-api/test-artifacts/
+          retention-days: 7
